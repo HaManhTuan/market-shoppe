@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Route;
-use Closure;
+
 use Auth;
-class Admin
+use Closure;
+
+class checkLoginManager
 {
     /**
      * Handle an incoming request.
@@ -16,16 +17,11 @@ class Admin
     public function handle($request, Closure $next)
     {
         if (Auth::guard('admins')->check()) {
-            $user = Auth::guard('admins')->user();
-            if ($user->admin == 1){
-               return $next($request);
-            }
-            else
-              return redirect('manager/login');
-             }
+            return redirect('manager/');
+        }
         else
         {
-          return redirect('manager/login');
+            return redirect('manager/login');
         }
     }
 }

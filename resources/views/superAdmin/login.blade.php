@@ -17,7 +17,7 @@
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset('superAdmin/assets/images/favicon.ico" type="image/x-icon')}}">
+    <link rel="icon" href="{{ asset('superAdmin/assets/images/favicon.ico')}}" type="image/x-icon">
     <!-- Google font--><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="{{ asset('superAdmin/bower_components/bootstrap/css/bootstrap.min.css')}}">
@@ -56,7 +56,7 @@
             <div class="col-sm-12">
                 <!-- Authentication card start -->
 
-                <form class="md-float-material form-material" method="POST">
+                <form class="md-float-material form-material" method="POST" action="{{ url('manager/dang-nhap') }}" onsubmit="return false;" id="frm-login" >
                     @csrf
                     <div class="text-center">
                         <img src="{{ asset('superAdmin/assets/images/logo.png')}}" alt="logo.png')}}">
@@ -69,11 +69,11 @@
                                 </div>
                             </div>
                             <div class="form-group form-primary">
-                                <input type="text" name="email" class="form-control" required="" placeholder="Email">
+                                <input type="email" name="email" class="form-control"  placeholder="Email" autocomplete="off" data-rule-required="true" data-msg-required="Vui lòng nhập email.">
                                 <span class="form-bar"></span>
                             </div>
                             <div class="form-group form-primary">
-                                <input type="password" name="password" class="form-control" required="" placeholder="Mật khẩu">
+                                <input type="password" name="password" class="form-control" autocomplete="off" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu." placeholder="Mật khẩu">
                                 <span class="form-bar"></span>
                             </div>
                             <div class="row m-t-25 text-left">
@@ -128,6 +128,21 @@
 <script type="text/javascript" src="{{ asset('superAdmin/bower_components/modernizr/js/modernizr.js')}}"></script>
 <script type="text/javascript" src="{{ asset('superAdmin/bower_components/modernizr/js/css-scrollbars.js')}}"></script>
 <script type="text/javascript" src="{{ asset('superAdmin/assets/js/common-pages.js')}}"></script>
+<script src="{{ asset('admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        $("#frm-login").validate({
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+    })
+</script>
+<style>
+    .error{
+        color: red;
+    }
+</style>
 </body>
 
 </html>

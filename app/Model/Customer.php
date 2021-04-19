@@ -12,7 +12,7 @@ class Customer extends Authenticatable {
    *
    * @var array
    */
-  protected $guard    = 'customers';
+  protected $guard = 'customers';
   protected $fillable = [
     'name', 'email', 'password'
   ];
