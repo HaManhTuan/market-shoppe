@@ -14,10 +14,6 @@ class ProductController extends Controller
 {
     public function viewpro()
     {
-        if (!Gate::allows('add_product') || !Gate::allows('edit_product') || !Gate::allows('delete_product'))
-        {
-            return view('backend.errors.401');
-        }
         $products = Product::with('category')->orderBy('created_at', 'asc')
             ->get();
         $data_send = ['products' => $products];
@@ -25,10 +21,6 @@ class ProductController extends Controller
     }
     public function add()
     {
-        if (!Gate::allows('add_product'))
-        {
-            return view('backend.errors.401');
-        }
         $dataBrand = Brand::get();
         $categoryController = new CategoryController();
         $data_select = $categoryController->getDataSelect(0, '', '');
@@ -37,10 +29,6 @@ class ProductController extends Controller
     }
     public function addpro(StoreProduct $req)
     {
-        if (!Gate::allows('add_product'))
-        {
-            return view('backend.errors.401');
-        }
         $validated = $req->validated();
         $request = $req->all();
         //print_r($request);
@@ -102,7 +90,7 @@ class ProductController extends Controller
                 unlink('public/uploads/images/products/' . $value['img']);
             }
         }
-        
+
         $avatar = Product::where(['id' => $id])->first();
         if ($avatar->image != "")
         {
@@ -131,10 +119,6 @@ class ProductController extends Controller
     }
     public function editpro(Request $req, $url)
     {
-        if (!Gate::allows('edit_product'))
-        {
-            return view('backend.errors.401');
-        }
         $dataBrand = Brand::get();
         $product_detail = Product::where(['url' => $url])->first();
         $categoryController = new CategoryController();

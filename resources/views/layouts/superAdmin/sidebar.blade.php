@@ -1,400 +1,87 @@
 <nav class="pcoded-navbar">
     <div class="pcoded-inner-navbar main-menu">
-        <div class="pcoded-navigatio-lavel">Navigation</div>
+        <div class="pcoded-navigatio-lavel">Trang chủ</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li class="pcoded-hasmenu active pcoded-trigger">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-                    <span class="pcoded-mtext">Dashboard</span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="">
-                        <a href="index-1.htm">
-                            <span class="pcoded-mtext">Default</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="dashboard-crm.htm">
-                            <span class="pcoded-mtext">CRM</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="dashboard-analytics.htm">
-                            <span class="pcoded-mtext">Analytics</span>
-                            <span class="pcoded-badge label label-info ">NEW</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="pcoded-hasmenu">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
-                    <span class="pcoded-mtext">Page layouts</span>
-                    <span class="pcoded-badge label label-warning">NEW</span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class=" pcoded-hasmenu">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-mtext">Vertical</span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class=" ">
-                                <a href="menu-static.htm">
-                                    <span class="pcoded-mtext">Static Layout</span>
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="menu-header-fixed.htm">
-                                    <span class="pcoded-mtext">Header Fixed</span>
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="menu-compact.htm">
-                                    <span class="pcoded-mtext">Compact</span>
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="menu-sidebar.htm">
-                                    <span class="pcoded-mtext">Sidebar Fixed</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li class=" pcoded-hasmenu">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-mtext">Horizontal</span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class=" ">
-                                <a href="menu-horizontal-static.htm" target="_blank">
-                                    <span class="pcoded-mtext">Static Layout</span>
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="menu-horizontal-fixed.htm" target="_blank">
-                                    <span class="pcoded-mtext">Fixed layout</span>
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="menu-horizontal-icon.htm" target="_blank">
-                                    <span class="pcoded-mtext">Static With Icon</span>
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a href="menu-horizontal-icon-fixed.htm" target="_blank">
-                                    <span class="pcoded-mtext">Fixed With Icon</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class=" ">
-                        <a href="menu-bottom.htm">
-                            <span class="pcoded-mtext">Bottom Menu</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="box-layout.htm" target="_blank">
-                            <span class="pcoded-mtext">Box Layout</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="menu-rtl.htm" target="_blank">
-                            <span class="pcoded-mtext">RTL</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <li class="">
                 <a href="navbar-light.htm">
                     <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
-                    <span class="pcoded-mtext">Navigation</span>
+                    <span class="pcoded-mtext">Dashboard</span>
                 </a>
             </li>
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
-                    <span class="pcoded-mtext">Widget</span>
+                    <span class="pcoded-mtext">Hệ thống</span>
                     <span class="pcoded-badge label label-danger">100+</span>
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
                         <a href="widget-statistic.htm">
-                            <span class="pcoded-mtext">Statistic</span>
+                            <span class="pcoded-mtext">Email</span>
                         </a>
                     </li>
                     <li class=" ">
                         <a href="widget-data.htm">
-                            <span class="pcoded-mtext">Data</span>
+                            <span class="pcoded-mtext">Cấu hình</span>
                         </a>
                     </li>
-                    <li class="">
-                        <a href="widget-chart.htm">
-                            <span class="pcoded-mtext">Chart Widget</span>
+                    <li class=" ">
+                        <a href="widget-data.htm">
+                            <span class="pcoded-mtext">Bình luận</span>
                         </a>
                     </li>
-
                 </ul>
             </li>
         </ul>
-        <div class="pcoded-navigatio-lavel">UI Element</div>
+        <div class="pcoded-navigatio-lavel">Quản lý</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="pcoded-hasmenu">
-                <a href="javascript:void(0)">
+                <a href="#">
                     <span class="pcoded-micon"><i class="feather icon-box"></i></span>
-                    <span class="pcoded-mtext">Basic Components</span>
+                    <span class="pcoded-mtext">Danh mục</span>
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
-                        <a href="alert.htm">
-                            <span class="pcoded-mtext">Alert</span>
+                        <a href="{{ route('manager.category') }}">
+                            <span class="pcoded-mtext">Chính</span>
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="breadcrumb.htm">
-                            <span class="pcoded-mtext">Breadcrumbs</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="button.htm">
-                            <span class="pcoded-mtext">Button</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="box-shadow.htm">
-                            <span class="pcoded-mtext">Box-Shadow</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="accordion.htm">
-                            <span class="pcoded-mtext">Accordion</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="generic-class.htm">
-                            <span class="pcoded-mtext">Generic Class</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="tabs.htm">
-                            <span class="pcoded-mtext">Tabs</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="color.htm">
-                            <span class="pcoded-mtext">Color</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="label-badge.htm">
-                            <span class="pcoded-mtext">Label Badge</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="progress-bar.htm">
-                            <span class="pcoded-mtext">Progress Bar</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="preloader.htm">
-                            <span class="pcoded-mtext">Pre-Loader</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="list.htm">
-                            <span class="pcoded-mtext">List</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="tooltip.htm">
-                            <span class="pcoded-mtext">Tooltip And Popover</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="typography.htm">
-                            <span class="pcoded-mtext">Typography</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="other.htm">
-                            <span class="pcoded-mtext">Other</span>
+                        <a href="{{ route('manager.category.draff') }}">
+                            <span class="pcoded-mtext">Chờ xác nhận</span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="pcoded-hasmenu">
+            <li class="">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-gitlab"></i></span>
-                    <span class="pcoded-mtext">Advance Components</span>
+                    <span class="pcoded-mtext">Sản phẩm</span>
                 </a>
-                <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href="draggable.htm">
-                            <span class="pcoded-mtext">Draggable</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="bs-grid.htm">
-                            <span class="pcoded-mtext">Grid Stack</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="light-box.htm">
-                            <span class="pcoded-mtext">Light Box</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="modal.htm">
-                            <span class="pcoded-mtext">Modal</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="notification.htm">
-                            <span class="pcoded-mtext">Notifications</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="notify.htm">
-                            <span class="pcoded-mtext">PNOTIFY</span>
-                            <span class="pcoded-badge label label-info">NEW</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="rating.htm">
-                            <span class="pcoded-mtext">Rating</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="range-slider.htm">
-                            <span class="pcoded-mtext">Range Slider</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="slider.htm">
-                            <span class="pcoded-mtext">Slider</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="syntax-highlighter.htm">
-                            <span class="pcoded-mtext">Syntax Highlighter</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="tour.htm">
-                            <span class="pcoded-mtext">Tour</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="treeview.htm">
-                            <span class="pcoded-mtext">Tree View</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="nestable.htm">
-                            <span class="pcoded-mtext">Nestable</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="toolbar.htm">
-                            <span class="pcoded-mtext">Toolbar</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="x-editable.htm">
-                            <span class="pcoded-mtext">X-Editable</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
-            <li class="pcoded-hasmenu">
+            <li class="">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-command"></i></span>
+                    <span class="pcoded-mtext">Thể loại</span>
+                </a>
+            </li>
+            <li class="">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-package"></i></span>
-                    <span class="pcoded-mtext">Extra Components</span>
+                    <span class="pcoded-mtext">Hình ảnh</span>
                 </a>
-                <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href="session-timeout.htm">
-                            <span class="pcoded-mtext">Session Timeout</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="session-idle-timeout.htm">
-                            <span class="pcoded-mtext">Session Idle Timeout</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="offline.htm">
-                            <span class="pcoded-mtext">Offline</span>
-                        </a>
-                    </li>
-
-                </ul>
             </li>
             <li class=" ">
                 <a href="animation.htm">
-                    <span class="pcoded-micon"><i class="feather icon-aperture rotate-refresh"></i><b>A</b></span>
-                    <span class="pcoded-mtext">Animations</span>
+                    <span class="pcoded-micon"><i class="feather icon-aperture rotate-refresh"></i></span>
+                    <span class="pcoded-mtext">Quản lý gian hàng</span>
                 </a>
             </li>
             <li class=" ">
                 <a href="sticky.htm">
                     <span class="pcoded-micon"><i class="feather icon-cpu"></i></span>
-                    <span class="pcoded-mtext">Sticky Notes</span>
-                    <span class="pcoded-badge label label-danger">HOT</span>
+                    <span class="pcoded-mtext">Quản lý người bán</span>
                 </a>
-            </li>
-            <li class="pcoded-hasmenu">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="feather icon-command"></i></span>
-                    <span class="pcoded-mtext">Icons</span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href="icon-font-awesome.htm">
-                            <span class="pcoded-mtext">Font Awesome</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-themify.htm">
-                            <span class="pcoded-mtext">Themify</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-simple-line.htm">
-                            <span class="pcoded-mtext">Simple Line Icon</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-ion.htm">
-                            <span class="pcoded-mtext">Ion Icon</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-material-design.htm">
-                            <span class="pcoded-mtext">Material Design</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-icofonts.htm">
-                            <span class="pcoded-mtext">Ico Fonts</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-weather.htm">
-                            <span class="pcoded-mtext">Weather Icon</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-typicons.htm">
-                            <span class="pcoded-mtext">Typicons</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="icon-flags.htm">
-                            <span class="pcoded-mtext">Flags</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
         <div class="pcoded-navigatio-lavel">Forms</div>

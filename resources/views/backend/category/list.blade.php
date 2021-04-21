@@ -1,16 +1,8 @@
 @extends('layouts.admin.admin')
 @section('content')
-<link rel="stylesheet" href="{{ asset('public/admin/dropify.css') }}">
-<style>
-    .error{
-        color: brown;
-        font-size: 14px;
-        padding: 5px;
-    }
-</style>
-<link rel="stylesheet" href="{{ asset('public/admin/assets/css/bootstrap-4.css') }}">
-<link rel="stylesheet" href="{{ asset('public/admin/assets/css/animate.css') }}">
-<script src="{{ asset('public/admin/assets/js/plugins/notify.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap-4.css') }}">
+<link rel="stylesheet" href="{{ asset('admin/assets/css/animate.css') }}">
+<script src="{{ asset('admin/assets/js/plugins/notify.js')}}"></script>
 @if(Session::has('flash_message_success'))
 <script>
   $(document).ready(function() {
@@ -40,13 +32,13 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">List Category
+            <h2 class="pageheader-title">Danh sách danh mục sản phẩm
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Category</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">List</li>
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Danh mục</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh sách các danh mục có sẵn</li>
                     </ol>
                 </nav>
             </div>
@@ -56,23 +48,20 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
-           @can('add_category')
             <div class="card-header">
-                <button class="btn btn-primary" style="padding: 8px 15px;" data-toggle="modal" data-target="#AddModel"><i class="mdi mdi-plus" ></i> Add
+                <button class="btn btn-primary" style="padding: 8px 15px;" data-toggle="modal" data-target="#AddModel"><i class="mdi mdi-plus" ></i> Đăng kí danh mục
                 </button>
+                <small>Nếu không có danh mục nào phù hợp với sản phẩm của bạn. Hãy đăng kí danh mục mới</small>
             </div>
-           @endcan
+
             <div class="card-body">
                 @if ($dataCate->count() > 0)
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Child</th>
-                                <th scope="col" class="text-center">Icon</th>
-                                <th scope="col" style="text-align:center">ST</th>
-                                <th style="width: 200px;">Action</th>
+                                <th scope="col">Tên</th>
+                                <th scope="col" style="text-align:center">Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,40 +73,19 @@
                                 <tr>
                                     <td>{{ $stt++ }}</td>
                                     <td>{{ $record->name }}</td>
-                                    <td>
-                                        @foreach ($record->categories as $item)
-                                           <span class="badge badge-success"> {{ $item->name }}</span>
-                                        @endforeach 
-                                    </td>
                                     <td align="center">
-                                        @if(isset($record->icon) && $record->icon != "")
-                                        <img src="{{ asset('public/uploads/images/category/'.$record->icon) }}">
-                                        @endif
-                                        
-                                    </td>
-                                    <td align="center">
-                                        @if ($record['status'] == "1")
+                                        @if ($record['status'] == "1" && $record['status_cus'] == "1")
                                         <span class=" badge-dot badge-success mr-1"></span>
                                         @else
                                         <span class="badge-dot badge-brand mr-1"></span>
                                         @endif
-                                    </td>
-                                    <td>
-                                        @can('edit_category')
-                                        <button class="btn btn-primary btn-edit-category"  data-toggle="modal" data-target="#EditModel"
-                                        data-id="{{ $record->id}}" data-action="{{ url('admin/category/edit-modal') }}">Edit</button>
-                                        @endcan
-                                        @can('delete_category')
-                                        <button class="btn btn-danger btn-del-cate" data-id="{{ $record->id }}" 
-                                            data-action="{{ url('admin/category/delete') }}">Delete</button>
-                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @else
-                 <p align="center" style="font-weight:bold">Data is empty</p>   
+                 <p align="center" style="font-weight:bold">Không có dữ liệu</p>
                 @endif
             </div>
         </div>
@@ -129,67 +97,93 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm danh mục</h5>
                     <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></a>
                 </div>
                 <div class="modal-body">
                         <div class="form-group">
-                            <label for="title">Title<font color="#a94442"> (*)</font></label>
-                            <input type="text" id="title" name="title" class="form-control" placeholder="Math" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu mới" />
+                            <label for="title">Tên<font color="#a94442"> (*)</font></label>
+                            <input type="text" id="title" name="title" class="form-control" placeholder="Tên danh mục" data-rule-required="true" data-msg-required="Vui lòng tên danh mục" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Select parent category<font color="#a94442"> (*)</font></label>
+                            <label class="control-label">Danh mục gốc<font color="#a94442"> (*)</font></label>
                             <select class="form-control custom-select" name="parent_id" id="parent_id" data-rule-required="true" data-msg-required="Vui lòng chọn danh mục." >
-                                <option value="" disabled="disabled" selected="selected">--- Select ---</option>
-                                <option value="0">None</option>
+                                <option value="" disabled="disabled">--- Select ---</option>
+                                <option value="0" selected="selected">None</option>
                                 {!! $data_select !!}
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Description</label>
+                            <label class="control-label">Mô tả</label>
                             <textarea rows="2" cols="2" name="description" class="form-control"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Icon</label>
-                            <input type="file" id="input-file-now" class="dropify form-control" name="file">
-                        </div>
-                        <label class="custom-control custom-checkbox">
-                            <input type="checkbox" checked="" class="custom-control-input" value="1" name="status">
-                            <span class="custom-control-label">Active</span>
-                        </label>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
-                    <button type="submit" class="btn btn-primary" id="btn-add-cate">Save changes</button>
+                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Hủy</a>
+                    <button type="submit" class="btn btn-primary" id="btn-add-cate">Lưu thay đổi</button>
                 </div>
             </div>
          </form>
     </div>
 </div>
-<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog animated bounce" role="document">
-         <form method="POST" action="{{ url('admin/category/edit') }}" id="frm-edit-cate" onsubmit="return false;" enctype='multipart/form-data'>
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
-                    <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></a>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
-                    <button type="submit" class="btn btn-primary" id="btn-edit-save">Save changes</button>
-                </div>
-            </div>
-         </form>
-    </div>
-</div>
-<script src="{{ asset('public/admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
-<script src="{{ asset('public/admin/assets/js/plugins/sweetalert2.all.js')}}"></script>
-<script src="{{ asset('public/admin/assets/js/cate.js') }}"></script>
-<script src="{{ asset('public/admin/dropify.js') }}"></script>
+<script src="{{ asset('admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('admin/assets/js/plugins/sweetalert2.all.js')}}"></script>
+<script src="{{ asset('admin/dropify.js') }}"></script>
 <script>
     $('.dropify').dropify();
+    $(document).on('click', '#btn-add-cate', function() {
+    $("#frm-add-cate").validate({
+        submitHandler: function() {
+            let action = $("#frm-add-cate").attr('action');
+            let method = $("#frm-add-cate").attr('method');
+            let formData = $("#frm-add-cate").serialize();
+            $.ajax({
+                url: action,
+                type: method,
+                data: formData,
+                dataType: 'JSON',
+                headers: {
+                    'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+                },
+                success: function(data) {
+                    if (data.status == '_success') {
+                        $("#AddModel").modal('hide');
+                        Swal({
+                            title: data.msg,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            type: 'success',
+                            timer: 2000
+                        }).then(() => {
+                            console.log(data);
+                            location.reload();
+                        });
+                    } else {
+                        Swal({
+                            title: data.msg,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            type: 'error',
+                            timer: 2000
+                        });
+                    }
+                },
+                error: function(err) {
+                    //console.log(err);
+                    Swal({
+                        title: 'Error ' + err.status,
+                        text: err.responseText,
+                        showCancelButton: false,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        type: 'error'
+                    });
+                }
+            });
+
+
+        }
+    });
+});
 </script>
 @endsection

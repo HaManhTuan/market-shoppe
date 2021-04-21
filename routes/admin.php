@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
+
 Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'AdminController@pagenotfound']);
 Route::get('admin/login', 'AdminController@login');
 Route::post('admin/dang-nhap', 'AdminController@dangnhap');

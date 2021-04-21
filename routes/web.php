@@ -13,8 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('manager/login', 'SuperAdminController@login')->middleware('checkLoginManager');
+Route::get('manager/login', 'SuperAdminController@login');
 Route::post('manager/dang-nhap', 'SuperAdminController@dangnhap');
 Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::get('/', 'DashboardManagerController@index')->name('manager.dashboard');
+    Route::get('danh-muc', 'CategoryManagerController@index')->name('manager.category');
+    Route::get('danh-muc-draff', 'CategoryManagerController@draff')->name('manager.category.draff');
+    Route::get('danh-muc-draff-infor/{id}', 'CategoryManagerController@draffInfo')->name('manager.category.draff.info');
+    Route::post('danh-muc-draff-infor-confirm', 'CategoryManagerController@draffInfoConfirm')->name('manager.category.draff.info.confirm');
+    Route::post('danh-muc-draff-infor-cancell', 'CategoryManagerController@draffInfoCancell')->name('manager.category.draff.info.cancell');
+    Route::post('add-danh-muc', 'CategoryManagerController@add')->name('manager.category.add');
+    Route::get('sua-danh-muc/{id}', 'CategoryManagerController@editCateModal')->name('manager.category.edit');
+    Route::post('update-danh-muc', 'CategoryManagerController@edit')->name('manager.category.editPost');
+    Route::post('xoa-danh-muc', 'CategoryManagerController@delete')->name('manager.category.delete');
+    Route::post('update-status-danh-muc', 'CategoryManagerController@updateStatus')->name('manager.category.updateStatus');
+    Route::post('update-status-cus-danh-muc', 'CategoryManagerController@updateStatusCus')->name('manager.category.updateStatusCus');
 });

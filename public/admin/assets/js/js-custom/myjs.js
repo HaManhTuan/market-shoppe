@@ -2,7 +2,7 @@ $(document).ready(function() {
     $(".rd-add").click(function() {
         $(".custom-load").show();
         $(".rd-add").html("Loading ...");
-        setTimeout(function() { window.location.href = 'add'; }, 1100);
+        setTimeout(function() { window.location.href = 'admin/product/add'; }, 1100);
     })
     $(".rd-add-per").click(function() {
         $(".custom-load").show();

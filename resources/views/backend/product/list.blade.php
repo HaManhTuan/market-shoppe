@@ -1,10 +1,10 @@
 @extends('layouts.admin.admin')
 @section('content')
-<link rel="stylesheet" href="{{ asset('public/frontend/css-custom/dropify.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/vendor/datatables/css/dataTables.bootstrap4.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/vendor/datatables/css/buttons.bootstrap4.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/vendor/datatables/css/select.bootstrap4.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
+<link rel="stylesheet" href="{{ asset('frontend/css-custom/dropify.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/css/dataTables.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/css/buttons.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/css/select.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
 <style>
     .error{
         color: brown;
@@ -12,7 +12,7 @@
         padding: 5px;
     }
 </style>
-<script src="{{ asset('public/admin/assets/js/plugins/notify.js')}}"></script>
+<script src="{{ asset('admin/assets/js/plugins/notify.js')}}"></script>
 @if(Session::has('flash_message_success'))
 <script>
   $(document).ready(function() {
@@ -66,12 +66,10 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
             <div class="card-header">
-                @can('add_product')
                 <div class="card-header"><span class="badge badge-primary rd-add" style="padding: 8px 15px;"
                     ><i class="mdi mdi-plus" ></i> Thêm mới</span>
                     <span class="dashboard-spinner spinner-custom custom-load"></span>
                 </div>
-                @endcan
             </div>
             <div class="card-body">
                 @if ($products->count() > 0)
@@ -97,46 +95,46 @@
                                         {{ $record->name}} <br>
                                         =========================
                                         <p class="">Giá: <span class="text-danger">{{ number_format($record->price) }}</span> VNĐ</p>
-                                        @if ($record->promotional_price > 0)  
+                                        @if ($record->promotional_price > 0)
                                          <p class="">Giá KM: <span class="text-success">{{ number_format($record->promotional_price) }}</span> VNĐ</p>
                                          <p class="">Sale: <span class="text-success">{{ ($record->sale) }}</span> %</p>
                                         @endif
-                                         ========================= 
+                                         =========================
                                         <p>Người tạo: {{ $record->user->name }}</p>
                                         ========================= <br>
-                                        <p>Ngày tạo: {{ $record->created_at }}</p> 
+                                        <p>Ngày tạo: {{ $record->created_at }}</p>
                                         ========================= <br>
-                                        <p>Ngày nhập hàng: {{ $record->updated_at }}</p> 
+                                        <p>Ngày nhập hàng: {{ $record->updated_at }}</p>
                                     </td>
-                                    <td><img src="{{ asset('public/uploads/images/products/'.$record->image) }}" style="max-width: 100%;"></td>
+                                    <td><img src="{{ asset('uploads/images/products/'.$record->image) }}" style="max-width: 100%;"></td>
                                     <td>
                                         {{ $record->category->name }}
                                     </td>
                                     <td>{{ $record->stock }}</td>
                                     <td>
-                                        @can('edit_product')
+
                                         <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Thêm ảnh" onclick="window.location.href='{{ url('admin/product/add-image/'.$record->url) }}'"><i class="fa fa-image"></i></button>
                                         <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm" onclick="window.location.href='{{ url('admin/product/edit-pro/'.$record->url) }}'"><i class="fa fa-pencil-alt"></i></button>
-                                        @endcan
-                                        @can('delete_product')
+
+
                                         <button class="btn btn-danger btn-del" data-id="{{ $record->id }}" data-toggle="tooltip" data-placement="top" title="Xóa sản phẩm"><i class="fa fa-trash-alt"></i></button>
-                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @else
-                 <p align="center" style="font-weight:bold">Không có dữ liệu</p>   
+                 <p align="center" style="font-weight:bold">Không có dữ liệu</p>
                 @endif
             </div>
         </div>
     </div>
 </div>
-<script src="{{ asset('public/admin/assets/js/js-custom/myjs.js') }}"></script>
-<script src="{{ asset('public/admin/assets/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('public/admin/assets/vendor/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{ asset('public/admin/assets/vendor/datatables/js/data-table.js')}}"></script>
+<script src="{{ asset('admin/assets/js/js-custom/myjs.js') }}"></script>
+<script src="{{ asset('admin/assets/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('admin/assets/vendor/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('admin/assets/vendor/datatables/js/data-table.js')}}"></script>
 <script>
   $('#table-product').DataTable({
     "columnDefs": [
@@ -147,7 +145,7 @@
       "order": [],
   });
 </script>
-<script src="{{ asset('public/admin/assets/js/plugins/sweetalert2.all.js')}}"></script>
+<script src="{{ asset('admin/assets/js/plugins/sweetalert2.all.js')}}"></script>
 <script>
     $(document).on('click', '.btn-del', function () {
         let id = $(this).attr('data-id');

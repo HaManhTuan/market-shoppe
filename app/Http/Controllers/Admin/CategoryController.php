@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -43,9 +44,6 @@ class CategoryController extends Controller
     }
     public function show()
     {
-        if (! Gate::allows('add_category') || ! Gate::allows('edit_category') || ! Gate::allows('delete_category')) {
-            return view('backend.errors.401');
-        }
         $dataCate = Category::with('categories')->orderBy('parent_id', 'asc')
             ->get();
         $data_select = $this->getDataSelect(0);
@@ -53,14 +51,11 @@ class CategoryController extends Controller
     }
     public function add(Request $req)
     {
-		if (! Gate::allows('add_category')) {
-            return view('backend.errors.401');
-        }
         $check_name = Category::where('name', $req->title)
             ->count();
         if ($check_name > 0)
         {
-            $msg = ['status' => '_error', 'msg' => 'Error. This name already exists'];
+            $msg = ['status' => '_error', 'msg' => 'Error. Danh mục đã tồn tại'];
             return response()->json($msg);
         }
         else
@@ -72,7 +67,7 @@ class CategoryController extends Controller
             $category->url = $slug;
             $category->parent_id = $req->parent_id;
             $category->description = $req->description;
-           
+
             if ($req->hasFile('file')) {
                 $file  = $req->file('file');
                 $name  = $file->getClientOriginalName();
@@ -86,6 +81,8 @@ class CategoryController extends Controller
                 $category->icon = "";
             }
             $category->status = $req->input('status') ? '1' : '0';
+            $category->draff = 1;
+            $category->user_id = Auth::id();
             $query = $category->save();
             if (!$query || $query == false)
             {
@@ -94,7 +91,7 @@ class CategoryController extends Controller
             }
             else
             {
-                $msg = ['status' => '_success', 'msg' => 'Thêm danh mục thành công !'];
+                $msg = ['status' => '_success', 'msg' => 'Thêm danh mục thành công!. Hãy đợi phản hồi từ chúng tôi'];
                 return response()->json($msg);
             }
 
@@ -122,7 +119,7 @@ class CategoryController extends Controller
 			</div>';
         $data .= '
         <input type="hidden" name="old_file"  class="form-control" value="'.$category_data->icon.'">
-        
+
             <div class="form-group">
                 <label class="control-label">Description</label>';
         $data .= '<textarea rows="2" cols="2" name="description" class="form-control">' . $category_data->description . '</textarea></div>';
