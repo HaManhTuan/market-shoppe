@@ -1,6 +1,14 @@
 @extends('layouts.admin.admin')
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/admin/dropify.css') }}">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 <style>
     .error{
         color: brown;
@@ -43,7 +51,7 @@
                                 <label for="normal-field" class="control-label">Tên sản phẩm:</label>
                             </div>
                             <div class="col-sm-7">
-                                <input type="text" id="name_pro" name="name" class="form-control @error('name') is-invalid @enderror" 
+                                <input type="text" id="name_pro" name="name" class="form-control @error('name') is-invalid @enderror"
                                 placeholder="Hãy nhập tên sản phẩm"   value="{{ old('name') }}">
                                 @error('name')
                                     <small class="text-danger font-16">{{ $message }}.</small>
@@ -55,11 +63,11 @@
                         <div class="row">
                             <div class="col-sm-2">
                                 <label for="hint-field" class="control-label">
-                                Danh mục sản phẩm
+                                Danh sách mục sản phẩm
                                 </label>
                             </div>
                             <div class="col-sm-7">
-                                <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror" >
+                                <select class="form-control">
                                     <option value="" disabled="disabled" selected="selected">--- Chọn danh mục ---</option>
                                     {!! $categoryData !!}
                                 </select>
@@ -72,13 +80,33 @@
                      <div class="form-group">
                         <div class="row">
                             <div class="col-sm-2">
+                                <label for="hint-field" class="control-label"> Danh mục </label>
+                            </div>
+                            <div class="col-sm-7">
+                                <select class="selectpicker form-control @error('category_id') is-invalid @enderror"  name="category_id" id="category_id"  data-live-search="true">
+                                @if (count($cate) > 0 )
+                                    @foreach ($cate as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}
+                                        @if ($item->parent)
+                                             &emsp;&emsp;&emsp;&emsp; *-*-* {{ $item->parent->name }}
+                                        @endif
+                                        </option>
+                                    @endforeach
+                                @endif
+                                </select>
+                            </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-2">
                                 <label for="hint-field" class="control-label">
                                 Số lượng
                                 </label>
                             </div>
                             <div class="col-sm-7">
-                                <input type="text" id="stock" name="stock" class="form-control numbers @error('stock') is-invalid @enderror" data-rule-required="true" 
-                            data-msg-required="Vui lòng nhập giá." placeholder="Hãy nhập số lượng" 
+                                <input type="text" id="stock" name="stock" class="form-control numbers @error('stock') is-invalid @enderror" data-rule-required="true"
+                            data-msg-required="Vui lòng nhập giá." placeholder="Hãy nhập số lượng"
                             onkeyup="this.value = number_format(this.value,0,'','.');" onblur="this.value = number_format(this.value,0,'','.')" value="{{ old('stock') }}">
                                 @error('stock')
                                     <small class="text-danger font-16">{{ $message }}.</small>
@@ -94,7 +122,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-7">
-                            <input type="text" id="price" name="price" class="form-control numbers @error('price') is-invalid @enderror" data-rule-required="true" data-msg-required="Vui lòng nhập giá." placeholder="Hãy nhập giá" 
+                            <input type="text" id="price" name="price" class="form-control numbers @error('price') is-invalid @enderror" data-rule-required="true" data-msg-required="Vui lòng nhập giá." placeholder="Hãy nhập giá"
                             value="{{ old('price') }}"
                             onkeyup="this.value = number_format(this.value,0,'','.');" onblur="this.value = number_format(this.value,0,'','.')">
                             @error('price')
@@ -149,16 +177,16 @@
                                 <label class="control-label" for="description">Thương hiệu:</label>
                             </div>
                             <div class="col-sm-9">
-                             <select class="form-control" name="brand_id">
-                                 <option selected="" disabled="">--Chọn--</option>
-                                 @foreach ($dataBrand as $element)
-                                     <option value="{{$element->id}}">{{$element->name}}</option>}
-                                    
-                                 @endforeach
-                             </select>
-                             @error('file')
-                             <small class="text-danger font-16">{{ $message }}.</small>
-                            @enderror
+                                <select name="brand_id" class="selectpicker form-control" data-live-search="true">
+                                    <option value="0">No brand
+                                    </option>
+                                    @if (count($brand) > 0 )
+                                        @foreach ($brand as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                         </div>
                      </div>

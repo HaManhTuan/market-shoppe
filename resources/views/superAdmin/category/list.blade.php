@@ -144,15 +144,15 @@
                         <div class="col-sm-6 col-xl-6 col-form-label">
                             <h4 class="sub-title">Trạng thái</h4>
                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                <input class="border-checkbox" type="checkbox" checked id="checkbox1">
-                                <label class="border-checkbox-label" name="status" id="label1" for="checkbox1">Hiện</label>
+                                <input class="border-checkbox" type="checkbox" name="status" checked id="checkbox1">
+                                <label class="border-checkbox-label"  id="label1" for="checkbox1">Hiện</label>
                             </div>
                         </div>
                         <div class="col-sm-6 col-xl-6 border-checkbox-section col-form-label">
                             <h4 class="sub-title">Trạng thái người bán</h4>
                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                <input class="border-checkbox" type="checkbox" checked id="checkbox2">
-                                <label class="border-checkbox-label" name="status_cus" id="label2" for="checkbox2">Hiện</label>
+                                <input class="border-checkbox" type="checkbox" name="status_cus" checked id="checkbox2">
+                                <label class="border-checkbox-label" id="label2" for="checkbox2">Hiện</label>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'AdminController@pagenotfound']);
 Route::get('admin/login', 'AdminController@login');
 Route::post('admin/dang-nhap', 'AdminController@dangnhap');
-Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'User'], function () {
     //User
 	Route::get('dashboard', 'DashboardController@index');
 	Route::get('user/view', 'UserController@index');
@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
     Route::post('user/edit-post-roles', 'RolesController@postedit');
     Route::post('user/del-post-roles', 'RolesController@delete');
     //Category
-    Route::group(['prefix' => 'category',  'middleware' => 'Admin'], function () {
+    Route::group(['prefix' => 'category',  'middleware' => 'User'], function () {
     Route::get('view-category','CategoryController@show');
     Route::post('add','CategoryController@add');
     Route::post('edit-modal','CategoryController@showmodal');
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
     Route::post('delete','CategoryController@delete');
     });
     //Silder
-	Route::group(['prefix' => 'media', 'middleware' => 'Admin'], function () {
+	Route::group(['prefix' => 'media', 'middleware' => 'User'], function () {
         Route::get('view-media', 'MediaController@view');
         Route::match(['get', 'post'], 'add-media', 'MediaController@add');
         Route::post('edit-modal', 'MediaController@editModal');
@@ -49,12 +49,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::post('delete', 'MediaController@delete');
     });
     //Config
-	Route::group(['prefix' => 'config', 'middleware' => 'Admin'], function () {
+	Route::group(['prefix' => 'config', 'middleware' => 'User'], function () {
         Route::match(['get','post'],'view-config', 'ConfigController@view');
         Route::match(['get','post'],'edit-config', 'ConfigController@edit');
     });
     //Product
-	Route::group(['prefix' => 'product', 'middleware' => 'Admin'], function () {
+	Route::group(['prefix' => 'product', 'middleware' => 'User'], function () {
         Route::get('view-product', 'ProductController@viewpro');
         Route::get('add', 'ProductController@add');
         Route::post('add-pro', 'ProductController@addpro');
@@ -64,7 +64,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::post('delete-img', 'ProductController@deimg');
     });
     //BLog
-    Route::group(['prefix' => 'blog', 'middleware' => 'Admin'], function () {
+    Route::group(['prefix' => 'blog', 'middleware' => 'User'], function () {
         Route::get('view-blog', 'BlogController@viewblog');
         Route::get('add', 'BlogController@add');
         Route::post('add-blog', 'BlogController@addblog');
@@ -72,7 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::post('delete-blog', 'BlogController@delblog');
     });
     //Brand
-    Route::group(['prefix' => 'brand', 'middleware' => 'Admin'], function () {
+    Route::group(['prefix' => 'brand', 'middleware' => 'User'], function () {
         Route::get('view-brand', 'BrandController@viewbrand');
         Route::get('add', 'BrandController@add');
         Route::post('add-brand', 'BrandController@addbrand');
@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::post('delete-brand', 'BrandController@delbrand');
     });
     //LandingPage
-     Route::group(['prefix' => 'landingpage', 'middleware' => 'Admin'], function () {
+     Route::group(['prefix' => 'landingpage', 'middleware' => 'User'], function () {
         Route::get('view', 'LandingPageController@view');
         Route::get('add', 'LandingPageController@add');
         Route::post('add-landing', 'LandingPageController@addlanding');
@@ -101,7 +101,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::get('invoice/{id}', 'OrderController@invoice');
         Route::get('send-mail/{id}', 'OrderController@sendEMail');
     });
-    Route::group(['prefix' => 'customer', 'middleware' => 'Admin'], function () {
+    Route::group(['prefix' => 'customer', 'middleware' => 'User'], function () {
         Route::get('view', 'CustomerController@view');
         Route::post('view-modal', 'CustomerController@viewmodal');
     });

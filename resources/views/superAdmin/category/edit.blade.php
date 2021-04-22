@@ -10,15 +10,6 @@
                     <h4>Danh mục sản phẩm</h4>
                     <span>Quản lý danh mục sản phẩm của bạn - {{  $data->name }}</span>
                 </div>
-                <input id="toggle-event" type="checkbox" data-toggle="toggle">
-                <div id="console-event"></div>
-                <script>
-                  $(function() {
-                    $('#toggle-event').change(function() {
-                      $('#console-event').html('Toggle: ' + $(this).prop('checked'))
-                    })
-                  })
-                </script>
             </div>
         </div>
         <div class="col-lg-4">

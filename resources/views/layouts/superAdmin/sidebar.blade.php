@@ -66,6 +66,12 @@
                 </a>
             </li>
             <li class="">
+                <a href="{{ route('manager.brand') }}">
+                    <span class="pcoded-micon"><i class="feather icon-command"></i></span>
+                    <span class="pcoded-mtext">Thương hiệu</span>
+                </a>
+            </li>
+            <li class="">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-package"></i></span>
                     <span class="pcoded-mtext">Hình ảnh</span>

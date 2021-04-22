@@ -12,7 +12,7 @@ class CategoryController extends Controller
     // Đệ quy tuyến tính menu đa cấp dạng droplist
     public function getDataSelect($parent_id = 0, $char = '', $current_id = '')
     {
-        $category_data = Category::orderBy('id', 'asc')->get();
+        $category_data = Category::where(['status' => 1,'status_cus' => 1,'draff' => 0])->orderBy('id', 'asc')->get();
         $data_select = "";
         foreach ($category_data as $category_item)
         {

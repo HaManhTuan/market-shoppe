@@ -63,6 +63,7 @@ class CategoryManagerController extends Controller
             'status_cus' => $request->status_cus ? 1 : 0,
             'draff' => 0,
         ];
+
         try {
             $cate = Category::create($data);
             if($cate){

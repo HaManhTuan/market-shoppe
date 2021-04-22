@@ -22,9 +22,10 @@ class ProductController extends Controller
     public function add()
     {
         $dataBrand = Brand::get();
+        $cate = Category::where(['status' => 1,'status_cus' => 1, 'draff' => 0])->get();
         $categoryController = new CategoryController();
         $data_select = $categoryController->getDataSelect(0, '', '');
-        $data_send = ['categoryData' => $data_select,'dataBrand' => $dataBrand ];
+        $data_send = ['categoryData' => $data_select,'brand' => $dataBrand,'cate' => $cate ];
         return view('backend.product.add')->with($data_send);
     }
     public function addpro(StoreProduct $req)
@@ -48,17 +49,16 @@ class ProductController extends Controller
         $request['brand_id'] = $req->brand_id;
         $request['status'] = $req->has('status') ? '1' : '0';
         $target_save = "public/uploads/images/products/";
-
         if ($req->hasFile('file'))
         {
             $file = $req->file('file');
             $name = $file->getClientOriginalName();
             $image = Str::random(4) . "_" . $name;
-            while (file_exists("public/uploads/images/products/" . $image))
+            while (file_exists("uploads/images/products/" . $image))
             {
                 $image = Str::random(4) . "_" . $name;
             }
-            $file->move("public/uploads/images/products", $image);
+            $file->move("uploads/images/products", $image);
             $request['image'] = $image;
         }
         else
@@ -120,6 +120,7 @@ class ProductController extends Controller
     public function editpro(Request $req, $url)
     {
         $dataBrand = Brand::get();
+        $cate = Category::where(['status' => 1,'status_cus' => 1, 'draff' => 0])->get();
         $product_detail = Product::where(['url' => $url])->first();
         $categoryController = new CategoryController();
         $data_select = $categoryController->getDataSelect(0, '', $product_detail->category_id);
@@ -127,7 +128,7 @@ class ProductController extends Controller
             ->category_id])
             ->first();
         $category_name = $category_detail->name;
-        $data_send = ['product_detail' => $product_detail, 'category_name' => $category_name, 'data_select' => $data_select,'dataBrand' => $dataBrand];
+        $data_send = ['product_detail' => $product_detail,'cate'=> $cate, 'category_name' => $category_name, 'data_select' => $data_select,'brand' => $dataBrand];
         if ($req->isMethod('post'))
         {
             //print_r($req->all());

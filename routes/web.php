@@ -17,6 +17,7 @@ Route::get('manager/login', 'SuperAdminController@login');
 Route::post('manager/dang-nhap', 'SuperAdminController@dangnhap');
 Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::get('/', 'DashboardManagerController@index')->name('manager.dashboard');
+     //Category
     Route::get('danh-muc', 'CategoryManagerController@index')->name('manager.category');
     Route::get('danh-muc-draff', 'CategoryManagerController@draff')->name('manager.category.draff');
     Route::get('danh-muc-draff-infor/{id}', 'CategoryManagerController@draffInfo')->name('manager.category.draff.info');
@@ -28,4 +29,10 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::post('xoa-danh-muc', 'CategoryManagerController@delete')->name('manager.category.delete');
     Route::post('update-status-danh-muc', 'CategoryManagerController@updateStatus')->name('manager.category.updateStatus');
     Route::post('update-status-cus-danh-muc', 'CategoryManagerController@updateStatusCus')->name('manager.category.updateStatusCus');
+    //Brand
+    Route::get('thuong-hieu', 'BrandManagerController@index')->name('manager.brand');
+    Route::get('them-thuong-hieu', 'BrandManagerController@addView')->name('manager.brand.add');
+    Route::post('them-thuong-hieu-do', 'BrandManagerController@add')->name('manager.brand.addPost');
+    Route::post('xoa-thuong-hieu', 'BrandManagerController@delete')->name('manager.brand.delete');
+
 });
