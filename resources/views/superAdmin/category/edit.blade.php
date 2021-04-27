@@ -32,9 +32,10 @@
 <div class="page-body">
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('manager.category.editPost') }}" method="POST" class="frm-edit">
+            <form action="{{ route('manager.category.editPost') }}" method="POST" class="frm-edit" enctype='multipart/form-data'>
                @csrf
                 <input type="hidden" name="id" value="{{ $data->id }}">
+                <input type="hidden" name="icon_old" value="{{ $data->icon }}">
                 <div class="form-group">
                     <label class="col-md-12 col-form-label">Danh mục</label>
                     <div class="col-md-4">
@@ -63,6 +64,12 @@
                     <label class="col-sm-12 col-form-label">Mô tả danh mục</label>
                     <div class="col-sm-8">
                         <textarea name="description" class="form-control" cols="30" rows="4">{{ $data->description }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-12 col-form-label">Ảnh đại diện</label>
+                    <div class="col-sm-8">
+                        <input type="file" id="input-file-now" class="dropify form-control" name="file" data-default-file="{{ asset('uploads/images/category/').'/'.$data->icon }}">
                     </div>
                 </div>
                 <div class="form-group border-checkbox-section row">
@@ -94,7 +101,6 @@
         color: red;
     }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{{ asset('admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
  <!-- notification js -->
  <script type="text/javascript" src="{{ asset('superAdmin/assets/js/bootstrap-growl.min.js') }}"></script>
@@ -107,6 +113,9 @@
             }
         });
     })
+</script>
+<script>
+    $('.dropify').dropify();
 </script>
 @if ($errors->any()))
 <script>

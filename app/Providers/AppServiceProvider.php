@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Model\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('*', function ($view) {
+            $cateParent = Category::where('parent_id', 0)->where('draff', 0)->where('status', 1)->where('status_cus', 1)->where('status', 1)->get();
+            if(count($cateParent)) {
+                $view->with(['cateParent' => $cateParent]);
+            }
+        });
     }
 }

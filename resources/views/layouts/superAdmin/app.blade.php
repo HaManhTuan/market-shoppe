@@ -27,7 +27,10 @@
        <!-- sweet alert framework -->
        <link rel="stylesheet" type="text/css" href="{{ asset('superAdmin/bower_components/sweetalert/css/sweetalert.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('superAdmin/assets/css/jquery.mCustomScrollbar.css')}}">
+    <link rel="stylesheet" href="{{ asset('superAdmin/assets/css/dropify.css')}}">
     <script type="text/javascript" src="{{ asset('superAdmin/bower_components/jquery/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('superAdmin/assets/js/dropify.min.js')}}"></script>
+
 </head>
 
 <body>
@@ -141,7 +144,7 @@
     <script type="text/javascript" src="{{ asset('superAdmin/assets/pages/dashboard/analytic-dashboard.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('superAdmin/assets/js/script.js')}}"></script>
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>
 
 </html>

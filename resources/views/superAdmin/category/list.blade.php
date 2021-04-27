@@ -108,11 +108,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('manager.category.add') }}" method="POST" onsubmit="return false;" class="frm-add">
+                <form action="{{ route('manager.category.add') }}" method="POST" onsubmit="return false;" class="frm-add" enctype='multipart/form-data'>
                     @csrf
                     <div class="form-group">
                         <label class="col-sm-12 col-form-label">Thêm mới danh mục</label>
-                        <div class="col-sm-12select_cate">
+                        <div class="col-sm-12 select_cate">
                             <select name="parent_id" class="form-control">
                                 <option value="0" selected>---Không---</option>
                                 @if (count($select_cate) > 0)
@@ -138,6 +138,12 @@
                         <label class="col-sm-12 col-form-label">Mô tả danh mục</label>
                         <div class="col-sm-12">
                             <textarea name="description" class="form-control" cols="30" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 col-form-label">Ảnh đại diện</label>
+                        <div class="col-sm-12">
+                            <input type="file" name="file"  id="input-file-now" class="form-control dropify">
                         </div>
                     </div>
                     <div class="form-group border-checkbox-section row">
@@ -183,6 +189,9 @@
     }
     .toggle-off.btn-xs{
         margin-top: 5px;
+    }
+    .dropify-wrapper{
+        height: 100px !important;
     }
 </style>
 <script>
@@ -482,6 +491,10 @@
             }
         });
     })
+
+</script>
+<script>
+    $('.dropify').dropify();
 </script>
   <!-- Switch component js -->
   <script type="text/javascript" src="{{ asset('superAdmin/bower_components/switchery/js/switchery.min.js') }}"></script>

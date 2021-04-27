@@ -54,6 +54,17 @@ class CategoryManagerController extends Controller
         return view('superAdmin.category.list')->with(['cate' => $cate,'data_select' => $data_select,'select_cate' => $select_cate]);
     }
     public function add(CategoryRequest $request){
+        if ($request->hasFile('file')) {
+            $file  = $request->file('file');
+            $name  = $file->getClientOriginalName();
+            $image = Str::random(4)."_".$name;
+            while (file_exists("uploads/images/category/".$image)) {
+                $image = Str::random(4)."_".$name;
+            }
+            $file->move("uploads/images/category", $image);
+        } else {
+            $image = "";
+        }
         $data = [
             'name' => $request->name,
             'url' => Str::slug($request->name),
@@ -62,6 +73,7 @@ class CategoryManagerController extends Controller
             'status' => $request->status ? 1 : 0,
             'status_cus' => $request->status_cus ? 1 : 0,
             'draff' => 0,
+            'icon' => $image,
         ];
 
         try {
@@ -84,6 +96,20 @@ class CategoryManagerController extends Controller
     }
 
     public function edit(UpdateCategoryRequest $request) {
+        if ($request->hasFile('file')) {
+            $file  = $request->file('file');
+            $name  = $file->getClientOriginalName();
+            $image = Str::random(4)."_".$name;
+            while (file_exists("uploads/images/category/".$image)) {
+                $image = Str::random(4)."_".$name;
+            }
+            if (isset($request->old_file) && $request->old_file != '') {
+                unlink("uploads/images/category/".$request->old_file);
+            }
+
+        } else {
+            $image = $request->icon_old;
+        }
         $data = [
             'name' => $request->name,
             'url' => Str::slug($request->name),
@@ -92,13 +118,16 @@ class CategoryManagerController extends Controller
             'status' => $request->status ? 1 : 0,
             'status_cus' => $request->status_cus ? 1 : 0,
             'draff' => 0,
+            'icon' => $image,
         ];
         try {
-            $cate = Category::where('id',$request->id)->update($data);
-            if($cate){
-                return redirect('manager/danh-muc')->with('flash_success', 'Sửa danh mục thành công');
-            } else {
-                return redirect('manager/danh-muc')->with('flash_error', 'Lỗi. Vui lòng thử lại sau');
+            if($file->move("uploads/images/category", $image)) {
+                $cate = Category::where('id',$request->id)->update($data);
+                if($cate){
+                    return redirect('manager/danh-muc')->with('flash_success', 'Sửa danh mục thành công');
+                } else {
+                    return redirect('manager/danh-muc')->with('flash_error', 'Lỗi. Vui lòng thử lại sau');
+                }
             }
         } catch (\Throwable $th) {
             throw $th;
