@@ -1,210 +1,223 @@
 @extends('layouts.frontend.app')
 @section('content')
-@include('layouts.frontend.area01')
-<!-- /.em-wrapper-area01 -->
- <div class="em-main-container em-col2-left-layout">
-     <div class="row">
-         <div class="col-sm-24 em-col-main">
-             <div class="row">
-                    <div class="em-wrapper-area03">
-                        <div class="col-sm-16">
-                            <img style="max-width: 100%" src="https://cf.shopee.vn/file/ee956d0faea9477133a136df2c935797_xxhdpi" alt="">
-                        </div>
-                        <div class="col-sm-8">
-                            <img style="max-width: 100%" src="https://cf.shopee.vn/file/79a117453d41d6285ea71b5fbc1d109d_xhdpi" alt="">
-                            <img style="max-width: 100%; margin-top: 5px" src="https://cf.shopee.vn/file/79a117453d41d6285ea71b5fbc1d109d_xhdpi" alt="">
-                        </div>
-                 </div>
-             </div>
-             <div class="row list-category">
-                @include('layouts.frontend.area06')
-                <!-- /.em-wrapper-area06 -->
-             </div>
-            <!-- /.em-wrapper-area03 -->
-
-             <div class="em-wrapper-new-arrivals-tabs">
-                 <div class="em-new-arrivals-tabs em-line-01">
-                     <div class="emtabs-ajaxblock-loaded">
-                         <div class="em-tabs-widget tabs-widget ">
-                             <div class="widget-title em-widget-title">
-                                 <h3><span>Gợi ý hôm nay</span></h3>
-                             </div>
-                             <div  class="em-tabs emtabs r-tabs">
-                                 <div class="em-tabs-content tab-content">
-                                    <div class="wrapper button-show01 button-hide-text em-wrapper-loaded">
-                                        <div class="emfilter-ajaxblock-loaded">
-                                            <div class="em-grid-20 ">
-
-                                                <div class="widget em-filterproducts-grid">
-                                                    <div class="widget-products em-widget-products">
-                                                        <div class="emcatalog-desktop-4">
-                                                            <div class="products-grid ">
-                                                                @if (count($recomendPro) > 0)
-                                                                    @foreach ($recomendPro as $item)
-                                                                        <div class="item" style="  ">
-                                                                            <div class="product-item">
-                                                                                <div class="product-shop-top">
-                                                                                    <a href="#" title="{{ $item->name }}" class="product-image">
-                                                                                        @if ($item->sale > 0)
-                                                                                        <ul class="productlabels_icons">
-                                                                                            <li class="label special">
-                                                                                                <p>
-                                                                                                    <span>-{{ $item->sale }}%</span> </p>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        @endif
-                                                                                        <img style="" class="img-responsive" src="{{ asset('uploads/images/products/'.$item->image)}}" height="350" width="350">
-                                                                                    </a>
-                                                                                </div><!-- /.product-shop-top -->
-
-                                                                                <div class="product-shop">
-                                                                                    <div class="f-fix">
-                                                                                        <!--product name-->
-                                                                                        <h3 style="min-height: 19px;" class="product-name"><a href="#" title=""> {{ $item->name }}</a></h3>
-                                                                                        @if ($item->sale > 0)
-                                                                                        <div class="price-box">
-                                                                                            <p class="old-price">
-                                                                                                <span class="price-label">Regular Price:</span>
-                                                                                                <span class="price" id="old-price-184-emprice-165caa30959cee82d2cf6c2c473c2079">đ {{  number_format($item->price)  }}</span>
-                                                                                            </p>
-                                                                                            <p class="special-price">
-                                                                                                <span class="price-label">Special Price</span>
-                                                                                                <span class="price" content="90" id="product-price-184-emprice-165caa30959cee82d2cf6c2c473c2079">đ {{  number_format($item->promotional_price	)  }}</span>
-                                                                                            </p>
-                                                                                        </div>
-                                                                                        @else
-                                                                                        <div class="price-box">
-                                                                                            <span class="regular-price" id="product-price-177-emprice-659da6b027ea5433ad0a985675d8fd89">
-                                                                                                    <span class="price">đ {{  number_format($item->price)  }}</span> </span>
-
-                                                                                        </div>
-                                                                                        @endif
-
-
-
-
-                                                                                    </div>
-                                                                                </div><!-- /.product-shop -->
-                                                                            </div>
-                                                                        </div>
-                                                                    @endforeach
-
-                                                                @endif
-                                                              <!-- item --><!-- item -->
-                                                            </div><!-- /.products-grid -->
-                                                        </div><!-- /.emcatalog-desktop-4 -->
-                                                    </div><!-- /.widget-products -->
-                                                </div><!-- /.widget -->
-
-                                            </div><!-- /#em_fashion_new_arrivals_tab01 -->
+<div class="page-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2 class="page-heading" style="border-bottom: none">
+                    <span class="page-heading-title">Danh mục</span>
+                </h2>
+                <div class="main-content" style="margin-top: 15px">
+                    <div class="owl-carousel owl-theme"  data-dots="false" data-loop="true" data-nav = "true" data-margin = "30" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
+                        @if (count($cateParent) > 0)
+                         @foreach ($cateParent as $item)
+                            <div class="item">
+                                <a href="{{ url('danh-muc/'.$item['url']) }}">
+                                    <div class="box-category row" style="margin-left: 0px; margin-right: 0px;display: flex;
+                                    justify-content: center;
+                                    align-items: center;">
+                                        <div class="image-category col-md-6">
+                                            <img src="{{ asset('uploads/images/category/'.$item->icon) }}" class="img-category">
+                                        </div>
+                                        <div class="detail-category col-md-6">
+                                            <p>{{ $item->name }}</p>
                                         </div>
                                     </div>
+                                </a>
+                            </div>
+                        @endforeach
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2 class="page-heading">
+                    <span class="page-heading-title">Gợi ý hôm nay</span>
+                </h2>
+                <div class="latest-deals-product">
+                    <ul class="product-list owl-carousel" data-dots="false" data-loop="true" data-nav = "true" data-margin = "10" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":5}}'>
+                        @if (count($recomendPro) > 0)
+                        @foreach ($recomendPro as $element)
+                            <li>
+                                <div class="left-block">
+                                    <a href="{{ url('san-pham/'.$element->url) }}"><img class="img-responsive" alt="product" src="{{ asset('uploads/images/products/'.$element->image) }}" /></a>
 
-                                 </div><!-- /.tab-content -->
-                             </div><!-- /#emtabs_1 -->
-                         </div>
-                     </div>
-                 </div><!-- /.em-new-arrivals-tabs -->
-             </div><!-- /.em-wrapper-new-arrivals-tabs -->
+                                        <div class="add-to-cart">
+                                            <a title="Add to Cart" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Add to Cart</a>
+                                        </div>
 
-             <div class="em-wrapper-banners hidden-xs">
-                 <div class="em-effect06">
-                     <a class="em-eff06-03" title="em-sample-title" href="#"> <img class="img-responsive" alt="em-sample-alt" src="{{ asset('frontend/images/wysiwyg/em_ads_10.jpg') }}" /> </a>
-                 </div>
-             </div><!-- /.em-wrapper-banners -->
+                                    <div class="price-percent-reduction2">
+                                        -{{$element->sale}}%
+                                    </div>
+                                </div>
+                                <div class="right-block">
+                                    <h5 class="product-name"><a href="#">{{ $element->name }}</a></h5>
+                                    <div class="content_price">
+                                        <span class="price product-price">{{ number_format($element->promotional_price)}}</span>
+                                        <span class="price old-price">{{ number_format($element->price)}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2 class="page-heading">
+                    <span class="page-heading-title">Siêu khuyến mại</span>
+                </h2>
+                <div class="latest-deals-product">
+                    <ul class="product-list">
+                        @if (count($salePro) > 0)
+                        @foreach ($salePro as $element)
+                            <li class="col-md-2-5">
+                                <div class="left-block">
+                                    <a href="{{ url('san-pham/'.$element->url) }}"><img class="img-responsive" alt="product" src="{{ asset('uploads/images/products/'.$element->image) }}" /></a>
 
-             <div class="em-best-sales em-wrapper-product-15">
-                 <div class="emfilter-ajaxblock-loaded">
-                     <div class="em-grid-15 custom-product-grid">
-                         <div class="widget-title em-widget-title">
-                             <h3><span>Giảm giá nhiều nhất</span></h3>
-                         </div>
-                         <div  class="em-tabs emtabs r-tabs">
-                            <div class="em-tabs-content tab-content">
-                               <div class="wrapper button-show01 button-hide-text em-wrapper-loaded">
-                                   <div class="emfilter-ajaxblock-loaded">
-                                       <div class="em-grid-20 ">
+                                        <div class="add-to-cart">
+                                            <a title="Add to Cart" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Add to Cart</a>
+                                        </div>
 
-                                           <div class="widget em-filterproducts-grid">
-                                               <div class="widget-products em-widget-products">
-                                                   <div class="emcatalog-desktop-4">
-                                                       <div class="products-grid ">
-                                                           @if (count($recomendPro) > 0)
-                                                               @foreach ($recomendPro as $item)
-                                                                   <div class="item" style="  ">
-                                                                       <div class="product-item">
-                                                                           <div class="product-shop-top">
-                                                                               <a href="#" title="{{ $item->name }}" class="product-image">
-                                                                                   @if ($item->sale > 0)
-                                                                                   <ul class="productlabels_icons">
-                                                                                       <li class="label special">
-                                                                                           <p>
-                                                                                               <span>-{{ $item->sale }}%</span> </p>
-                                                                                       </li>
-                                                                                   </ul>
-                                                                                   @endif
-                                                                                   <img style="" class="img-responsive" src="{{ asset('uploads/images/products/'.$item->image)}}" height="350" width="350">
-                                                                               </a>
-                                                                           </div><!-- /.product-shop-top -->
+                                    <div class="price-percent-reduction2">
+                                        -{{$element->sale}}%
+                                    </div>
+                                </div>
+                                <div class="right-block">
+                                    <h5 class="product-name"><a href="#">{{ $element->name }}</a></h5>
+                                    <div class="content_price">
+                                        <span class="price product-price">{{ number_format($element->promotional_price)}}</span>
+                                        <span class="price old-price">{{ number_format($element->price)}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                        @foreach ($salePro as $element)
+                        <li class="col-md-2-5">
+                            <div class="left-block">
+                                <a href="{{ url('san-pham/'.$element->url) }}"><img class="img-responsive" alt="product" src="{{ asset('uploads/images/products/'.$element->image) }}" /></a>
 
-                                                                           <div class="product-shop">
-                                                                               <div class="f-fix">
-                                                                                   <!--product name-->
-                                                                                   <h3 style="min-height: 19px;" class="product-name"><a href="#" title=""> {{ $item->name }}</a></h3>
-                                                                                   @if ($item->sale > 0)
-                                                                                   <div class="price-box">
-                                                                                       <p class="old-price">
-                                                                                           <span class="price-label">Regular Price:</span>
-                                                                                           <span class="price" id="old-price-184-emprice-165caa30959cee82d2cf6c2c473c2079">đ {{  number_format($item->price)  }}</span>
-                                                                                       </p>
-                                                                                       <p class="special-price">
-                                                                                           <span class="price-label">Special Price</span>
-                                                                                           <span class="price" content="90" id="product-price-184-emprice-165caa30959cee82d2cf6c2c473c2079">đ {{  number_format($item->promotional_price	)  }}</span>
-                                                                                       </p>
-                                                                                   </div>
-                                                                                   @else
-                                                                                   <div class="price-box">
-                                                                                       <span class="regular-price" id="product-price-177-emprice-659da6b027ea5433ad0a985675d8fd89">
-                                                                                               <span class="price">đ {{  number_format($item->price)  }}</span> </span>
+                                    <div class="add-to-cart">
+                                        <a title="Add to Cart" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Add to Cart</a>
+                                    </div>
 
-                                                                                   </div>
-                                                                                   @endif
+                                <div class="price-percent-reduction2">
+                                    -{{$element->sale}}%
+                                </div>
+                            </div>
+                            <div class="right-block">
+                                <h5 class="product-name"><a href="#">{{ $element->name }}</a></h5>
+                                <div class="content_price">
+                                    <span class="price product-price">{{ number_format($element->promotional_price)}}</span>
+                                    <span class="price old-price">{{ number_format($element->price)}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                        @endif
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div id="content-wrap">
+    <div class="container">
+        <!-- blog list -->
+        <div class="blog-list">
+            <h2 class="page-heading">
+                <span class="page-heading-title" onclick="">Tin tức</span>
+            </h2>
+            <div class="blog-list-wapper">
+                <ul class="owl-carousel" data-dots="false" data-loop="true" data-nav = "true" data-margin = "30" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
+                    {{-- @foreach ($dataBlog as $element)
+                    <li>
+                        <div class="post-thumb image-hover2">
+                            <a href="{{ url('bai-viet/'.$element->id) }}"><img src="{{ asset('public/uploads/images/blog/'.$element->image) }}" alt="Blog"></a>
+                        </div>
+                        <div class="post-desc">
+                            <h5 class="post-title">
+                                <a href="{{ url('bai-viet/'.$element->id) }}">{{$element->name}}</a>
+                            </h5>
+                            <div class="post-meta">
+                                <span class="date">{{date("d-m-Y", strtotime($element->created_at))}}</span>
 
+                            </div>
+                            <div class="readmore">
+                                <a href="{{ url('bai-viet/'.$element->id) }}">Đọc tiếp</a>
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach --}}
+                </ul>
+            </div>
+        </div>
+        <!-- ./blog list -->
+    </div> <!-- /.container -->
+</div>
+<script src="{{ asset('public/admin/notify.js') }}"></script>
+<script>
+$(".addTocart").click(function() {
+   let id = $(this).data("id");
+   let name = $(this).data("name");
+   let price = $(this).data("price");
+   let quantity = $(this).data("quantity");
+   let avatar = $(this).data("avatar");
+   let url = $(this).data("url");
+   let product_id = $(this).data("product_id");
+   let action = $(this).data("action");
+   $.ajax({
+        url: action,
+        type: "POST",
+        dataType: 'JSON',
+        headers: {
+              'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        },
+        data: {id: id, product_name: name, price: price, qty: quantity, avatar: avatar
+            , url: url, product_id: product_id},
+        success: function(data){
+            console.log(data);
+              if (data.status =="_success") {
+                    $('html, body').animate({scrollTop: 0}, 2000);
+                    $("#cart-block").html(data['cartblock']);
+                    $.notify(data.success,"success");
+              }
+              else
+              {
+                 $('html, body').animate({scrollTop: 0}, 'slow');
+                  $.notify(data.msg,"error");
+              }
+        },
+        error: function(err){
+            console.log(err);
+        }
+    });
 
-
-                                                                               </div>
-                                                                           </div><!-- /.product-shop -->
-                                                                       </div>
-                                                                   </div>
-                                                               @endforeach
-
-                                                           @endif
-                                                         <!-- item --><!-- item -->
-                                                       </div><!-- /.products-grid -->
-                                                   </div><!-- /.emcatalog-desktop-4 -->
-                                               </div><!-- /.widget-products -->
-                                           </div><!-- /.widget -->
-
-                                       </div><!-- /#em_fashion_new_arrivals_tab01 -->
-                                   </div>
-                               </div>
-
-                            </div><!-- /.tab-content -->
-                        </div><!-- /#emtabs_1 -->
-
-
-                     </div><!-- /.em-grid-15 -->
-                 </div>
-             </div><!-- /.em-best-sales -->
-         </div><!-- /.em-col-main -->
-        <!-- /.em-sidebar -->
-     </div>
- </div><!-- /.em-main-container -->
-@include('layouts.frontend.area04')
-<!-- /.em-wrapper-area04 -->
-@include('layouts.frontend.area05')
-<!-- /.em-wrapper-area05 -->
-
-
+ });
+</script>
+<style>
+    .product-list li.col-md-2-5 {
+        width: 19%;
+    }
+     .box-category:hover {
+        border: 1px solid #eaeaea;
+    }
+    .main-content .box-category .img-category {
+        max-width: 100%;
+    }
+    .main-content .owl-controls .owl-prev{
+        left: -24px;
+    }
+    .main-content .owl-controls .owl-next{
+        right: -24px;
+    }
+    .main-content .owl-carousel .item {
+        background: #ffffff;
+    }
+</style>
 @endsection

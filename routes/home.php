@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 //Auth
 Route::get('/','HomeController@index');
 Route::get('/dang-nhap','LoginController@dangnhap');
