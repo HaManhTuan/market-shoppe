@@ -33,5 +33,10 @@ Route::get('introl/{url}', 'HomeController@introl');
 //Contac
 Route::get('contact', 'HomeController@contact');
 Route::post('contact-post', 'HomeController@contactpost');
+//SignUp Product
+Route::get('contact-product', 'HomeController@contactProduct');
+Route::get('get-district/{id}', 'HomeController@getDistrict');
+Route::get('get-ward/{id}', 'HomeController@getWard');
+Route::post('dang-ki-product', 'HomeController@postSignUpPro');
 //Search
 Route::get('/search', 'HomeController@search');

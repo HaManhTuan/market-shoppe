@@ -34,5 +34,7 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::get('them-thuong-hieu', 'BrandManagerController@addView')->name('manager.brand.add');
     Route::post('them-thuong-hieu-do', 'BrandManagerController@add')->name('manager.brand.addPost');
     Route::post('xoa-thuong-hieu', 'BrandManagerController@delete')->name('manager.brand.delete');
+    //stalls
+    Route::get('gian-hang', 'StallManagerController@index')->name('manager.stalls');
 
 });

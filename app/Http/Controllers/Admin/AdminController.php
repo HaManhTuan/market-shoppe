@@ -17,21 +17,33 @@ class AdminController extends Controller
     }
     public function dangnhap(Request $req){
         $data = $req->all();
-        if (Auth::attempt(['email' =>$data['email'], 'password' => $data['password'], 'admin' => '1'])) {
-              $msg = [
-                  'status' => '_success',
-                  'msg'    => 'Loading ...'
-              ];
-              return response()->json($msg);
-        }
-        else {
+        $checkUser = User::where('email', $data['email'])->first();
+        if($checkUser && $checkUser->admin = 1) {
+            if (Auth::attempt(['email' =>$data['email'], 'password' => $data['password'], 'admin' => '1'])) {
                 $msg = [
-                  'status' => '_error',
-                  'msg'    => 'Tài khoản hoặc mật khẩu sai
-                  '
-              ];
-              return response()->json($msg);
+                    'status' => '_success',
+                    'msg'    => 'Loading ...'
+                ];
+                return response()->json($msg);
+          }
+          else {
+                    $msg = [
+                    'status' => '_error',
+                    'msg'    => 'Tài khoản hoặc mật khẩu sai
+                    '
+                ];
+                return response()->json($msg);
+            }
+        } else {
+            $msg = [
+                'status' => '_error',
+                'msg'    => 'Tài khoản không tồn tại
+                '
+            ];
+            return response()->json($msg);
         }
+
+
     }
     public function logout()
     {

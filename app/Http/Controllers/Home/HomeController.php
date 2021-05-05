@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Model\Product;
 use App\Model\Category;
 use App\Model\ProductImage;
+use App\Model\Province;
+use App\Model\District;
+use App\Model\Ward;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -112,4 +116,80 @@ class HomeController extends Controller
        $data_send = ['output' => $output, 'script' => $script];
         return response()->json($data_send);
        }
+
+    public function contactProduct()
+    {
+       $provine = Province::all();
+       return view('frontend.signup_product', compact('provine'));
+    }
+
+    public function getDistrict($id)
+    {
+
+        $output = '';
+        $output .= '<option value="" selected disabled>--Chọn Quận/Huyện--</option>';
+        $district = District::where('province_id', $id)->get();
+        if (count($district) > 0) {
+            foreach($district as $row)
+            {
+             $output .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+            }
+        }
+        $data_send = ['body' => $output,'id' => $district];
+        return response()->json($data_send);
+    }
+
+    public function getWard($id)
+    {
+
+        $output = '';
+        $output .= '<option value="" selected disabled>--Chọn Phường/Xã--</option>';
+        $district = Ward::where('district_id', $id)->get();
+        if (count($district) > 0) {
+            foreach($district as $row)
+            {
+             $output .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+            }
+        }
+        $data_send = ['body' => $output,'id' => $district];
+        return response()->json($data_send);
+    }
+
+    public function postSignUpPro(Request $req)
+    {
+        $checkEmail = User::where('email', $req->email)->count();
+        if ($checkEmail > 0) {
+          $msg = [
+            'status' => '_error',
+            'msg'    => 'Email này đã tồn tại. Vui lòng nhập email khác
+            '
+          ];
+          return response()->json($msg);
+        } else {
+            $user = new User();
+            $user->name = $req->name_re;
+            $user->email = $req->email_re;
+            $user->password = Hash::make($req->password);
+            $user->address = $req->address;
+            $user->admin = 0;
+            $user->province_id = $req->province_id;
+            $user->district_id = $req->district_id;
+            $user->ward_id = $req->ward_id;
+            if ($user->save()) {
+                $msg = [
+                'status' => '_success',
+                'msg'    => 'Đăng kí tài khoản thành công
+                '
+                ];
+                return response()->json($msg);
+            } else {
+                $msg = [
+                'status' => '_error',
+                'msg'    => 'Lỗi
+                '
+                ];
+                return response()->json($msg);
+            }
+        }
+    }
 }

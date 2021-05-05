@@ -78,7 +78,7 @@
                 </a>
             </li>
             <li class=" ">
-                <a href="animation.htm">
+                <a href="{{ route('manager.stalls') }}">
                     <span class="pcoded-micon"><i class="feather icon-aperture rotate-refresh"></i></span>
                     <span class="pcoded-mtext">Quản lý gian hàng</span>
                 </a>

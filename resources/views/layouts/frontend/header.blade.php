@@ -2,8 +2,8 @@
     <div class="top-header">
         <div class="container">
             <div class="nav-top-links">
-                <a class="first-item" href="#"><img alt="phone" src="{{ asset('frontend/assets/images/phone.png') }}" /></a>
                 <a href="{{ url('/contact') }}"><img alt="email" src="{{ asset('frontend/assets/images/email.png') }}" />Liên hệ !</a>
+                <a href="{{ url('/contact-product') }}"><img alt="phone" src="{{ asset('frontend/assets/images/phone.png') }}" />Đăng kí gian hàng !</a>
             </div>
 
             <div class="support-link">
@@ -13,7 +13,7 @@
 
 
             </div>
-             {{-- @if(Auth::guard('customers')->check())
+             @if(Auth::guard('customers')->check())
                 <div id="user-info-top" class="user-info pull-right">
                     <div class="dropdown">
                         <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>{{Auth::guard('customers')->user()->name}}</span></a>
@@ -23,8 +23,6 @@
                         </ul>
                     </div>
                 </div>
-
-
              @else
                 <div id="user-info-top" class="user-info pull-right">
                     <div class="dropdown">
@@ -34,7 +32,7 @@
                         </ul>
                     </div>
                 </div>
-             @endif --}}
+             @endif
         </div>
     </div>
     <!--/.top-header -->
