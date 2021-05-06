@@ -97,6 +97,10 @@
                                 </form>
                             </div>
                             <div class="col-md-8">
+                                @if ($products && count($products) > 0)
+                                    <button class="btn btn-primary" id="btn-turn-on-all" data-id="{{$user->id}}">Kích hoạt tất cả</button>
+                                    <button class="btn btn-danger" id="btn-turn-off-all" data-id="{{$user->id}}">Dừng kích hoạt tất cả</button>
+                                @endif
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
@@ -149,38 +153,6 @@
 <script src="{{ asset('frontend/assets/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/notify.js') }}"></script>
 <script>
-    $(document).on("click", "#btn-change-status", function() {
-        console.log($(this).data('id'))
-        let id = $(this).data('id');
-        $.ajax({
-            url: "{{route('manager.stalls.changeStatus')}}",
-            type: 'POST',
-            data: {id: id},
-            dataType: 'JSON',
-            headers: {
-                'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
-            },
-            success: function(data) {
-                console.log(data);
-                if (data.status == '_success') {
-                    window.location.reload();
-                } else {
-                    window.location.reload();
-                }
-            },
-            error: function(err) {
-                console.log(err);
-                Swal({
-                    title: 'Error ' + err.status,
-                    text: err.responseText,
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK',
-                    type: 'error'
-                });
-            }
-        });
-    })
     function notify(from, align, type, message){
         $.growl({
             title: '',
@@ -217,8 +189,38 @@
             '</div>'
         });
     };
-
-
+    $(document).on("click", "#btn-change-status", function() {
+        console.log($(this).data('id'))
+        let id = $(this).data('id');
+        $.ajax({
+            url: "{{route('manager.stalls.changeStatus')}}",
+            type: 'POST',
+            data: {id: id},
+            dataType: 'JSON',
+            headers: {
+                'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+            },
+            success: function(data) {
+                console.log(data);
+                if (data.status == '_success') {
+                    window.location.reload();
+                } else {
+                    window.location.reload();
+                }
+            },
+            error: function(err) {
+                console.log(err);
+                Swal({
+                    title: 'Error ' + err.status,
+                    text: err.responseText,
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    type: 'error'
+                });
+            }
+        });
+    })
     $(document).on('click', '#btn-change-info', function() {
         $("#frm-change-info").validate({
          submitHandler: function() {
@@ -247,6 +249,60 @@
             });
          }
         });
-       });
+    });
+    $(document).on('click', '#btn-turn-on-all', function() {
+        $("#frm-change-info").validate({
+         submitHandler: function() {
+            let id = $(this).data('id');
+            $.ajax({
+              url: "{{route('manager.stalls.changeAllStatusOnProduct')}}",
+              type: "POST",
+              dataType: 'JSON',
+              data: {id: id},
+              headers: {
+               'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+              },
+              success: function(data){
+               if (data.status == '_success') {
+                notify('top', 'right', 'success', data.msg);
+               }
+               else{
+                notify('top', 'right', 'error', data.msg);
+               }
+              },
+              error:function(error){
+               console.log(error);
+              }
+            });
+         }
+        });
+    });
+    $(document).on('click', '#btn-turn-off-all', function() {
+        $("#frm-change-info").validate({
+         submitHandler: function() {
+            let id = $(this).data('id');
+            $.ajax({
+              url: "{{route('manager.stalls.changeAllStatusOffProduct')}}",
+              type: "POST",
+              dataType: 'JSON',
+              data: {id: id},
+              headers: {
+               'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+              },
+              success: function(data){
+               if (data.status == '_success') {
+                notify('top', 'right', 'success', data.msg);
+               }
+               else{
+                notify('top', 'right', 'error', data.msg);
+               }
+              },
+              error:function(error){
+               console.log(error);
+              }
+            });
+         }
+        });
+    });
 </script>
 @endsection
