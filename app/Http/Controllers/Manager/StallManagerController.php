@@ -56,18 +56,56 @@ class StallManagerController extends Controller
             User::where('id', $id)->update(['admin' => 1]);
             $msg = [
                 'status' => '_success',
-                'msg'    => 'Thay đổi thành công1'
+                'msg'    => 'Thay đổi thành công'
               ];
               return response()->json($msg);
         } else {
             User::where('id', $id)->update(['admin' => 0]);
             $msg = [
                 'status' => '_success',
-                'msg'    => 'Thay đổi thành công2'
+                'msg'    => 'Thay đổi thành công'
               ];
               return response()->json($msg);
         }
 
+    }
+
+    public function changeAllStatusOnProduct(Request $req)
+    {
+        $id = $req->id;
+        $updatePro = Product::where('author_id', $id)->update(['status' => 1]);
+        if($updatePro) {
+            $msg = [
+                'status' => '_success',
+                'msg'    => 'Thay đổi thành công1'
+              ];
+              return response()->json($msg);
+        } else {
+            $msg = [
+                'status' => '_error',
+                'msg'    => 'Lỗi vui lòng thử lại'
+              ];
+              return response()->json($msg);
+        }
+    }
+
+    public function changeAllStatusOffProduct(Request $req)
+    {
+        $id = $req->id;
+        $updatePro = Product::where('author_id', $id)->update(['status' => 0]);
+        if($updatePro) {
+            $msg = [
+                'status' => '_success',
+                'msg'    => 'Thay đổi thành công1'
+              ];
+              return response()->json($msg);
+        } else {
+            $msg = [
+                'status' => '_error',
+                'msg'    => 'Lỗi vui lòng thử lại'
+              ];
+              return response()->json($msg);
+        }
     }
 
 }

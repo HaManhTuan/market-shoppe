@@ -47,7 +47,8 @@ class ProductController extends Controller
         $request['promotional_price'] = $promotional_price;
         $request['stock'] = $req->stock;
         $request['brand_id'] = $req->brand_id;
-        $request['status'] = $req->has('status') ? '1' : '0';
+        //$request['status'] = $req->has('status') ? '1' : '0';
+        $request['status'] = 0;
         $target_save = "public/uploads/images/products/";
         if ($req->hasFile('file'))
         {
@@ -146,7 +147,8 @@ class ProductController extends Controller
             $request['price'] = $price;
              $request['brand_id'] = $req->brand_id;
             $request['promotional_price'] = $promotional_price;
-            $request['status'] = $req->has('status') ? '1' : '0';
+            //$request['status'] = $req->has('status') ? '1' : '0';
+            $request['status'] = 0;
             $target_save = "public/uploads/images/products/";
             if ($req->hasFile('file'))
             {

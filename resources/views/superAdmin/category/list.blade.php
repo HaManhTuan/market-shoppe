@@ -76,7 +76,6 @@
                                             <div class="box-status-cus">
                                                 <div class="label-name" style="width: 35%;display: inline-block;">Customer:</div>
                                                 <input type="checkbox" class="status-customer" {{ $item->status_cus == 1 ? 'checked' : '' }} data-id={{ $item->id }} name="status_update_cus" data-toggle="toggle" data-onstyle="danger" style="width: 70%;display: inline-block;" data-size="xs">
-
                                             </div>
                                         </td>
                                         <td>

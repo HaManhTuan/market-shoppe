@@ -39,5 +39,7 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::get('xem-gian-hang/{id}', 'StallManagerController@view')->name('manager.stalls.view');
     Route::post('change-info', 'StallManagerController@changeInfo')->name('manager.stalls.changeInfo');
     Route::post('change-status', 'StallManagerController@changeStatus')->name('manager.stalls.changeStatus');
+    Route::post('change-all-status-on-product', 'StallManagerController@changeAllStatusOnProduct')->name('manager.stalls.changeAllStatusOnProduct');
+    Route::post('change-all-status-off-product', 'StallManagerController@changeAllStatusOffProduct')->name('manager.stalls.changeAllStatusOffProduct');
 
 });
