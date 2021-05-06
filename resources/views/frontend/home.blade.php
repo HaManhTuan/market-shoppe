@@ -9,7 +9,7 @@
                 </h2>
                 <div class="main-content" style="margin-top: 15px">
                     <div class="owl-carousel owl-theme"  data-dots="false" data-loop="true" data-nav = "true" data-margin = "30" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
-                        @if (count($cateParent) > 0)
+                        @if (isset($cateParent) && count($cateParent) > 0)
                          @foreach ($cateParent as $item)
                             <div class="item">
                                 <a href="{{ url('danh-muc/'.$item['url']) }}">

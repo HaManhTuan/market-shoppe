@@ -36,5 +36,8 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::post('xoa-thuong-hieu', 'BrandManagerController@delete')->name('manager.brand.delete');
     //stalls
     Route::get('gian-hang', 'StallManagerController@index')->name('manager.stalls');
+    Route::get('xem-gian-hang/{id}', 'StallManagerController@view')->name('manager.stalls.view');
+    Route::post('change-info', 'StallManagerController@changeInfo')->name('manager.stalls.changeInfo');
+    Route::post('change-status', 'StallManagerController@changeStatus')->name('manager.stalls.changeStatus');
 
 });

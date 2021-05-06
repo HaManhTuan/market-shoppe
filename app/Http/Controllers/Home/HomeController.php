@@ -10,6 +10,7 @@ use App\Model\Province;
 use App\Model\District;
 use App\Model\Ward;
 use App\User;
+use Hash;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -169,6 +170,7 @@ class HomeController extends Controller
             $user = new User();
             $user->name = $req->name_re;
             $user->email = $req->email_re;
+            $user->phone = $req->phone;
             $user->password = Hash::make($req->password);
             $user->address = $req->address;
             $user->admin = 0;
