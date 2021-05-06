@@ -96,7 +96,7 @@ class StallManagerController extends Controller
         if($updatePro) {
             $msg = [
                 'status' => '_success',
-                'msg'    => 'Thay đổi thành công1'
+                'msg'    => 'Thay đổi thành công'
               ];
               return response()->json($msg);
         } else {
@@ -106,6 +106,25 @@ class StallManagerController extends Controller
               ];
               return response()->json($msg);
         }
+    }
+
+    public function changeStatusOne(Request $req)
+    {
+        $id         = $req->id;
+        $status = $req->status === 'true' ? 1 : 0;
+		if (Product::where('id',$id)->update(['status' => $status])) {
+			$msg = [
+				'status' => '_success',
+				'msg'    => 'Thay đổi thành công.'
+			];
+			return response()->json($msg);
+		} else {
+			$msg = [
+				'status' => '_error',
+				'msg'    => 'Error.'
+			];
+			return response()->json($msg);
+		}
     }
 
 }

@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function viewpro()
     {
-        $products = Product::with('category')->orderBy('created_at', 'asc')
+        $products = Product::with('category')->where('author_id', Auth::id())->orderBy('created_at', 'asc')
             ->get();
         $data_send = ['products' => $products];
         return view('backend.product.list')->with($data_send);
