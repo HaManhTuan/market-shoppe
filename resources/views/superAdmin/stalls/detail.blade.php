@@ -96,18 +96,21 @@
                                     </table>
                                 </form>
                             </div>
+
                             <div class="col-md-8">
+
                                 @if ($products && count($products) > 0)
                                     <button class="btn btn-primary" id="btn-turn-on-all" data-id="{{$user->id}}">Kích hoạt tất cả</button>
                                     <button class="btn btn-danger" id="btn-turn-off-all" data-id="{{$user->id}}">Dừng kích hoạt tất cả</button>
                                 @endif
-                                <table class="table table-striped table-bordered">
+                                <table id="tablePro" class="table table-striped table-bordered" style="margin-top: 5px">
                                     <thead>
                                         <tr>
+                                            <th scope="col" style="text-align:center">TT </th>
                                             <th scope="col">Tên sản phẩm</th>
                                             <th scope="col" style="width: 200px;">Ảnh đại diện</th>
-                                            <th scope="col" class="text-center">Danh mục</th>
-                                            <th scope="col" style="text-align:center">SL </th>
+                                            <th scope="col">Giá</th>
+                                            <th scope="col">TT</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -115,28 +118,28 @@
                                         @php
                                         $stt = 1;
                                         @endphp
-                                        @foreach ($products as $record)
+                                        @foreach ($products as $key => $record)
                                             <tr class="tr-item" id="tr-item-{{$record->id}}">
                                                 <td>
-                                                    {{ $record->name}} <br>
-                                                    =========================
-                                                    <p class="">Giá: <span class="text-danger">{{ number_format($record->price) }}</span> VNĐ</p>
+                                                    {{ $key + 1}}
+                                                </td>
+                                                <td>
+                                                    {{ $record->name}}
+                                                </td>
+                                                <td><img src="{{ asset('uploads/images/products/'.$record->image) }}" style="max-width: 50%;"></td>
+                                                <td>
+                                                    <p class="">Giá: <span class="text-danger">{{ number_format($record->price) }}</span> đ</p>
                                                     @if ($record->promotional_price > 0)
-                                                    <p class="">Giá KM: <span class="text-success">{{ number_format($record->promotional_price) }}</span> VNĐ</p>
+                                                    <p class="">Giá KM: <span class="text-success">{{ number_format($record->promotional_price) }}</span> đ</p>
                                                     <p class="">Sale: <span class="text-success">{{ ($record->sale) }}</span> %</p>
                                                     @endif
-                                                    =========================
-                                                    <p>Người tạo: {{ $record->user->name }}</p>
-                                                    ========================= <br>
-                                                    <p>Ngày tạo: {{ $record->created_at }}</p>
-                                                    ========================= <br>
-                                                    <p>Ngày nhập hàng: {{ $record->updated_at }}</p>
+                                                    <p class="">Số  lượng: <span class="text-danger">{{ $record->stock }}</span></p>
                                                 </td>
-                                                <td><img src="{{ asset('uploads/images/products/'.$record->image) }}" style="max-width: 100%;"></td>
                                                 <td>
-                                                    {{ $record->category->name }}
+                                                    <div class="box-status" style="margin-bottom: 3px;">
+                                                        <input type="checkbox" class="status-web" checked data-id={{ $record->id }} name="status" data-toggle="toggle" data-onstyle="success"  style="width: 70%;display: inline-block;" data-size="xs">
+                                                    </div>
                                                 </td>
-                                                <td>{{ $record->stock }}</td>
                                             </tr>
                                         @endforeach
                                         @endif
@@ -150,6 +153,11 @@
         </div>
     </div>
 </div>
+<style>
+    .dataTables_wrapper {
+        margin-top: 15px;
+    }
+</style>
 <script src="{{ asset('frontend/assets/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/notify.js') }}"></script>
 <script>
@@ -251,35 +259,32 @@
         });
     });
     $(document).on('click', '#btn-turn-on-all', function() {
-        $("#frm-change-info").validate({
-         submitHandler: function() {
-            let id = $(this).data('id');
-            $.ajax({
-              url: "{{route('manager.stalls.changeAllStatusOnProduct')}}",
-              type: "POST",
-              dataType: 'JSON',
-              data: {id: id},
-              headers: {
-               'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
-              },
-              success: function(data){
-               if (data.status == '_success') {
-                notify('top', 'right', 'success', data.msg);
-               }
-               else{
-                notify('top', 'right', 'error', data.msg);
-               }
-              },
-              error:function(error){
-               console.log(error);
-              }
-            });
-         }
+        let id = $(this).data('id');
+        $.ajax({
+          url: "{{route('manager.stalls.changeAllStatusOnProduct')}}",
+          type: "POST",
+          dataType: 'JSON',
+          data: {id: id},
+          headers: {
+           'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+          },
+          success: function(data){
+           if (data.status == '_success') {
+            $(".status-web").each(function(key, val){
+                $(this).bootstrapToggle('on');
+            })
+            notify('top', 'right', 'success', data.msg);
+           }
+           else{
+            notify('top', 'right', 'error', data.msg);
+           }
+          },
+          error:function(error){
+           console.log(error);
+          }
         });
     });
     $(document).on('click', '#btn-turn-off-all', function() {
-        $("#frm-change-info").validate({
-         submitHandler: function() {
             let id = $(this).data('id');
             $.ajax({
               url: "{{route('manager.stalls.changeAllStatusOffProduct')}}",
@@ -291,6 +296,9 @@
               },
               success: function(data){
                if (data.status == '_success') {
+                $(".status-web").each(function(key, val){
+                    $(this).bootstrapToggle('off');
+                })
                 notify('top', 'right', 'success', data.msg);
                }
                else{
@@ -301,8 +309,72 @@
                console.log(error);
               }
             });
-         }
-        });
     });
+    $(document).ready(function () {
+        $(".status-web").each(function(key, val){
+            if($(this).prop('checked')) {
+                $(val).bootstrapToggle('on');
+            } else {
+                $(val).bootstrapToggle('off');
+            }
+        });
+        $('#tablePro').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "order": [],
+            "columnDefs": [ {
+            "targets"  : [2],
+            "orderable": false,
+            }],
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ bản ghi",
+                "zeroRecords": "Không tìm thấy - sorry",
+                "info": "Hiển thị _PAGE_ of _PAGES_",
+                "infoEmpty": "Khồn có kết quả",
+                "infoFiltered": "(đang lọc từ _MAX_ tổng số bản ghi)",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "previous": "Trước",
+                    "next": "Sau",
+                }
+            },
+            "fnDrawCallback": function( oSettings ) {
+                $('.status-web').bootstrapToggle();
+            }
+        });
+        $(document).on("change", ".status-web", function() {
+            let id = $(this).data('id')
+            $.ajax({
+                    url: "{{ route('manager.stalls.changeStatusOne') }}",
+                    type: 'POST',
+                    data: { id: id, status:  $(this).prop('checked')  },
+                    dataType: 'JSON',
+                    headers: {
+                        'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == '_success') {
+                            notify('top', 'right', 'success', data.msg);
+                        } else {
+                            notify('top', 'right', 'error', data.msg);
+                        }
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        Swal({
+                            title: 'Error ' + err.status,
+                            text: err.responseText,
+                            showCancelButton: false,
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK',
+                            type: 'error'
+                        });
+                    }
+                });
+        })
+    })
 </script>
 @endsection
