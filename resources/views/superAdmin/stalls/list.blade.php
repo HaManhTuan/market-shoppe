@@ -70,7 +70,7 @@
                                             @endif</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary waves-effect">
+                                            <button type="button" class="btn btn-primary waves-effect" onclick="location.href='{{ route('manager.stalls.view', ['id' => $item->id]) }}'">
                                            <i class="fa fa-eye"></i></button>
                                         </td>
                                     </tr>

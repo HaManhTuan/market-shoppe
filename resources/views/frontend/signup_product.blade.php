@@ -29,7 +29,7 @@
                         <form action="{{ url('/dang-ki-product') }}" method="POST" id="frm-register" onsubmit="return false;">
                           @csrf
                           <label for="name_register">Tên</label>
-                          <input id="name_register" type="text" class="form-control" name="name" id="name" data-rule-required="true" data-msg-required="Vui lòng nhập tên." >
+                          <input id="name_register" type="text" class="form-control" name="name_re" id="name" data-rule-required="true" data-msg-required="Vui lòng nhập tên." >
                           <label for="phone_register">Số điện thoại</label>
                           <input id="phone_register" type="text" class="form-control" name="phone" id="phone" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại."  data-rule-minlength="10" data-msg-minlength="Số điện thoại phải 10 kí tự" data-rule-maxlength="10" data-msg-maxlength="Số điện thoại phải 10 kí tự" data-rule-number="true" data-msg-number="Số điện thoại phải là số">
                           <label for="emmail_register">Email</label>
