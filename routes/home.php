@@ -40,3 +40,5 @@ Route::get('get-ward/{id}', 'HomeController@getWard');
 Route::post('dang-ki-product', 'HomeController@postSignUpPro');
 //Search
 Route::get('/search', 'HomeController@search');
+//Shop
+Route::get('/shop/{id}', 'HomeController@shop');

@@ -178,13 +178,13 @@ class CategoryController extends Controller
             $file  = $req->file('file');
             $name  = $file->getClientOriginalName();
             $image = Str::random(4)."_".$name;
-            while (file_exists("public/uploads/images/category/".$image)) {
+            while (file_exists("uploads/images/category/".$image)) {
                 $image = Str::random(4)."_".$name;
             }
-            $file->move("public/uploads/images/category", $image);
+            $file->move("uploads/images/category", $image);
             $category->icon= $image;
             if (isset($req->old_file) && $req->old_file != '') {
-                unlink("public/uploads/images/category/".$req->old_file);
+                unlink("uploads/images/category/".$req->old_file);
             }
 
         } else {

@@ -4,7 +4,7 @@
            <div id="introduce-box" class="row">
                <div class="col-md-4">
                    <div id="address-box">
-                       <a href="#"><img src="{{ asset('public/frontend/assets/images/logo2.png') }}" alt="logo" /></a>
+                       <a href="#"><img src="{{ asset('frontend/assets/images/logo2.png') }}" alt="logo" /></a>
                        <div id="address-list">
                            <div class="tit-name">Địa chỉ:</div>
                            {{-- <div class="tit-contain">{{$dataConfig->address}}.</div>
@@ -67,7 +67,7 @@
            <div id="footer-menu-box">
                <div class="col-sm-12">
                    <ul class="footer-menu-list">
-                       <li><a href="{{ url('/') }}" >Đồ chơi ô tô Hoàng Lãm</a></li>
+                       <li><a href="{{ url('/') }}" >KuteShop</a></li>
                    </ul>
                </div>
            </div><!-- /#footer-menu-box -->

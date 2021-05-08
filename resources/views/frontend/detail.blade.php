@@ -133,6 +133,11 @@
                                 <div class="info-orther">
                                     <p>Trạng thái: <span class="in-stock">{{$dataPro->stock < 1 ? "Hết hàng" : "Còn hàng"}}</span></p>
                                 </div>
+                                <div class="info-orther">
+                                    <p>Thương hiệu: <span class="in-stock">
+                                        {{$dataPro->brand == 0 ? 'Không' : $dataPro->brand->name}}</span>
+                                    </p>
+                                </div>
                                 <div class="product-desc">
                                    {!! $dataPro->description!!}
                                 </div>
@@ -153,6 +158,37 @@
                             </div>
                         </div>
                         <!-- tab product -->
+                        <div class="company row" style="margin:50px 0px;border: 1px solid #e2e2e2;">
+                            <div class="col-md-4" style="padding: 30px 20px;border-right: 1px solid #e2e2e2;">
+                                <div class="img-company" style="width: 30%; float:left;">
+                                    <img src="{{ asset('admin/assets/images/avatar-1.jpg') }}" style="border-radius: 50%;
+                                    max-width: 100%;">
+                                </div>
+                                <div class="info-company" style="width: 70%; float:left;padding-left: 30px;">
+                                    <p style="font-size: 18px;
+                                    padding-bottom: 15px;">Tuệ Trẩu</p>
+                                    <button style="height: 35px;
+                                    width: auto;
+                                    line-height: 35px;
+                                    font-size: 14px;
+                                    color: #fff;
+                                    display: inline-block;
+                                    margin: 0px auto;
+                                    text-align: center;
+                                    clear: both;
+                                    padding-left: 15px;
+                                    padding-right: 15px;
+                                    background: #F36;"
+                                    onclick="window.location.href='{{ url('shop/'.$dataPro->user->id) }}'">Xem Shop</button>
+                                </div>
+                            </div>
+                            <div class="col-md-8" style="padding: 30px 20px;">
+                                <div>
+                                    <p style="margin-bottom:15px">Sản phẩm: {{ $countPro }}</p>
+                                    <p>Ngày tham gia: {{ ($dataPro->user->created_at)->format('d-m-Y') }}</p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="product-tab">
                             <ul class="nav-tab">
                                 <li class="active">

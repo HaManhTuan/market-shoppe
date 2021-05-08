@@ -26,13 +26,15 @@ class HomeController extends Controller
     {
         $dataTop4News = Product::orderBy('created_at','ASC')->paginate(4);
         $dataNews = Product::orderBy('created_at','ASC')->paginate(16);
-        $dataPro = Product::where('url',$url)->first();
+        $dataPro = Product::where('url',$url)->with('user','brand')->first();
+        $author_id = $dataPro->user->id;
+        $countPro =  Product::where('author_id', $dataPro->user->id)->count();
         $dataPro->increment('count_view');
         $nameCate = Category::where('id',$dataPro->category_id)->first();
         $dataCate = Category::with('categories')->where('id',$nameCate->id)->first();
         $dataImage = ProductImage::where('product_id',$dataPro->id)->get();
         $dataReleast = Product::where('category_id',$nameCate->id);
-        $data_send = ['nameCate' => $nameCate, 'dataPro' => $dataPro,'dataCate' => $dataCate,'dataTop4News' => $dataTop4News, 'dataImage' => $dataImage, 'dataReleast' => $dataReleast, 'dataNews' => $dataNews];
+        $data_send = ['countPro' => $countPro,'nameCate' => $nameCate, 'dataPro' => $dataPro,'dataCate' => $dataCate,'dataTop4News' => $dataTop4News, 'dataImage' => $dataImage, 'dataReleast' => $dataReleast, 'dataNews' => $dataNews];
         return view('frontend.detail')->with($data_send);
     }
 
@@ -193,5 +195,43 @@ class HomeController extends Controller
                 return response()->json($msg);
             }
         }
+    }
+
+    public function search(Request $req)
+    {
+       $key = $req->key;
+       $id_cate = [];
+       $dataSearch = Product::where('name','LIKE','%'.$req->key.'%')->paginate(12);
+       if($dataSearch && count($dataSearch) == 0) {
+         $idCate = Category::where('name','LIKE','%'.$req->key.'%')->pluck('id')->toArray();
+         foreach ($idCate as $value) {
+            $id_cate [] = $value;
+         }
+
+         //array_push($id_cate, $idCate);
+         $dataCate = Category::whereIn('id', $idCate)->with('categories')->get();
+         if(isset($dataCate)) {
+            foreach($dataCate as $value){
+                if(count($value->categories) > 0){
+                    foreach($value->categories as $item) {
+                        if (in_array($item->id, $id_cate) == false) {
+                            $id_cate[] = $item->id;
+                        }
+                    }
+                }
+            }
+            $dataSearch = Product::whereIn('category_id', $id_cate)->paginate(12);
+         }
+       }
+       $data_send = ['dataSearch' => $dataSearch,
+       'key' => $req->key];
+       return view('frontend.search')->with($data_send);
+    }
+
+    public function shop($id)
+    {
+        $userData = User::find($id);
+        $dataPro = Product::where('author_id', $id)->with('user')->paginate(24);
+        return view('frontend.shop', compact('dataPro','userData'));
     }
 }

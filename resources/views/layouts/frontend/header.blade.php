@@ -99,10 +99,10 @@
     <div id="nav-top-menu" class="nav-top-menu">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6" id="box-vertical-megamenus">
+                <div class="col-sm-2" id="box-vertical-megamenus">
                     <div class="box-vertical-megamenus">
                     <h4 class="title">
-                        <span class="title-menu">Tiến Tuệ Market kính chào quý khách</span>
+                        <span class="title-menu">Kute Shop</span>
                         <span class="btn-open-mobile pull-right home-page"><i class="fa fa-bars"></i></span>
                     </h4>
                     <div class="vertical-menu-content is-home">
@@ -121,13 +121,13 @@
                                 <a class="navbar-brand" href="#">MENU</a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
-                                {{-- <ul class="nav navbar-nav">
-                                    <li class="{{(request()->is('/') ? "active":"")}}"><a href=" {{ url('/') }}">Trang chủ</a></li>
-                                    <li class="{{(request()->is('gia-soc') ? "active":"")}}"><a href="{{ url('/gia-soc') }}">Giá sốc</a></li>
-                                    @foreach ($dataLanding  as $key => $element)
-                                     <li><a href="{{ url('/introl/'.$element->url) }}">{{ $element->name}}</a></li>
-                                    @endforeach
-                                </ul> --}}
+                                <ul class="nav navbar-nav">
+                                    @if ($cateRandom)
+                                        @foreach ($cateRandom as $item)
+                                            <li><a href="{{ url('danh-muc/'.$item['url']) }}">{{ $item->name }}</a></li>
+                                        @endforeach
+                                    @endif
+                                </ul>
                             </div><!--/.nav-collapse -->
                         </div>
                     </nav>

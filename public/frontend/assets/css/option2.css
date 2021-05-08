@@ -132,14 +132,14 @@ background: red;
 	padding-top: 9px;
 }
 .option2 .main-header .header-search-box .form-inline .btn-search{
-	background-color: #958457;
+	background-color: #f53d2d;
 }
 
 .option2 .nav-top-menu.nav-ontop{
-	background: #958457;
+	background: #f53d2d;
 }
 .option2 .nav-top-menu{
-	background: #958457;
+	background: #f53d2d;
 }
 .option2 #main-menu .navbar{
 	border-radius: 0;
@@ -151,12 +151,12 @@ background: red;
 .option2 #main-menu .navbar-default .navbar-nav>li:last-child>a{
 	background: none;
 }
-.option2 #main-menu .navbar .navbar-nav>li:hover, 
+.option2 #main-menu .navbar .navbar-nav>li:hover,
 .option2 #main-menu .navbar .navbar-nav>li.active{
 	background-image: none;
-	background: #ab9d77;
+	background: #f53d2d;
 }
-.option2 #main-menu .navbar .navbar-nav>li:hover a, 
+.option2 #main-menu .navbar .navbar-nav>li:hover a,
 .option2 #main-menu .navbar .navbar-nav>li.active a{
 	background: none;
 }
@@ -174,14 +174,14 @@ background: red;
 }
 
 .option2 .box-vertical-megamenus .title{
-	background: #4c311d;
+	background: linear-gradient(-180deg,#f53d2d,#f63);
 }
 .option2 .box-vertical-megamenus .vertical-menu-content{
 	border-top: none;
 }
 
 .option2 .nav-ontop #box-vertical-megamenus .title{
-	background: #958457;
+	background: linear-gradient(-180deg,#f53d2d,#f63);
 	color: #fff;
 	border-left: none;
 }
@@ -212,7 +212,7 @@ background: red;
 .option2 .header-top-right .homeslider {
 	width: 100%;
 }
-.option2 .header-top-right .homeslider .bx-controls-direction .bx-prev, 
+.option2 .header-top-right .homeslider .bx-controls-direction .bx-prev,
 .option2 .header-top-right .homeslider .bx-controls-direction .bx-next{
 	background: #958457;
 }
@@ -285,12 +285,12 @@ background: red;
 	font-weight: bold;
 }
 .option2 .page-heading span.page-heading-title{
-	border-bottom: 3px solid #958457;
+	border-bottom: 3px solid #f96d10;
 }
 
-.option2 .owl-controls .owl-prev:hover, 
+.option2 .owl-controls .owl-prev:hover,
 .option2 .owl-controls .owl-next:hover {
-  background: #958457;
+  background: #f53d2d;
   color: #fff;
 }
 
@@ -298,7 +298,7 @@ background: red;
 	background: #eaeaea;
 }
 .option2 #main-menu .dropdown-menu .block-container .group_header>a{
-	border-color: #958457;
+	border-color: #f53d2d;
 }
 
 /*
@@ -418,7 +418,7 @@ background: red;
 	width: 100%;
 	float: left;
 	border-left: 1px solid #eaeaea;
-} 
+}
 .option2 .product-featured .product-featured-tab-content .box-full .product-list li{
 	width: 20%;
 	float: left;
@@ -428,7 +428,7 @@ background: red;
 	padding-right: 0;
 }
 .option2 .product-featured .product-featured-tab-content .category-banner img{
-	
+
 }
 .option2 .product-featured .product-featured-tab-content .category-list-product{
 	padding-left: 0;
@@ -447,7 +447,7 @@ background: red;
 	min-height: 286px;
 }
 
-.option2 .product-featured .owl-prev, 
+.option2 .product-featured .owl-prev,
 .option2 .product-featured .owl-next {
   background: transparent;
   width: 28px;
@@ -463,7 +463,7 @@ background: red;
 .option2 .product-featured .owl-prev{
 	background: url("../images/prev.png") no-repeat center center;
 }
-.option2 .product-featured .owl-prev .fa, 
+.option2 .product-featured .owl-prev .fa,
 .option2 .product-featured .owl-next .fa{
 	font-weight: normal;
 	line-height: 28px;
@@ -505,8 +505,8 @@ background: red;
   transform: translateY(-50%);*/
 }
 .option2 .product-featured .deal-product .deal-product-head h3>span{
-	background: #fff; 
-    padding: 0 5px; 
+	background: #fff;
+    padding: 0 5px;
     font-size: 14px;
     font-weight: bold;
 }
@@ -933,11 +933,11 @@ background: red;
 	margin-top: 60px;
 }
 .option2 #mail-box .btn{
-	background: #958457;
+	background: #f53d2d;
 }
 
 .option2 .scroll_top:hover{
-	background: #958457;
+	background: #f53d2d;
 }
 
 
@@ -983,7 +983,7 @@ background: red;
 [11. Styles for devices(>1200px)]
 */
 @media (min-width: 1201px){
-	
+
 }
 /*----------------
 [12. Styles for devices(>=993px and <=1200px)]
@@ -1063,12 +1063,12 @@ background: red;
 	.option2 .product-featured .product-featured-tab-content .category-list-product .product-list li{
 		width: 33.3333%;
 	}
-	
+
 }
 /*--------------------
 [14. Styles for devices(>=481px and <=767px)]
 */
-@media (min-width: 481px) and (max-width: 767px) { 
+@media (min-width: 481px) and (max-width: 767px) {
 	.group-button-header{
 		width: 100%;
 		margin-top: 30px;
@@ -1126,7 +1126,7 @@ background: red;
 		margin-left: 0;
 		padding: 5px 15px;
 	}
-	
+
 	.option2 .nav-menu .nav>li>a:after{
 		display: none;
 	}
@@ -1230,7 +1230,7 @@ background: red;
 		margin-left: 0;
 		padding: 5px 15px;
 	}
-	
+
 	.option2 .nav-menu .nav>li>a:after{
 		display: none;
 	}

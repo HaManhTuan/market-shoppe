@@ -10,7 +10,7 @@
 #loadMore {
     padding: 10px;
     text-align: center;
-    background-color: #4c311d;
+    background-color: #f53d2d;
     color: #fff;
     border-width: 0 1px 1px 0;
     border-style: solid;
@@ -159,41 +159,7 @@
                 </div>
                 <!-- ./block category  -->
                 <!-- block filter -->
-                <div class="block left-module">
-                    <p class="title_block">Khoảng giá</p>
-                    <div class="block_content">
-                        <!-- layered -->
-                        <div class="layered layered-filter-price">
-                            <!-- filter price -->
-                            <div class="layered_subtitle">giá</div>
-                            <div class="layered-content slider-range">
-                                <input type="hidden" id="hidden_minimum_price" value="0" />
-                                <input type="hidden" id="hidden_maximum_price" value="12000000" />
-                                <div data-label-reasult="Giá:" data-min="0" data-max="12000000" data-unit="VNĐ" class="slider-range-price" data-value-min="100000" data-value-max="1000000"></div>
-                                <div class="amount-range-price">Giá: 300 nghìn - 1 triệu</div>
-                            </div>
-                            <!-- ./filter price -->
-                            <!-- ./filter brand -->
-                            <div class="layered_subtitle">nơi bán</div>
-                            <div class="layered-content filter-brand">
-                                <ul class="check-box-list">
-                                    {{-- @foreach ($dataBrand as $element)
-                                        <li>
-                                            <input type="checkbox" id="brand{{ $element->id}}" name="cc" class="common_selector brand" value="{{ $element->id}}"/>
-                                            <label for="brand{{ $element->id}}">
-                                            <span class="button"></span>
-                                                {{ $element->name}}
-                                            </label>
-                                        </li>
-                                    @endforeach --}}
-                                </ul>
-                            </div>
-                            <!-- ./filter brand -->
-                        </div>
-                        <!-- ./layered -->
 
-                    </div>
-                </div>
                 <!-- ./block filter  -->
             </div>
             <!-- ./left colunm -->
@@ -213,7 +179,7 @@
                 <!-- ./view-product-list-->
                   <div class="sortPagiBar">
                     <div class="bottom-pagination">
-                        <button id="loadMore">Load more</button>
+                        <button id="loadMore">Nhiều hơn</button>
                     </div>
                 </div>
             </div>
