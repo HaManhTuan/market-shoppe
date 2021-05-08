@@ -86,7 +86,6 @@
         <div class="card">
             <div class="card-header">
                <h5 class="card-title">Khách hàng
-                  <span class="label label-primary btn-send-mail" style="margin-left: 10px" onclick='window.location.href="{{ url('admin/order/send-mail/'.$orderDetail->id) }}"'>Gửi Mail</span>
                </h5>
             </div>
           <div class="card-body">
@@ -128,14 +127,14 @@
           </div>
         </div>
     </div>
-    @can('change_status_order')
+
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
         <div class="card">
             <div class="card-header">
                <h5 class="card-title">Trạng thái đơn hàng
                 <input type="hidden" name="order_id" id="order_id" value="{{ $orderDetail->id }}">
             <input type="hidden" name="customer_id" id="customer_id" value="{{ $customerDetail->id }}">
-             <select name="order_status" id="order_status" class="form-control" style="width: 180px;margin-left: 50px;display: inline-block;"> 
+             <select name="order_status" id="order_status" class="form-control" style="width: 180px;margin-left: 50px;display: inline-block;">
                 @if ($orderDetail->order_status == 4)
                      <option value="4" selected="" disabled="">Đã chuyển</option>
                 @else
@@ -144,20 +143,13 @@
                   <option value="3">Đang chuyển</option>
                   <option value="4">Đã chuyển</option>
                   <option value="5">Đã hủy</option>
-                @endif    
+                @endif
            </select>
                </h5>
             </div>
-         <div class="card-body">
-          @if (isset($log) && $log != "")
-              
-       {{ $log->user_id }} | {{ $log->meta }} | {{ $log->created_at}}<br> 
-          @endif
-         
-         </div>
         </div>
     </div>
-    @endcan
+
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
         <div class="card-header">
@@ -169,6 +161,7 @@
                        <tr>
                           <th>Tên sản phẩm</th>
                           <th>Giá</th>
+                          <th style="width: 200px;">Ảnh</th>
                           <th>Số lượng</th>
                           <th>Tổng tiền</th>
                        </tr>
@@ -179,21 +172,20 @@
                        <tr>
                           <td>{{ $value->product_name }}</td>
                           <td>{{ number_format($value->price) }}</td>
+                          <td>
+                              <img src="{{ asset('uploads/images/products/'.$value->product->image) }}" style="max-width: 25%;" alt="">
+                          </td>
                           <td>{{ $value->quantity }}</td>
                           <td>{{ number_format($value->price*$value->quantity) }}</td>
                        </tr>
                        <?php $total_amount = $total_amount+($value->quantity*$value->price);?>
                        @endforeach
+                       <tr>
+                           <td colspan="4">Tổng tiền:</td>
+                           <td style="color:brown;font-weight: bold; width: 142px;">{{ number_format($total_amount) }}</td>
+                       </tr>
                     </tbody>
             </table>
-            <table class="table table-bordered">
-                  <thead>
-                     <tr>
-                        <th>Tổng tiền</th>
-                        <th style="color:brown;font-weight: bold; width: 142px;">{{ number_format($total_amount) }}</th>
-                     </tr>
-                  </thead>
-               </table>
         </div>
     </div>
 </div>

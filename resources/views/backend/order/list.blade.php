@@ -62,9 +62,9 @@
                                           <span class="label label-danger" style="margin-left: 10px">Đã hủy</span>
                                       @endif</td>
                                       <td>
-                                        @can('view_order')
+
                                         <a href="{{ url('admin/order/view-orderdetail/'.$orders->id) }}">Chi tiết</a>
-                                        @endcan
+
                                       </td>
                                   </tr>
                                   @endforeach
@@ -88,3 +88,4 @@
   });
 </script>
 @endsection
+

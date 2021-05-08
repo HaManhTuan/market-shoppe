@@ -2,12 +2,12 @@
 <html>
 <head>
   <title>Hóa Đơn - {{ $id }}</title>
-  <link rel="shortcut icon" href="{{ asset('public/admin/img/favicon.png')}}">
+  <link rel="shortcut icon" href="{{ asset('admin/img/favicon.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta charset="utf-8">
-      <link href="{{ asset('public/admin/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet">
       <style>
         .widget{
         padding: 12px 17px;
@@ -49,7 +49,7 @@
             <div class="body no-margin">
                 <div class="row">
                     <div class="col-sm-6 col-print-6">
-                        <img src="{{ asset('public/uploads/images/config/'.$dataConfig->img_logo)}}" alt="Logo" class="invoice-logo">
+                        {{-- <img src="{{ asset('uploads/images/config/'.$dataConfig->img_logo)}}" alt="Logo" class="invoice-logo"> --}}
                     </div>
                     <div class="col-sm-6 col-print-6">
                         <div class="invoice-number text-align-right">
@@ -65,14 +65,14 @@
                 <section class="invoice-info well">
                     <div class="row">
                         <div class="col-sm-6 col-print-6">
-                            <h4 class="details-title">Thông tin siêu thị</h4>
+                            <h4 class="details-title">Thông tin</h4>
                             <h3 class="company-name">
-                                {{ $dataConfig->title }}
+                                {{-- {{ $dataConfig->title }} --}}
                             </h3>
                             <address>
-                              <abbr >Địa chỉ:</abbr> {{ $dataConfig->address }}<br>
+                              {{-- <abbr >Địa chỉ:</abbr> {{ $dataConfig->address }}<br>
                                 <abbr >e-mail:</abbr> {{ $dataConfig->email }}<br>
-                                <abbr>Số điện thoại:</abbr> {{ $dataConfig->phone }}<br>
+                                <abbr>Số điện thoại:</abbr> {{ $dataConfig->phone }}<br> --}}
                             </address>
                         </div>
                         <div class="col-sm-6 col-print-6 client-details">
@@ -138,7 +138,7 @@
                     </div>
                 </div>
                 <p class="text-right mt-lg mb-xs">
-                    Người lập hóa đơn
+                    Cửa hàng
                 </p>
                 <p class="text-right">
                     <span class="fw-semi-bold">{{ Auth::user()->name }}</span>

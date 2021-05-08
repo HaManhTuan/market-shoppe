@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Model\Customer;
+use App\Model\OrderUser;
+use Illuminate\Support\Facades\Auth;
+
 class CustomerController extends Controller
 {
   public function view()
   {
-    $customer = Customer::orderBy('created_at','asc')->get();
+    $customer_id = OrderUser::where('user_id', Auth::id())->get('customer_id')->toArray();
+    $customer = Customer::whereIn('id', $customer_id)->orderBy('created_at','asc')->get();
     $data_send=[
       'customer'=>$customer
     ];

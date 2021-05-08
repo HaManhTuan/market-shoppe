@@ -39,8 +39,16 @@
         </div>
     </div>
     <div class="col-xs-12 col-lg-12">
-
-    </div>
+        @if ($dataProExp->count() > 0)
+       <div class="alert alert-danger alert-dismissible bounceInDown animated">
+         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+         <h4><i class="icon fa fa-ban"></i> Thông báo sản phẩm sắp hết hàng!</h4>
+         @foreach($dataProExp as $value)
+             <span class="key">{{ $value->name }} - Còn lại: <span>{{ $value->stock }} </span> sản phẩm </span> <a href="{{ url('admin/product/edit-pro/'.$value->url) }}"><i class="fa fa-undo"></i> Nhập hàng</a><br>
+         @endforeach
+       </div>
+        @endif
+ </div>
 </div>
 <div class="ecommerce-widget">
     <div class="row">
@@ -49,11 +57,12 @@
                 <div class="card-body">
                     <h5 class="text-muted">Tổng doanh thu</h5>
                     <div class="metric-value d-inline-block">
-                        <h4 class="mb-1"></h4>
+                        <h4 class="mb-1">{{ isset($total_revenue) ? number_format($total_revenue) : ''}}</h4>
                     </div>
                     <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-
-                    %</span>
+                        <span><i class="{{ isset($perCurrrentY) && $perCurrrentY > 0 ? 'fa fa-fw fa-arrow-up' : 'fa fa-fw fa-arrow-down'}}"></i></span><span>
+                            {{ isset($perCurrrentY) && $perCurrrentY > 0 ? number_format($perCurrrentY) : '' }}
+                        %</span>
                     </div>
                     <div id="sparkline-revenue">
 
@@ -66,7 +75,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Tổng doanh thu năm nay</h5>
                     <div class="metric-value d-inline-block">
-                        <h4 class="mb-1"></h4>
+                        <h4 class="mb-1">{{ isset($revenueCurrentY) ? number_format($revenueCurrentY) : ''}}</h4>
                     </div>
                 </div>
                 <div id="sparkline-revenue2"></div>
@@ -77,7 +86,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Doanh thu tháng này</h5>
                     <div class="metric-value d-inline-block">
-                       <h4 class="mb-1"></h4>
+                        <h4 class="mb-1">{{ isset($revenueCurrentM) ? number_format($revenueCurrentM) : ''}}</h4>
                     </div>
                     <div class="metric-label d-inline-block float-right text-primary font-weight-bold">
                         <span>N/A</span>
@@ -110,7 +119,38 @@
                 <h5 class="card-header">Đon hàng cần xử lý</h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
+                        @if ($ordersNews->count() > 0)
+                        <h5 class="tab-header"><i class="fa fa-star"></i> Danh sách đơn hàng - <a href="{{ url('admin/order/view') }}">Chi tiết</a></h5>
+                        <table class="table table-bordered table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên</th>
+                                    <th>SĐT</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ordersNews as $item)
+                                <tr class='clickable-row' data-href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'>
 
+                                    <td>{{ $item->id  }}</td>
+                                    <td>{{ $item->name  }}</td>
+                                    <td>{{ $item->phone  }}</td>
+                                    <td>
+                                         @foreach($item->orders as $value)
+                                        {{ $value->product_name }}
+                                        @endforeach
+                                    </td>
+                                    <td>{{ number_format($item->total_price) }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @else
+                      <h5 align="center">Không có đơn hàng nào mới</h5>
+                      @endif
                     </div>
                 </div>
             </div>
@@ -127,50 +167,6 @@
         <!-- end customer acquistion  -->
         <!-- ============================================================== -->
     </div>
-    <div class="row">
-        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0"> Tổng doanh thu</h5>
-                </div>
-                <div class="card-body">
-                    <div id="morris_totalrevenue"></div>
-                </div>
-                <div class="card-footer">
-
-
-                </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- end product sales  -->
-        <!-- ============================================================== -->
-        <div class="col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12">
-            <!-- ============================================================== -->
-            <!-- top perfomimg  -->
-            <!-- ============================================================== -->
-            <div class="card">
-                <h5 class="card-header">Top Khách Hàng Mua Nhiều</h5>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table no-wrap p-table">
-                            <thead class="bg-light">
-                                <tr class="border-0">
-                                    <th class="border-0">Tên</th>
-                                    <th class="border-0">Đơn hàng</th>
-                                    <th class="border-0">Tổng tiền</th>
-                                </tr>
-                            </thead>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- end top perfomimg  -->
-            <!-- ============================================================== -->
-        </div>
-    </div>
 
     <div class="row">
         <!-- ============================================================== -->
@@ -181,7 +177,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Tổng số sản phẩm</h5>
                     <div class="metric-value d-inline-block">
-
+                        <h1 class="mb-1">{{ isset($totalPro) ? $totalPro : '' }}</h1>
                     </div>
                     {{-- <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                         <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5.86%</span>
@@ -200,7 +196,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Số lượng khách hàng</h5>
                     <div class="metric-value d-inline-block">
-
+                        <h1 class="mb-1">{{ isset($total_customer) ? $total_customer : '' }}</h1>
                     </div>
 {{--                     <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                         <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">10%</span>
@@ -219,7 +215,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Tổng số đơn hàng đã thanh toán</h5>
                     <div class="metric-value d-inline-block">
-
+                        <h1 class="mb-1">{{ isset($totalOrderS) ? $totalOrderS : ''}}</h1>
                     </div>
                     {{-- <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                         <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5%</span>
@@ -238,7 +234,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Tổng số đơn hàng</h5>
                     <div class="metric-value d-inline-block">
-
+                        <h1 class="mb-1">{{ isset($totalOrder) ? $totalOrder : ''}}</h1>
                     </div>
                    {{--  <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
                         <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light "><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1">4%</span>
@@ -272,8 +268,18 @@
                                     <th class="border-0">Lượt xem</th>
                                 </tr>
                             </thead>
-
-
+                            @if ($viewPro)
+                            <tbody>
+                                @foreach ($viewPro as $viewPro)
+                                <tr>
+                                    <td>{{$viewPro->name}}</td>
+                                    <td>
+                                        {{$viewPro->count_view}}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            @endif
                         </table>
                     </div>
                 </div>
@@ -295,7 +301,23 @@
                                     <th class="border-0">Còn</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                @if ($buyPro)
+                                    @foreach ($buyPro as $buyPro)
+                                    <tr class="clickable-row" data-href={{url('admin/product/edit-pro/'.$buyPro->url)}}>
+                                        <td>{{$buyPro->name}}</td>
+                                        <td>
+                                            @if ($buyPro->stock == 0 )
+                                                Hết hàng
+                                            @else
+                                                {{$buyPro->stock}}
+                                            @endif
 
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
                         </table>
                     </div>
                 </div>

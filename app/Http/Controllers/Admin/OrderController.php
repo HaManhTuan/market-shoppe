@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Order;
+use App\Model\OrderUser;
+use App\Model\OrderDetailUser;
 use App\Model\Customer;
 use App\Model\Log;
 use App\Model\Config;
@@ -15,16 +17,12 @@ class OrderController extends Controller
 {
   public function view()
   {
-   $orders = Order::with('orders')->orderBy('id','DESC')->get();
+   $orders = OrderUser::with('orders')->where('user_id', Auth::id())->orderBy('id','DESC')->get();
    return view('backend.order.list')->with(compact('orders'));
   }
   public function vieworder ($id)
   {
-    if (!Gate::allows('view_order') || !Gate::allows('change_status_order'))
-      {
-          return view('backend.errors.401');
-      }
-    $orderDetail    = Order::with('orders')->with('customer')->find($id);
+    $orderDetail    = OrderUser::with('orders')->with('customer')->find($id);
     $customerDetail = Customer::find($orderDetail->customer_id);
     $log = Log::where('order_id',$id)->first();
     $data_send = ['orderDetail' => $orderDetail, 'customerDetail' => $customerDetail, 'log' => $log];
@@ -32,7 +30,7 @@ class OrderController extends Controller
   }
   public function changecustomer(Request $req)
   {
-    
+
     $customer          = Customer::find($req->id_cus);
     $customer->name    = $req->name;
     $customer->phone   = $req->phone;
@@ -53,7 +51,7 @@ class OrderController extends Controller
   }
   public function changestatus(Request $req)
   {
-    $orderStatus               = Order::with('orders')->find($req->order_id);
+    $orderStatus               = OrderUser::with('orders')->find($req->order_id);
     $orderStatus->order_status = $req->status;
     switch ($req->status) {
       case '1':
@@ -108,13 +106,13 @@ class OrderController extends Controller
   }
   public function invoice($id)
   {
-    $orderDetail = Order::with('orders')->find($id);
+    $orderDetail = OrderUser::with('orders')->find($id);
     $data_send =['id' => $id,'orderDetail'=>$orderDetail];
     return view("backend.order.invoice")->with($data_send);
   }
   public function sendEMail($id)
   {
-        $orderDetail    = Order::with('orders')->with('customer')->find($id);
+        $orderDetail    = OrderUser::with('orders')->with('customer')->find($id);
         $email = $orderDetail->email;
         $customerDetail = Customer::find($orderDetail->customer_id);
         $data = ['orderDetail' => $orderDetail,'customerDetail'=> $customerDetail,'email' =>$email];
