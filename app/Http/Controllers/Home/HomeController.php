@@ -32,9 +32,9 @@ class HomeController extends Controller
         $dataTop4News = Product::orderBy('created_at','ASC')->paginate(4);
         $dataNews = Product::orderBy('created_at','ASC')->paginate(16);
         $dataPro = Product::where('url',$url)->with('user','brand')->first();
-        $dataCmt = Comment::where('product_id', $dataPro->id)->with('customer')->get();
+        $dataCmt = Comment::where('product_id', $dataPro->id)->where('status', 1)->with('customer')->get();
         $author_id = $dataPro->user->id;
-        $countPro =  Product::where('author_id', $dataPro->user->id)->count();
+        $countPro =  Product::where('author_id', $author_id)->count();
         $dataPro->increment('count_view');
         $nameCate = Category::where('id',$dataPro->category_id)->first();
         $dataCate = Category::with('categories')->where('id',$nameCate->id)->first();

@@ -3,7 +3,7 @@
         <div class="pcoded-navigatio-lavel">Trang chủ</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="">
-                <a href="navbar-light.htm">
+                <a href="{{ route('manager.dashboard') }}">
                     <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
                     <span class="pcoded-mtext">Dashboard</span>
                 </a>
@@ -20,14 +20,9 @@
                             <span class="pcoded-mtext">Email</span>
                         </a>
                     </li>
-                    <li class=" ">
+                    <li class="">
                         <a href="{{ url('manager/view-config') }}">
                             <span class="pcoded-mtext">Cấu hình</span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="widget-data.htm">
-                            <span class="pcoded-mtext">Bình luận</span>
                         </a>
                     </li>
                 </ul>
@@ -81,6 +76,12 @@
                 <a href="{{ url('manager/contact/view') }}">
                     <span class="pcoded-micon"><i class="feather icon-cpu"></i></span>
                     <span class="pcoded-mtext">Liên hệ</span>
+                </a>
+            </li>
+            <li class=" ">
+                <a href="{{ url('manager/comment/view-comment') }}">
+                    <span class="pcoded-micon"><i class="feather icon-cpu"></i></span>
+                    <span class="pcoded-mtext">Bình luận</span>
                 </a>
             </li>
         </ul>

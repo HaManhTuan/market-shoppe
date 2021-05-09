@@ -1030,11 +1030,11 @@ $(document).ready(function() {
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [10, 34, 5],
-                backgroundColor: ["#fe9365", "#01a9ac", "#fe5d70"],
+                data: [50, 50],
+                backgroundColor: ["#fe9365", "#01a9ac"],
                 label: 'Dataset 1'
             }],
-            labels: ["Satisfied", "Unsatisfied", "NA"]
+            labels: ["Đã được chấp nhận", "Chưa chấp nhận"]
         },
         options: {
             maintainAspectRatio: false,

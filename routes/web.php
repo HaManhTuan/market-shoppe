@@ -67,4 +67,9 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
         Route::get('view-media', 'MediaManagerController@view');
         Route::post('edit-media', 'MediaManagerController@add');
     });
+    //Comment
+    Route::group(['prefix' => 'comment'], function () {
+        Route::get('view-comment', 'CommentManagerController@view');
+        Route::get('change-comment/{id}', 'CommentManagerController@change');
+    });
 });
