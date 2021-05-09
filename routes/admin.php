@@ -48,11 +48,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'User'], function () {
         Route::post('edit-media', 'MediaController@edit');
         Route::post('delete', 'MediaController@delete');
     });
-    //Config
-	Route::group(['prefix' => 'config', 'middleware' => 'User'], function () {
-        Route::match(['get','post'],'view-config', 'ConfigController@view');
-        Route::match(['get','post'],'edit-config', 'ConfigController@edit');
-    });
     //Product
 	Route::group(['prefix' => 'product', 'middleware' => 'User'], function () {
         Route::get('view-product', 'ProductController@viewpro');
@@ -88,12 +83,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'User'], function () {
         // Route::post('delete-brand', 'BrandController@delbrand');
     });
      //Contact
-    Route::group(['prefix' => 'contact', 'middleware' => 'Admin'], function () {
+    Route::group(['prefix' => 'contact', 'middleware' => 'User'], function () {
         Route::get('view', 'ContactController@view');
         Route::post('view-modal', 'ContactController@modal');
     });
     //Order
-    Route::group(['prefix' => 'order', 'middleware' => 'Admin'], function () {
+    Route::group(['prefix' => 'order', 'middleware' => 'User'], function () {
         Route::get('view', 'OrderController@view');
         Route::get('view-orderdetail/{id}', 'OrderController@vieworder');
         Route::post('change-customer', 'OrderController@changecustomer');

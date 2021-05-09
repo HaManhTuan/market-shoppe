@@ -3632,7 +3632,7 @@ span.notify-right{
   border-bottom: 3px solid #ccc;
 }
 .page-order ul.step li.current-step{
-  border-bottom: 3px solid #ff3366;
+  border-bottom: 3px solid #f63;
 }
 
 .page-order .heading-counter{
@@ -3673,9 +3673,9 @@ span.notify-right{
 }
 .page-order .cart_navigation a.next-btn{
   float: right;
-  background: #ff3366;
+  background: #f63;
   color: #fff;
-  border: 1px solid #ff3366;
+  border: 1px solid #f63;
 }
 .page-order .cart_navigation a.next-btn:hover{
   opacity: 0.8;
@@ -3694,7 +3694,7 @@ span.notify-right{
     padding-left: 15px;
 }
 .page-order .cart_navigation a:hover{
-  background: #ff3366;
+  background: #f63;
   color: #fff;
 }
 .cart_summary > thead,
@@ -4633,7 +4633,7 @@ span.notify-right{
   margin-right: 16px;
 }
 .group-button-header .btn-cart{
-  background: url("../images/icon-cart-round.png") no-repeat center center;
+  background: url("../images/icon-cart-round5.png") no-repeat center center;
   position: relative;
 }
 .group-button-header .btn-cart:after{

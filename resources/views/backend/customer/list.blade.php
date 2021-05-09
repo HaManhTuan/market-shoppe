@@ -47,7 +47,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
             <div class="card-body">
-                @if ($customer->count() > 0) 
+                @if ($customer->count() > 0)
                     <table class="table table-bordered" id="customer_table">
                         <thead>
                             <tr>
@@ -91,8 +91,8 @@
                         </tbody>
                     </table>
                 @else
-                 <p align="center" style="font-weight:bold">Data is empty</p>   
-                @endif 
+                 <p align="center" style="font-weight:bold">Data is empty</p>
+                @endif
             </div>
         </div>
     </div>

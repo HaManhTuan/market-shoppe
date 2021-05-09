@@ -4,50 +4,38 @@
            <div id="introduce-box" class="row">
                <div class="col-md-4">
                    <div id="address-box">
-                       <a href="#"><img src="{{ asset('frontend/assets/images/logo2.png') }}" alt="logo" /></a>
+                       <a href="#"><img src="{{ asset('uploads/images/config/'.$dataConfig->logo) }}" alt="logo" /></a>
                        <div id="address-list">
                            <div class="tit-name">Địa chỉ:</div>
-                           {{-- <div class="tit-contain">{{$dataConfig->address}}.</div>
+                           <div class="tit-contain">{{$dataConfig->address}}.</div>
                            <div class="tit-name">Liên hệ:</div>
                            <div class="tit-contain">{{$dataConfig->phone}}</div>
                            <div class="tit-name">Email:</div>
-                           <div class="tit-contain">{{$dataConfig->email}}</div> --}}
+                           <div class="tit-contain">{{$dataConfig->email}}</div>
                        </div>
                    </div>
                </div>
                <div class="col-md-6">
-{{--                     <div class="row">
+                    <div class="row">
                        <div class="col-sm-4">
-                           <div class="introduce-title">Company</div>
+                           <div class="introduce-title">Gian hàng</div>
                            <ul id="introduce-company"  class="introduce-list">
-                               <li><a href="#">About Us</a></li>
-                               <li><a href="#">Testimonials</a></li>
-                               <li><a href="#">Affiliate Program</a></li>
-                               <li><a href="#">Terms & Conditions</a></li>
-                               <li><a href="#">Contact Us</a></li>
+                               <li><a href="{{ url('/contact-product') }}">Đăng kí gian hàng</a></li>
                            </ul>
                        </div>
                        <div class="col-sm-4">
-                           <div class="introduce-title">My Account</div>
+                           <div class="introduce-title">Tài khỏan</div>
                            <ul id = "introduce-Account" class="introduce-list">
-                               <li><a href="#">My Order</a></li>
-                               <li><a href="#">My Wishlist</a></li>
-                               <li><a href="#">My Credit Slip</a></li>
-                               <li><a href="#">My Addresses</a></li>
-                               <li><a href="#">My Personal In</a></li>
+                               <li><a href="{{ url('/dang-nhap') }}">Tài khoản của bạn</a></li>
                            </ul>
                        </div>
                        <div class="col-sm-4">
-                           <div class="introduce-title">Support</div>
+                           <div class="introduce-title">Hỗ trợ</div>
                            <ul id = "introduce-support"  class="introduce-list">
-                               <li><a href="#">About Us</a></li>
-                               <li><a href="#">Testimonials</a></li>
-                               <li><a href="#">Affiliate Program</a></li>
-                               <li><a href="#">Terms & Conditions</a></li>
-                               <li><a href="#">Contact Us</a></li>
+                               <li><a href="{{ url('/contact') }}">Liên hệ với chúng tôi</a></li>
                            </ul>
                        </div>
-                   </div> --}}
+                   </div>
                </div>
                <div class="col-md-3">
                    <div id="contact-box">
@@ -67,7 +55,7 @@
            <div id="footer-menu-box">
                <div class="col-sm-12">
                    <ul class="footer-menu-list">
-                       <li><a href="{{ url('/') }}" >KuteShop</a></li>
+
                    </ul>
                </div>
            </div><!-- /#footer-menu-box -->

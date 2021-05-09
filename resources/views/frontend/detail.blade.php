@@ -203,8 +203,51 @@
                                    {!! $dataPro->content!!}
                                 </div>
                                 <div id="information" class="tab-panel">
-                                    <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#{{$dataPro->url}}" data-numposts="5" data-width="100%"></div>
-                                </div>
+                                    <div class="product-comments-block-tab">
+                                        @if ($dataCmt && count($dataCmt) > 0)
+                                            @foreach ($dataCmt as $item)
+                                            <div class="comment row">
+                                                <div class="col-sm-3 author">
+                                                    <div class="grade">
+                                                        <span>{{ $item->customer->name }}</span>
+                                                        <span class="reviewRating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="info-author">
+                                                        <em>{{ ($item->created_at)->format('d-m-Y') }}</em>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-9 commnet-dettail">
+                                                  {!! $item->content !!}
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        @endif
+                                        @if(Auth::guard('customers')->check())
+                                        <p>
+                                            <a class="btn-comment" id="btn-start-cmt">Bình luận !</a>
+                                        </p>
+                                        <div class="box-comment">
+                                            <form action="{{ url('comment') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $dataPro->id }}">
+                                                <input type="hidden" name="product_url" value="{{ $dataPro->url }}">
+                                                <input type="hidden" name="customer_id" value="{{ Auth::guard('customers')->user()->id }}">
+                                                <input class="form-control input-cmt" type="text" name="content" style="margin-top:70px;">
+                                                <button type="submit" class="btn btn-success btn-sb-cmt" style="margin-top:10px;" disabled>Đăng</button>
+                                            </form>
+                                        </div>
+                                        @else
+                                            <p>Hãy đăng nhập để bình luận - <a href="{{ url('dang-nhap') }}">Đăng nhập</a></p>
+                                        @endif
+
+                                    </div>
+                               </div>
                             </div>
                         </div>
                         <!-- ./tab product -->
@@ -284,8 +327,11 @@
         <!-- ./row-->
     </div>
 </div>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
+<style>
+    .box-comment {
+        display: none;
+    }
+</style>
 <script src="{{ asset('admin/notify.js') }}"></script>
 <script>
 function number_format(number, decimals, dec_point, thousands_sep) {
@@ -330,6 +376,21 @@ function number_format(number, decimals, dec_point, thousands_sep) {
             console.log(err);
         }
     });
+ });
+ $("#btn-start-cmt").click(function (e) {
+     e.preventDefault();
+     $(".box-comment").toggle(1000);
+
+ });
+
+ $(".box-comment input.input-cmt").keyup(function (e) {
+     console.log($(this).val())
+    if($(this).val() && $(this).val() != '') {
+         $(".btn-sb-cmt").removeAttr('disabled')
+    } else {
+        console.log('1')
+        $(".btn-sb-cmt").prop("disabled", true);
+    }
  });
 </script>
 @endsection

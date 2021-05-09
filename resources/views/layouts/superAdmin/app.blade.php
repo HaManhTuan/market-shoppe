@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('superAdmin/assets/css/dropify.css')}}">
     <script type="text/javascript" src="{{ asset('superAdmin/bower_components/jquery/js/jquery.min.js')}}"></script>
     <script src="{{ asset('superAdmin/assets/js/dropify.min.js')}}"></script>
+    <script src="{{ asset('admin/assets/js/plugins/notify.js') }}"></script>
 
 </head>
 

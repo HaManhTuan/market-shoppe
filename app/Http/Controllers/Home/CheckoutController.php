@@ -3,19 +3,34 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMailCart;
 use Illuminate\Http\Request;
 use Auth;
 use Cart;
 use DB;
 use App\Model\Order;
+use App\Model\Email;
 use App\Model\OrderDetail;
 use App\Model\OrderDetailUser;
 use App\Model\Customer;
 use App\Model\OrderUser;
 use App\Model\Product;
+use Mail;
+use Illuminate\Mail\Mailable;
 
 class CheckoutController extends Controller
 {
+    public function sendMail(Mailable $obj)
+    {
+        try {
+            Mail::send($obj);
+            return true;
+        } catch (\Exception $e) {
+            \Log::info('SEND MAIL ERROR: ' . $e->getMessage());
+            return false;
+        }
+    }
+
   public function step(){
     if (Auth::guard('customers')->check()) {
       return view('frontend.step');
@@ -98,8 +113,15 @@ class CheckoutController extends Controller
                         $orderdetail->save();
                     }
                 }
-
             }
+        $checkMail = Email::find(1);
+        $customer = Customer::where('id', Auth::guard('customers')->user()->id)->first();
+        $orderDetail = OrderDetail::latest()->first();
+        if($checkMail && $checkMail->is_send_mail_cart == 1 && $customer) {
+            \Log::info("Start send mail cart");
+            $this->sendMail(new SendMailCart($customer, $orderDetail));
+            \Log::info("End send mail cart");
+        }
          return redirect('cart/thanks');
       }
     }

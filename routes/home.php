@@ -42,3 +42,6 @@ Route::post('dang-ki-product', 'HomeController@postSignUpPro');
 Route::get('/search', 'HomeController@search');
 //Shop
 Route::get('/shop/{id}', 'HomeController@shop');
+//Comment
+Route::post('/comment', 'HomeController@comment');
+

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'AdminController@pagenotfound']);
 Route::get('manager/login', 'SuperAdminController@login');
 Route::post('manager/dang-nhap', 'SuperAdminController@dangnhap');
 Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
@@ -42,5 +42,29 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::post('change-status-one', 'StallManagerController@changeStatusOne')->name('manager.stalls.changeStatusOne');
     Route::post('change-all-status-on-product', 'StallManagerController@changeAllStatusOnProduct')->name('manager.stalls.changeAllStatusOnProduct');
     Route::post('change-all-status-off-product', 'StallManagerController@changeAllStatusOffProduct')->name('manager.stalls.changeAllStatusOffProduct');
-
+    //Products
+    Route::get('san-pham', 'ProductManagerController@index')->name('manager.product');
+    Route::post('chi-tiet-san-pham', 'ProductManagerController@detailPro')->name('manager.product.detail');
+    //Email
+    Route::get('cau-hinh-email', 'EmailManagerController@index')->name('manager.email');
+    Route::post('cau-hinh-email-cart', 'EmailManagerController@mailCart')->name('manager.email.mailCart');
+    Route::post('cau-hinh-email-pro', 'EmailManagerController@mailPro')->name('manager.email.mailPro');
+    //Config
+    Route::match(['get','post'],'view-config', 'ConfigManagerController@view');
+    Route::match(['get','post'],'edit-config', 'ConfigManagerController@edit');
+    //Contact
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('view', 'ContactManagerController@view');
+        Route::post('view-modal', 'ContactManagerController@modal');
+    });
+    //
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('view', 'ContactManagerController@view');
+        Route::post('view-modal', 'ContactManagerController@modal');
+    });
+    //Banner
+    Route::group(['prefix' => 'media'], function () {
+        Route::get('view-media', 'MediaManagerController@view');
+        Route::post('edit-media', 'MediaManagerController@add');
+    });
 });

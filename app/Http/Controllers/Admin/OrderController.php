@@ -9,7 +9,9 @@ use App\Model\OrderUser;
 use App\Model\OrderDetailUser;
 use App\Model\Customer;
 use App\Model\Log;
+use App\Model\Email;
 use App\Model\Config;
+use App\Model\Product;
 use Auth;
 use DB;
 use Mail;
@@ -24,8 +26,8 @@ class OrderController extends Controller
   {
     $orderDetail    = OrderUser::with('orders')->with('customer')->find($id);
     $customerDetail = Customer::find($orderDetail->customer_id);
-    $log = Log::where('order_id',$id)->first();
-    $data_send = ['orderDetail' => $orderDetail, 'customerDetail' => $customerDetail, 'log' => $log];
+    //$log = Log::where('order_id',$id)->first();
+    $data_send = ['orderDetail' => $orderDetail, 'customerDetail' => $customerDetail];
     return view('backend.order.detail')->with($data_send);
   }
   public function changecustomer(Request $req)
@@ -79,6 +81,7 @@ class OrderController extends Controller
         $log->save();
         foreach ($orderStatus->orders as $value) {
           $incrementBuy = DB::table('product')->where(['id' => $value->product_id])->increment('buy_count',$value->quantity);
+          $incrementCount = DB::table('product')->where(['id' => $value->product_id])->decrement('stock',$value->quantity);
         }
         if ($incrementBuy) {
           $msg = array(

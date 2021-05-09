@@ -6,14 +6,14 @@
             <div class="col-xs-12 col-sm-12" style="min-height: 235px;
             max-height: 235px;">
                 <div class="main-banner col-md-8" style="padding-right: 3px">
-                    <img src="https://cf.shopee.vn/file/701401705e80c5e0a76e851f613e8619_xxhdpi" style="max-width: 100%">
+                    <img src="{{ asset('uploads/images/media/'.$media->image_1) }}" style="max-width: 100%">
                 </div>
                 <div class="right-banner col-md-4" style="padding-left: 3px">
                     <div class="full-banner-right-1">
-                        <img src="https://cf.shopee.vn/file/b7b1c8aadf5a74189cddfd4439ad499f_xhdpi" style="max-width: 100%">
+                        <img src="{{ asset('uploads/images/media/'.$media->image_2) }}" style="max-width: 100%">
                     </div>
                     <div class="full-banner-right-2" style="padding-top: 6px">
-                        <img src="https://cf.shopee.vn/file/6912e2735beb663a918c9c7965367ff2_xhdpi" style="max-width: 100%">
+                        <img src="{{ asset('uploads/images/media/'.$media->image_3) }}" style="max-width: 100%">
                     </div>
                 </div>
             </div>

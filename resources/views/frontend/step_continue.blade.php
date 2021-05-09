@@ -4,6 +4,12 @@
     #same-order:hover{
         cursor: pointer;
     }
+    button.next-btn {
+    float: left;
+    background: #f63;
+    color: #fff;
+    border: 1px solid #f63;
+}
 </style>
 <div class="columns-container">
     <div class="container" id="columns">
@@ -56,7 +62,7 @@
                           </li>
 
                       </ul>
-                      <button class="button" type="submit" style="margin-top: 10px;">Thanh toán</button>
+                      <button class="button next-btn" type="submit" style="margin-top: 10px;">Thanh toán</button>
                        </form>
                   </div>
                 </div>
@@ -100,8 +106,8 @@
                     </tbody>
                     <tfoot>
                         <tr class="total-price">
-                            <td colspan="4"><strong>Tổng tiền: </strong></td>
-                            <td colspan="2" class="total-price-td"><strong>{{ number_format($cart_subtotal )}}</strong></td>
+                            <td colspan="6"><strong>Tổng tiền: </strong></td>
+                            <td class="total-price-td"><strong>{{ number_format($cart_subtotal )}}</strong></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -124,8 +130,8 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('public/frontend/assets/js/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('public/admin/notify.js') }}"></script>
+<script src="{{ asset('frontend/assets/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('admin/notify.js') }}"></script>
 <script>
     function number_format(number, decimals, dec_point, thousands_sep) {
     // * example 1: number_format(1234.5678, 2, '.', '');

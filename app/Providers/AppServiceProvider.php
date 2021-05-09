@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Model\Category;
+use App\Model\Config;
 use Cart;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('*', function ($view) {
+            $dataConfig = Config::find(1);
             $cart_data = Cart::getContent();
             $count_cart = $cart_data->count();
             $cart_subtotal = Cart::getSubTotal();
@@ -36,7 +38,8 @@ class AppServiceProvider extends ServiceProvider
                 'cart_data' => $cart_data ? $cart_data : [],
                 'count_cart' => $count_cart  ? $count_cart : 0,
                 'cart_subtotal' => $cart_subtotal  ? $cart_subtotal : 0,
-                'cateRandom' => $cateRandom  ? $cateRandom : []
+                'cateRandom' => $cateRandom  ? $cateRandom : [],
+                'dataConfig' => $dataConfig  ? $dataConfig : []
             ];
 
             if(count($cateParent)) {

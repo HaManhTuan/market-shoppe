@@ -51,7 +51,7 @@ class CartController extends Controller
                                 <span class="toal-price pull-right">'.number_format($cart_subtotal).'</span>
                             </div>
                             <div class="cart-buttons">
-                                <a href="order.html" class="btn-check-out">Thanh toán</a>
+                                <a href="'.url('view-cart').'" class="btn-check-out">Thanh toán</a>
                             </div>
                         </div>
                     </div>';

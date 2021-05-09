@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMediaTable extends Migration
+class CreateEmailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMediaTable extends Migration
      */
     public function up()
     {
-        Schema::create('media', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image_1')->nullable();
-            $table->string('image_2')->nullable();
-            $table->string('image_3')->nullable();
+        Schema::create('emails', function (Blueprint $table) {
+            $table->id();
+            $table->integer('is_send_mail_cart')->default(0);
+            $table->integer('is_send_mail_product_expried')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateMediaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('emails');
     }
 }

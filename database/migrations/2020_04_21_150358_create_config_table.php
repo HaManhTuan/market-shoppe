@@ -15,13 +15,13 @@ class CreateConfigTable extends Migration
     {
         Schema::create('config', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('logo');
-            $table->string('icon');
-            $table->string('email');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('title');
-            $table->string('description');
+            $table->string('logo')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('title')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

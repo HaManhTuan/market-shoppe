@@ -9,7 +9,10 @@ use App\Model\ProductImage;
 use App\Model\Province;
 use App\Model\District;
 use App\Model\Ward;
+use App\Model\Contact;
+use App\Model\Media;
 use App\User;
+use App\Model\Comment;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -17,16 +20,19 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $media = Media::find(1);
         $recomendPro = Product::where('status', 1)->with('product_image')->orderBy('created_at','DESC')->get();
         $salePro = Product::where('status', 1)->with('product_image')->where('sale','!=', 0)->orderBy('created_at','DESC')->get();
-        return view('frontend.home')->with(['recomendPro' => $recomendPro, 'salePro' => $salePro]);
+        return view('frontend.home')->with(['recomendPro' => $recomendPro, 'salePro' => $salePro, 'media' => $media]);
     }
 
     public function product ($url)
     {
+
         $dataTop4News = Product::orderBy('created_at','ASC')->paginate(4);
         $dataNews = Product::orderBy('created_at','ASC')->paginate(16);
         $dataPro = Product::where('url',$url)->with('user','brand')->first();
+        $dataCmt = Comment::where('product_id', $dataPro->id)->with('customer')->get();
         $author_id = $dataPro->user->id;
         $countPro =  Product::where('author_id', $dataPro->user->id)->count();
         $dataPro->increment('count_view');
@@ -34,7 +40,7 @@ class HomeController extends Controller
         $dataCate = Category::with('categories')->where('id',$nameCate->id)->first();
         $dataImage = ProductImage::where('product_id',$dataPro->id)->get();
         $dataReleast = Product::where('category_id',$nameCate->id);
-        $data_send = ['countPro' => $countPro,'nameCate' => $nameCate, 'dataPro' => $dataPro,'dataCate' => $dataCate,'dataTop4News' => $dataTop4News, 'dataImage' => $dataImage, 'dataReleast' => $dataReleast, 'dataNews' => $dataNews];
+        $data_send = ['countPro' => $countPro,'nameCate' => $nameCate, 'dataPro' => $dataPro,'dataCate' => $dataCate,'dataTop4News' => $dataTop4News, 'dataImage' => $dataImage, 'dataReleast' => $dataReleast, 'dataNews' => $dataNews, 'dataCmt' => $dataCmt];
         return view('frontend.detail')->with($data_send);
     }
 
@@ -233,5 +239,48 @@ class HomeController extends Controller
         $userData = User::find($id);
         $dataPro = Product::where('author_id', $id)->with('user')->paginate(24);
         return view('frontend.shop', compact('dataPro','userData'));
+    }
+
+    public function contact()
+    {
+       return view('frontend.contact');
+    }
+    public function contactpost(Request $req){
+       $query = Contact::create($req->all());
+       if ( $query) {
+          $msg = [
+           'status' => '_success',
+           'msg'    => 'Cảm ơn bạn đã liên hệ với chúng tôi
+           '
+         ];
+         return response()->json($msg);
+       }
+       else
+       {
+          $msg = [
+           'status' => '_error',
+           'msg'    => 'Lỗi. Vui lòng thử lại sau
+           '
+         ];
+         return response()->json($msg);
+       }
+    }
+
+    public function comment(Request $req)
+    {
+        $cmt = Comment::create(
+            [
+                'product_id' => $req->product_id,
+                'customer_id' => $req->customer_id,
+                'content' => $req->content
+            ]
+            );
+
+        if($cmt ) {
+            return redirect('san-pham/'.$req->product_url);
+        }
+        else {
+            return redirect('san-pham/'.$req->product_url);
+        }
     }
 }

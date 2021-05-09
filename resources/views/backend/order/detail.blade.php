@@ -1,8 +1,8 @@
 @extends('layouts.admin.admin')
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/bootstrap-4.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/toastr.min.css') }}">
-<script src="{{ asset('public/admin/assets/js/plugins/notify.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/bootstrap-4.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/toastr.min.css') }}">
+<script src="{{ asset('admin/assets/js/plugins/notify.js')}}"></script>
 @if(Session::has('flash_message_success'))
 <script>
   $(document).ready(function() {
@@ -232,9 +232,9 @@
 <script>
   $('select#order_status option[value="' + {{ $orderDetail->order_status }} +'"]').prop("selected", true)
 </script>
-<script src="{{ asset('public/admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
-<script src="{{ asset('public/admin/sweetalert2.all.js')}}"></script>
-<script src="{{ asset('public/admin/toastr.min.js')}}"></script>
+<script src="{{ asset('admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('admin/sweetalert2.all.js')}}"></script>
+<script src="{{ asset('admin/toastr.min.js')}}"></script>
 <script>
     $(document).ready(function() {
        const Toast = Swal.mixin({

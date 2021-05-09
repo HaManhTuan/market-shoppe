@@ -133,7 +133,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($ordersNews as $item)
-                                <tr class='clickable-row' data-href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'>
+                                <tr class='clickable-row'   onclick="location.href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'"">
 
                                     <td>{{ $item->id  }}</td>
                                     <td>{{ $item->name  }}</td>
