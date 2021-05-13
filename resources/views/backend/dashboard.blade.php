@@ -6,16 +6,16 @@
     }
 </style>
     <!-- chart chartist js -->
-    <script src="{{ asset('public/admin/assets/vendor/charts/chartist-bundle/chartist.min.js')}}"></script>
+    <script src="{{ asset('admin/assets/vendor/charts/chartist-bundle/chartist.min.js')}}"></script>
     <!-- morris js -->
-    <script src="{{ asset('public/admin/assets/vendor/charts/morris-bundle/raphael.min.js')}}"></script>
-    <script src="{{ asset('public/admin/assets/vendor/charts/morris-bundle/morris.js')}}"></script>
+    <script src="{{ asset('admin/assets/vendor/charts/morris-bundle/raphael.min.js')}}"></script>
+    <script src="{{ asset('admin/assets/vendor/charts/morris-bundle/morris.js')}}"></script>
     <!-- sparkline js -->
-<script src="{{ asset('public/admin/assets/vendor/charts/sparkline/jquery.sparkline.js')}}"></script>
+<script src="{{ asset('admin/assets/vendor/charts/sparkline/jquery.sparkline.js')}}"></script>
 <!-- chart c3 js -->
-<script src="{{ asset('public/admin/assets/vendor/charts/c3charts/c3.min.js')}}"></script>
-<script src="{{ asset('public/admin/assets/vendor/charts/c3charts/d3-5.4.0.min.js')}}"></script>
-<script src="{{ asset('public/admin/assets/vendor/charts/c3charts/C3chartjs.js')}}"></script>
+<script src="{{ asset('admin/assets/vendor/charts/c3charts/c3.min.js')}}"></script>
+<script src="{{ asset('admin/assets/vendor/charts/c3charts/d3-5.4.0.min.js')}}"></script>
+<script src="{{ asset('admin/assets/vendor/charts/c3charts/C3chartjs.js')}}"></script>
 <style type="text/css" media="screen">
     .tab-header{
         margin: 5px;
@@ -133,8 +133,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($ordersNews as $item)
-                                <tr class='clickable-row'   onclick="location.href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'"">
-
+                                <tr class="clickable-row" onclick="location.href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'">
                                     <td>{{ $item->id  }}</td>
                                     <td>{{ $item->name  }}</td>
                                     <td>{{ $item->phone  }}</td>
@@ -258,30 +257,12 @@
         <!-- ============================================================== -->
         <div class="col-xl65 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <h5 class="card-header">Sản phẩm xem nhiều </h5>
+                <h5 class="card-header">Tổng doanh thu so với năm trước </h5>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table no-wrap p-table">
-                            <thead class="bg-light">
-                                <tr class="border-0">
-                                    <th class="border-0">Tên</th>
-                                    <th class="border-0">Lượt xem</th>
-                                </tr>
-                            </thead>
-                            @if ($viewPro)
-                            <tbody>
-                                @foreach ($viewPro as $viewPro)
-                                <tr>
-                                    <td>{{$viewPro->name}}</td>
-                                    <td>
-                                        {{$viewPro->count_view}}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
-                        </table>
-                    </div>
+                    <div id="morris_totalrevenue"></div>
+                </div>
+                <div class="card-footer">
+                    <p class="display-7 font-weight-bold"><span class="text-primary d-inline-block">{{number_format($total_revenue)}}</span><span class="text-success float-right">{{ $perCurrrentY > 0 ? "+" : "-"}} {{number_format($perCurrrentY)}}%</span></p>
                 </div>
             </div>
         </div>
@@ -325,7 +306,88 @@
         </div>
     </div>
 </div>
-       <!-- sparkline js -->
-<script src="{{ asset('public/admin/assets/vendor/charts/sparkline/jquery.sparkline.js')}}"></script>
+<!-- sparkline js -->
+<script src="{{ asset('admin/assets/vendor/charts/sparkline/jquery.sparkline.js')}}"></script>
+<script>
+    $("#sparkline-revenue").sparkline([{{ $revenueLastY3 }}, {{ $revenueLastY2 }}, {{ $revenueLastY1 }},{{ $revenueLastY }},{{ $revenueCurrentY }}], {
+        type: 'line',
+        width: '99.5%',
+        height: '100',
+        lineColor: '#5969ff',
+        fillColor: '#dbdeff',
+        lineWidth: 2,
+        spotColor: '#dbdeff',
+        minSpotColor: '#f08000 ',
+        maxSpotColor: '#f08000 ',
+        highlightSpotColor: '#5969ff',
+        highlightLineColor: '#5969ff',
+        resize: true
+    });
+    $("#sparkline-revenue2").sparkline([{{ $revenueCurrentM11}},{{ $revenueCurrentM10}},{{ $revenueCurrentM9}},{{ $revenueCurrentM8}},{{ $revenueCurrentM7}},{{ $revenueCurrentM6}},{{ $revenueCurrentM5}},{{ $revenueCurrentM4}},{{ $revenueCurrentM3}},{{ $revenueCurrentM2}},{{ $revenueCurrentM1}},{{ $revenueCurrentM}}], {
+        type: 'line',
+        width: '99.5%',
+        height: '100',
+        lineColor: '#ff407b',
+        fillColor: '#ffdbe6',
+        lineWidth: 2,
+        spotColor: undefined,
+        minSpotColor: undefined,
+        maxSpotColor: undefined,
+        highlightSpotColor: undefined,
+        highlightLineColor: undefined,
+        resize: true
+    });
+    $("#sparkline-revenue3").sparkline([{{ $revenueCurrentM11}},{{ $revenueCurrentM10}},{{ $revenueCurrentM9}},{{ $revenueCurrentM8}},{{ $revenueCurrentM7}},{{ $revenueCurrentM6}},{{ $revenueCurrentM5}},{{ $revenueCurrentM4}},{{ $revenueCurrentM3}},{{ $revenueCurrentM2}},{{ $revenueCurrentM1}},{{ $revenueCurrentM}}], {
+        type: 'line',
+        width: '99.5%',
+        height: '100',
+        lineColor: '#25d5f2',
+        fillColor: '#dffaff',
+        lineWidth: 2,
+        spotColor: undefined,
+        minSpotColor: undefined,
+        maxSpotColor: undefined,
+        highlightSpotColor: undefined,
+        highlightLineColor: undefined,
+        resize: true
+    });
+    $("#sparkline-revenue4").sparkline([{{ $yesterday_day_6_order_week }},{{ $yesterday_day_5_order_week }},{{ $yesterday_day_4_order_week }},{{ $yesterday_day_3_order_week }},{{ $yesterday_day_2_order_week }},{{$yesterday_day_order_week}},{{$current_day_order_week}}], {
+        type: 'line',
+        width: '99.5%',
+        height: '100',
+        lineColor: '#fec957',
+        fillColor: '#fff2d5',
+        lineWidth: 2,
+        spotColor: undefined,
+        minSpotColor: undefined,
+        maxSpotColor: undefined,
+        highlightSpotColor: undefined,
+        highlightLineColor: undefined,
+        resize: true,
+    });
+</script>
+<?php
+$current_year = date('Y');
+$last_year = date('Y',strtotime("-1 year"));
+$last_to_last_year = date('Y',strtotime("-2 year"));
+?>
+<script>
+    $(document).ready(function() {
+        Morris.Area({
+            element: 'morris_totalrevenue',
+            behaveLikeLine: true,
+            data: [
+                { x: '{{$last_to_last_year}}', y: {{$revenueLastY1}}, },
+                { x: '{{$last_year}}', y: {{$revenueLastY}}, },
+                { x: '{{$current_year}} ',y: {{$revenueCurrentY}}, }
+            ],
+            xkey: 'x',
+            ykeys: ['y'],
+            labels: ['Y'],
+            lineColors: ['#5969ff'],
+            resize: true
+        });
+        });
+</script>
 @endsection
 
