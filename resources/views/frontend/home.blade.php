@@ -5,17 +5,19 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12" style="min-height: 235px;
             max-height: 235px;">
-                <div class="main-banner col-md-8" style="padding-right: 3px">
-                    <img src="{{ asset('uploads/images/media/'.$media->image_1) }}" style="max-width: 100%">
+            @if ($media)
+            <div class="main-banner col-md-8" style="padding-right: 3px">
+                <img src="{{ asset('uploads/images/media/'.$media->image_1) }}" style="max-width: 100%">
+            </div>
+            <div class="right-banner col-md-4" style="padding-left: 3px">
+                <div class="full-banner-right-1">
+                    <img src="{{ asset('uploads/images/media/'.$media->image_2) }}" style="max-width: 100%">
                 </div>
-                <div class="right-banner col-md-4" style="padding-left: 3px">
-                    <div class="full-banner-right-1">
-                        <img src="{{ asset('uploads/images/media/'.$media->image_2) }}" style="max-width: 100%">
-                    </div>
-                    <div class="full-banner-right-2" style="padding-top: 6px">
-                        <img src="{{ asset('uploads/images/media/'.$media->image_3) }}" style="max-width: 100%">
-                    </div>
+                <div class="full-banner-right-2" style="padding-top: 6px">
+                    <img src="{{ asset('uploads/images/media/'.$media->image_3) }}" style="max-width: 100%">
                 </div>
+            </div>
+            @endif
             </div>
         </div>
         <div class="row">

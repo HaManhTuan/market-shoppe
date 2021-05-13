@@ -100,6 +100,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'User'], function () {
         Route::get('view', 'CustomerController@view');
         Route::post('view-modal', 'CustomerController@viewmodal');
     });
+    //Comment
+    Route::group(['prefix' => 'comment', 'middleware' => 'User'], function () {
+        Route::get('view', 'CommentController@view');
+        Route::get('change/{id}', 'CommentController@changeStatus');
+    });
 
 });
 ?>

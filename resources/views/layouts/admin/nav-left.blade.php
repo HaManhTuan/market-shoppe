@@ -24,6 +24,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="
+                            {{ url('admin/comment/view') }}"  aria-expanded="false">
+                        <i class="fas fa-dolly-flatbed"></i>Bình luận</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="
                             {{ url('admin/customer/view') }}"  aria-expanded="false">
                         <i class="fas fa-user-plus"></i>Khách hàng</a>
                     </li>

@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             $cart_data = Cart::getContent();
             $count_cart = $cart_data->count();
             $cart_subtotal = Cart::getSubTotal();
-            $cateRandom = Category::where('parent_id', 0)->where('draff', 0)->where('status', 1)->where('status_cus', 1)->where('status', 1)->get()->random(4);
+            $cateRandom = Category::where('parent_id', 0)->where('draff', 0)->where('status', 1)->where('status_cus', 1)->where('status', 1)->paginate(4);
             $cateParent = Category::where('parent_id', 0)->where('draff', 0)->where('status', 1)->where('status_cus', 1)->where('status', 1)->get();
             $data_send = [
                 'cateParent' => $cateParent ? $cateParent : [],
