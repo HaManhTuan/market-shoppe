@@ -70,6 +70,12 @@
                      <th scope="col">Tổng tiền</th>
                      <th scope="col">{{ number_format($orderDetail->total_price) }}</th>
                   </tr>
+                  @if ($orderDetail->origin_price > $orderDetail->total_price)
+                    <tr>
+                        <th scope="col">Tổng tiền ban đầu</th>
+                        <th scope="col">{{ number_format($orderDetail->origin_price) }}</th>
+                    </tr>
+                  @endif
                   <tr>
                      <th scope="col">Hình thức thanh toán</th>
                      <th scope="col">{{ ($orderDetail->order_method) }}</th>
@@ -176,7 +182,7 @@
                               <img src="{{ asset('uploads/images/products/'.$value->product->image) }}" style="max-width: 25%;" alt="">
                           </td>
                           <td>{{ $value->quantity }}</td>
-                          <td>{{ number_format($value->price*$value->quantity) }}</td>
+                          <td>{{ number_format($value->price*$value->quantity) }} {{ $orderDetail->origin_price > $orderDetail->total_price ? '(-'.(($orderDetail->origin_price / $orderDetail->total_price)).'%)' : ''}}</td>
                        </tr>
                        <?php $total_amount = $total_amount+($value->quantity*$value->price);?>
                        @endforeach
@@ -184,6 +190,10 @@
                            <td colspan="4">Tổng tiền:</td>
                            <td style="color:brown;font-weight: bold; width: 142px;">{{ number_format($total_amount) }}</td>
                        </tr>
+                       <tr>
+                        <td colspan="4">Tổng tiền ban đầu:</td>
+                        <td style="color:brown;font-weight: bold; width: 142px;">{{ number_format($orderDetail->origin_price) }}</td>
+                    </tr>
                     </tbody>
             </table>
         </div>

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index(){
+        $total_revenue_now =  OrderUser::where('user_id', Auth::id())->whereDate('created_at',Carbon::now())->sum('total_price');
         $total_revenue = OrderUser::where('user_id', Auth::id())->orderBy('id','ASC')->sum('total_price');
         $revenueCurrentY = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->year)->sum('total_price');
         $revenueLastY = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->subYear(1))->sum('total_price');
@@ -22,7 +23,7 @@ class DashboardController extends Controller
             $perCurrrentY = '';
         }
         $revenueCurrentM = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->month)->whereYear('created_at',Carbon::now()->year)->sum('total_price');
-        $ordersNews = OrderUser::where('user_id', Auth::id())->with('orders')->where('order_status','!=',4)->get();
+        $ordersNews = OrderUser::where('user_id', Auth::id())->with('orders')->where('order_status','!=',4)->paginate(4);
         $customer_id = OrderUser::where('user_id', Auth::id())->get('customer_id')->toArray();
         //Top-Customer_Buy_count
        $customer = Customer::whereIn('id', $customer_id)->with('order')->get();
@@ -118,6 +119,7 @@ class DashboardController extends Controller
             'yesterday_day_5_order_week' => $yesterday_day_5_order_week,
             'yesterday_day_6_order_week' => $yesterday_day_6_order_week,
             'total7day' => $total7day,
+            'total_revenue_now' => $total_revenue_now
         ];
         return view('backend.dashboard')->with($data_send);
     }

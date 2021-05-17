@@ -55,24 +55,6 @@
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-muted">Tổng doanh thu</h5>
-                    <div class="metric-value d-inline-block">
-                        <h4 class="mb-1">{{ isset($total_revenue) ? number_format($total_revenue) : ''}}</h4>
-                    </div>
-                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                        <span><i class="{{ isset($perCurrrentY) && $perCurrrentY > 0 ? 'fa fa-fw fa-arrow-up' : 'fa fa-fw fa-arrow-down'}}"></i></span><span>
-                            {{ isset($perCurrrentY) && $perCurrrentY > 0 ? number_format($perCurrrentY) : '' }}
-                        %</span>
-                    </div>
-                    <div id="sparkline-revenue">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-body">
                     <h5 class="text-muted">Tổng doanh thu năm nay</h5>
                     <div class="metric-value d-inline-block">
                         <h4 class="mb-1">{{ isset($revenueCurrentY) ? number_format($revenueCurrentY) : ''}}</h4>
@@ -93,6 +75,22 @@
                     </div>
                 </div>
                 <div id="sparkline-revenue3"></div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-muted">Doanh thu hôm nay</h5>
+                    <div class="metric-value d-inline-block">
+                        <h4 class="mb-1">{{ isset($total_revenue_now) ? number_format($total_revenue_now) : ''}}</h4>
+                    </div>
+                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+
+                    </div>
+                    <div id="sparkline-revenue">
+
+                    </div>
+                </div>
             </div>
         </div>
 {{--         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">

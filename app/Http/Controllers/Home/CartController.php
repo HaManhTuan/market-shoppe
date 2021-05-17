@@ -18,39 +18,43 @@ class CartController extends Controller
         $EventArray = Events::where('status', 1)->whereDate('start_date','>=',Carbon::now())->whereDate('end_date','>=',Carbon::now())
         ->pluck('category_id')->toArray();
         $del_val = 'all';
-        if (in_array("all", $EventArray))
-        {
-            $EventAll = Events::where('status', 1)->whereDate('start_date','>=',Carbon::now())->whereDate('end_date','>=',Carbon::now())->where('category_id','all')->first();
-            $discount = $EventAll->discount;
-            $cate_data = Category::where('status', 1)->get();
-            foreach($cate_data as $item){
-                $idin[]    = $item->id;
-            }
-            $dataPro = Product::where('id', $req->product_id)->first();
-            $idCate = $dataPro->category_id;
-            if(in_array( $idCate, $idin)) {
-                $price = ($req->price * $discount ) /100;
-            }
-        }
-        else
-        {
-            $dataPro = Product::where('id', 1)->first();
-            $idCate = $dataPro->category_id;
-            if(in_array($idCate, $EventArray)) {
-                $checkEvent = Events::where('status', 1)->where('category_id', $idCate)->first();
-                if(isset($checkEvent) &&  $checkEvent->discount) {
-                    $price = ($req->price * $checkEvent->discount ) /100;
+        if(count($EventArray) > 0) {
+            if (in_array("all", $EventArray))
+            {
+                $EventAll = Events::where('status', 1)->whereDate('start_date','>=',Carbon::now())->whereDate('end_date','>=',Carbon::now())->where('category_id','all')->first();
+                $discount = $EventAll->discount;
+                $cate_data = Category::where('status', 1)->get();
+                foreach($cate_data as $item){
+                    $idin[]    = $item->id;
                 }
-            } else {
-                $checkCate = Category::where('id', $idCate)->first();
-                if($checkCate->parent_id != 0){
-                    $parentCate = Category::where('id', $checkCate->parent_id)->first();
-                    $checkEventParent = Events::where('status', 1)->where('category_id', $parentCate->id)->first();
-                    if(isset($checkEventParent) &&  $checkEventParent->discount) {
-                        $price = ($req->price * $checkEventParent->discount ) /100;
+                $dataPro = Product::where('id', $req->product_id)->first();
+                $idCate = $dataPro->category_id;
+                if(in_array( $idCate, $idin)) {
+                    $price = ($req->price * $discount ) /100;
+                }
+            }
+            else
+            {
+                $dataPro = Product::where('id', 1)->first();
+                $idCate = $dataPro->category_id;
+                if(in_array($idCate, $EventArray)) {
+                    $checkEvent = Events::where('status', 1)->where('category_id', $idCate)->first();
+                    if(isset($checkEvent) &&  $checkEvent->discount) {
+                        $price = ($req->price * $checkEvent->discount ) /100;
+                    }
+                } else {
+                    $checkCate = Category::where('id', $idCate)->first();
+                    if($checkCate->parent_id != 0){
+                        $parentCate = Category::where('id', $checkCate->parent_id)->first();
+                        $checkEventParent = Events::where('status', 1)->where('category_id', $parentCate->id)->first();
+                        if(isset($checkEventParent) &&  $checkEventParent->discount) {
+                            $price = ($req->price * $checkEventParent->discount ) /100;
+                        }
                     }
                 }
             }
+        } else {
+            $price = $req->price;
         }
         Cart::add(
           [
@@ -58,7 +62,7 @@ class CartController extends Controller
             'name' => $req->product_name,
             'price' => $price,
             'quantity' =>  $req->qty,
-            'attributes' => ['avatar' =>$req->avatar,'url' =>$req->url,'product_id' =>$req->product_id]
+            'attributes' => ['origin_price' => $req->price,'avatar' =>$req->avatar,'url' =>$req->url,'product_id' =>$req->product_id]
           ]);
             $cart_data = Cart::getContent();
             $cart_subtotal = Cart::getSubTotal();

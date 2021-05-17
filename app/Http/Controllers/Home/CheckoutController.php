@@ -67,8 +67,10 @@ class CheckoutController extends Controller
     $order->address       = $req->address_order;
     $order->order_status  = '1';
     $order->order_method  = $req->method_order;
+    //$order->origin_price  = $req->origin_price;
      if ($order->save()) {
       $order_id     = DB::getPdo()->lastInsertId();
+      $sum = 0;
       foreach ($cart_data as $value) {
         $orderdetail               = new OrderDetail();
         $orderdetail->order_id     = $order_id;
@@ -77,6 +79,8 @@ class CheckoutController extends Controller
         $orderdetail->product_name = $value->name;
         $orderdetail->price        = $value->price;
         $orderdetail->quantity     = $value->quantity;
+        $orderdetail->origin_price = $value->attributes->origin_price;
+        $sum+= $value->attributes->origin_price * $value->quantity;
         $getUserId = Product::where('id', $value->attributes->product_id)->first();
         if($getUserId){
             $orderdetail->user_id = $getUserId->author_id;
@@ -85,6 +89,8 @@ class CheckoutController extends Controller
         $query = $orderdetail->save();
       }
       if ($query) {
+          $order_id = Order::orderBy('created_at','DESC')->first();
+          Order::where('id', $order_id->id)->update(['origin_price' => $sum]);
           //$dataOrderDetail = OrderDetail::where('order_id', $order_id)->pluck('user_id')->toArray();
             foreach(array_unique($author_id) as $value) {
                 $order                = new OrderUser();
@@ -102,16 +108,21 @@ class CheckoutController extends Controller
                 $order_user_id     = DB::getPdo()->lastInsertId();
                 $dataOrderDetailCurrent = OrderDetail::where('order_id', $order_user_id)->where('user_id', $value)->get();
                 if($dataOrderDetailCurrent) {
+                    $sumUser = 0;
                     foreach($dataOrderDetailCurrent as $item){
                         $orderdetail               = new OrderDetailUser();
-                        $orderdetail->order_user_id     = $order_user_id;
+                        $orderdetail->order_user_id = $order_user_id;
                         $orderdetail->product_id   = $item->product_id;
                         $orderdetail->customer_id  = $item->customer_id;
                         $orderdetail->product_name = $item->product_name;
                         $orderdetail->price        = $item->price;
                         $orderdetail->quantity     = $item->quantity;
+                        $orderdetail->origin_price     = $item->origin_price;
+                        $sumUser+= $item->quantity*$item->origin_price;
                         $orderdetail->save();
                     }
+                    $order_user_id = OrderUser::orderBy('created_at','DESC')->first();
+                    OrderUser::where('id',$order_user_id->id)->update(['origin_price' => $sumUser]);
                 }
             }
         $checkMail = Email::find(1);
