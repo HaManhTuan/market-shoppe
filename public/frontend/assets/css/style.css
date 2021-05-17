@@ -1962,6 +1962,7 @@ span.notify-right{
 .product-list li .right-block{
     padding: 0 15px;
     margin-top: 15px;
+    min-height: 60px;
 }
 .product-list li .quick-view{
     position: absolute;

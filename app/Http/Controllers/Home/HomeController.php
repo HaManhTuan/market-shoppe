@@ -14,6 +14,8 @@ use App\Model\Media;
 use App\User;
 use App\Model\Comment;
 use App\Model\Brand;
+use App\Model\Events;
+use Carbon\Carbon;
 use Hash;
 use Illuminate\Http\Request;
 use View;
@@ -31,7 +33,9 @@ class HomeController extends Controller
         $media = Media::find(1);
         $recomendPro = Product::where('status', 1)->with('product_image')->orderBy('created_at','DESC')->get();
         $salePro = Product::where('status', 1)->with('product_image')->where('sale','!=', 0)->orderBy('created_at','DESC')->get();
-        return view('frontend.home')->with(['recomendPro' => $recomendPro, 'salePro' => $salePro, 'media' => $media]);
+        $productNew = Product::where('status', 1)->orderBy('created_at','DESC')->paginate(15);
+        $EventNew = Events::where('status', 1)->orderBy('created_at','DESC')->whereDate('start_date','>=',Carbon::now())->whereDate('end_date','>=',Carbon::now())->get();
+        return view('frontend.home')->with(['productNew' => $productNew,'recomendPro' => $recomendPro, 'salePro' => $salePro, 'media' => $media,'EventNew'=>$EventNew]);
     }
 
     public function product ($url)
@@ -105,7 +109,15 @@ class HomeController extends Controller
                                             <img class="img-responsive" alt="product" src="'.asset('uploads/images/products/').'/'.''.$row['image'].'" />
                                         </a>
                                         <div class="add-to-cart">
-                                            <a title="Add to Cart" href="#add">Mua ngay</a>
+                                            <a title="Add to Cart" class="addTocart" data-id="'.$row['id'].'" data-name="'.$row['name'].'" data-quantity="1"
+                                            ';
+                                            if($row['promotional_price'] > 0 ){
+                                                $output .='data-price="'.$row['promotional_price'].'"';
+                                            } else {
+                                                $output .='data-price="'.$row['price'].'"';
+                                            }
+                                            $output .='
+                                             data-avatar="'.$row['image'].'" data-url="'.$row['url'].'" data-product_id="'.$row['id'].'" data-action="'.url('/add-cart').'">Mua ngay</a>
                                         </div>
                                     </div>
                                     <div class="right-block">

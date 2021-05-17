@@ -12,7 +12,7 @@
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
                     <span class="pcoded-mtext">Hệ thống</span>
-                    <span class="pcoded-badge label label-danger">100+</span>
+                    <span class="pcoded-badge label label-danger">3+</span>
                 </a>
                 <ul class="pcoded-submenu">
                     <li class=" ">
@@ -23,6 +23,11 @@
                     <li class="">
                         <a href="{{ url('manager/view-config') }}">
                             <span class="pcoded-mtext">Cấu hình</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{ route('manager.events.view') }}">
+                            <span class="pcoded-mtext">Khuyễn mại</span>
                         </a>
                     </li>
                 </ul>

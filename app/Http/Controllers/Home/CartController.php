@@ -6,17 +6,57 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Cart;
 use App\Model\Product;
+use App\Model\Events;
+use App\Model\Category;
+use Illuminate\Support\Carbon;
 class CartController extends Controller
 {
   public function add(Request $req){
     //print_r($req->all());
      $stock = Product::where('id', $req->product_id)->value('stock');
      if ($stock >= $req->qty && $stock > 0) {
+        $EventArray = Events::where('status', 1)->whereDate('start_date','>=',Carbon::now())->whereDate('end_date','>=',Carbon::now())
+        ->pluck('category_id')->toArray();
+        $del_val = 'all';
+        if (in_array("all", $EventArray))
+        {
+            $EventAll = Events::where('status', 1)->whereDate('start_date','>=',Carbon::now())->whereDate('end_date','>=',Carbon::now())->where('category_id','all')->first();
+            $discount = $EventAll->discount;
+            $cate_data = Category::where('status', 1)->get();
+            foreach($cate_data as $item){
+                $idin[]    = $item->id;
+            }
+            $dataPro = Product::where('id', $req->product_id)->first();
+            $idCate = $dataPro->category_id;
+            if(in_array( $idCate, $idin)) {
+                $price = ($req->price * $discount ) /100;
+            }
+        }
+        else
+        {
+            $dataPro = Product::where('id', 1)->first();
+            $idCate = $dataPro->category_id;
+            if(in_array($idCate, $EventArray)) {
+                $checkEvent = Events::where('status', 1)->where('category_id', $idCate)->first();
+                if(isset($checkEvent) &&  $checkEvent->discount) {
+                    $price = ($req->price * $checkEvent->discount ) /100;
+                }
+            } else {
+                $checkCate = Category::where('id', $idCate)->first();
+                if($checkCate->parent_id != 0){
+                    $parentCate = Category::where('id', $checkCate->parent_id)->first();
+                    $checkEventParent = Events::where('status', 1)->where('category_id', $parentCate->id)->first();
+                    if(isset($checkEventParent) &&  $checkEventParent->discount) {
+                        $price = ($req->price * $checkEventParent->discount ) /100;
+                    }
+                }
+            }
+        }
         Cart::add(
           [
             'id'   => $req->product_id,
             'name' => $req->product_name,
-            'price' => $req->price,
+            'price' => $price,
             'quantity' =>  $req->qty,
             'attributes' => ['avatar' =>$req->avatar,'url' =>$req->url,'product_id' =>$req->product_id]
           ]);

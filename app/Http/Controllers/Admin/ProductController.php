@@ -48,8 +48,8 @@ class ProductController extends Controller
         $request['stock'] = $req->stock;
         $request['brand_id'] = $req->brand_id;
         //$request['status'] = $req->has('status') ? '1' : '0';
-        $request['status'] = 0;
-        $target_save = "public/uploads/images/products/";
+        $request['status'] = 1;
+        $target_save = "uploads/images/products/";
         if ($req->hasFile('file'))
         {
             $file = $req->file('file');
@@ -88,16 +88,16 @@ class ProductController extends Controller
             $DeleteImages = ProductImage::where(['product_id' => $id])->delete();
             foreach ($img_product as $value)
             {
-                unlink('public/uploads/images/products/' . $value['img']);
+                unlink('uploads/images/products/' . $value['img']);
             }
         }
 
         $avatar = Product::where(['id' => $id])->first();
         if ($avatar->image != "")
         {
-            if (file_exists('public/uploads/images/products/' . $avatar->image))
+            if (file_exists('uploads/images/products/' . $avatar->image))
             {
-                unlink('public/uploads/images/products/' . $avatar->image);
+                unlink('uploads/images/products/' . $avatar->image);
             }
         }
 
@@ -147,23 +147,23 @@ class ProductController extends Controller
             $request['price'] = $price;
              $request['brand_id'] = $req->brand_id;
             $request['promotional_price'] = $promotional_price;
-            //$request['status'] = $req->has('status') ? '1' : '0';
-            $request['status'] = 0;
-            $target_save = "public/uploads/images/products/";
+            $request['status'] = $req->has('status') ? '1' : '0';
+            //$request['status'] = 0;
+            $target_save = "uploads/images/products/";
             if ($req->hasFile('file'))
             {
                 $file = $req->file('file');
                 $name = $file->getClientOriginalName();
                 $image = Str::random(4) . "_" . $name;
-                while (file_exists("public/uploads/images/products/" . $image))
+                while (file_exists("uploads/images/products/" . $image))
                 {
                     $image = Str::random(4) . "_" . $name;
                 }
-                $file->move("public/uploads/images/products", $image);
+                $file->move("uploads/images/products", $image);
                 $request['image'] = $image;
                 if (file_exists($req->old_file) && $req->old_file != '')
                 {
-                    unlink("public/uploads/images/products/" . $req->old_file);
+                    unlink("uploads/images/products/" . $req->old_file);
                 }
 
             }
@@ -203,7 +203,7 @@ class ProductController extends Controller
                     $image = new ProductImage();
                     $extension = $file->getClientOriginalExtension();
                     $fileName = rand(111, 99999) . '.' . $extension;
-                    $file->move("public/uploads/images/products", $fileName);
+                    $file->move("uploads/images/products", $fileName);
                     $image->img = $fileName;
                     $image->product_id = $id;
                     $image->save();
@@ -225,7 +225,7 @@ class ProductController extends Controller
 
         if (ProductImage::destroy($id_array))
         {
-            unlink("public/uploads/images/products/" . $img_del_qr->img);
+            unlink("uploads/images/products/" . $img_del_qr->img);
             $msg = ['status' => '_success', 'msg' => $length . ' mục đã được xóa.'];
             return response()->json($msg);
         }

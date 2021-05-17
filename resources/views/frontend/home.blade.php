@@ -3,6 +3,33 @@
 <div class="page-top">
     <div class="container">
         <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="main-marquee col-md-12" style="margin-top: -20px;">
+                    @if (count($EventNew))
+                        <marquee behavior="scroll" direction="left">
+                            @foreach ($EventNew as $key => $item)
+                            <div class="mrq {{ $key == 0 ? 'mrq-firsrt' : '' }}">
+                                <span>{{ $item->description }}</span>
+                                <span>:{{ $item->discount }} %</span>
+                                <span>cho: {{ isset($item->category) ? $item->category->name : 'Tất cả sản phẩm.' }} - </span>
+                                <span>Từ: {{  Carbon\Carbon::parse($item->start_date)->format('d/m/Y') }}</span>
+                                <span>đến: {{ Carbon\Carbon::parse($item->end_date)->format('d/m/Y')}}</span>
+                            </div class="mrq">
+                            @endforeach
+                        </marquee>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <style>
+            .mrq {
+                display: inline-block;
+            }
+            .mrq-firsrt {
+                margin-right: 200px
+            }
+        </style>
+        <div class="row">
             <div class="col-xs-12 col-sm-12" style="min-height: 235px;
             max-height: 235px;">
             @if ($media)
@@ -63,7 +90,7 @@
                                     <a href="{{ url('san-pham/'.$element->url) }}"><img class="img-responsive" alt="product" src="{{ asset('uploads/images/products/'.$element->image) }}" /></a>
 
                                         <div class="add-to-cart">
-                                            <a title="Add to Cart" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Add to Cart</a>
+                                            <a title="Mua Ngay" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Mua Ngay</a>
                                         </div>
                                     <div class="price-percent-reduction2">
                                         -{{$element->sale}}%
@@ -98,7 +125,7 @@
                                         <img class="img-responsive" alt="product" src="{{ asset('uploads/images/products/'.$element->image) }}" /></a>
 
                                         <div class="add-to-cart">
-                                            <a title="Add to Cart" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Add to Cart</a>
+                                            <a title="Mua Ngay" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Mua Ngay</a>
                                         </div>
 
                                     <div class="price-percent-reduction2">
@@ -117,6 +144,39 @@
                         @endif
                     </ul>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="center_column col-xs-12 col-sm-12">
+                <h2 class="page-heading">
+                    <span class="page-heading-title">Sản phẩm hot</span>
+                </h2>
+                <ul class="row product-list grid">
+                    @if ($productNew)
+                        @foreach ($productNew as $element)
+                        <li class="col-sm-3" style="padding: 0px 5px;">
+                            <div class="product-container">
+                                <div class="left-block">
+                                    <a href="{{ url('san-pham/'.$element->url) }}">
+                                        <img class="img-responsive" alt="product" src="{{ asset('uploads/images/products/'.$element->image) }}" />
+                                    </a>
+                                    <div class="add-to-cart">
+                                        <a title="Mua Ngay" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Mua Ngay</a>
+                                    </div>
+                                </div>
+                                <div class="right-block">
+                                    <h5 class="product-name"><a href="#">{{ $element->name }}</a></h5>
+                                    <div class="content_price">
+                                        <span class="price product-price">{{ number_format($element->promotional_price)}}</span>
+                                        <span class="price old-price">{{ number_format($element->price)}}</span>
+                                   </div>
+                                </div>
+                            </div>
+                        </li>
+                        @endforeach
+                    @endif
+
+                </ul>
             </div>
         </div>
     </div>

@@ -72,4 +72,10 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
         Route::get('view-comment', 'CommentManagerController@view');
         Route::get('change-comment/{id}', 'CommentManagerController@change');
     });
+    //Events
+    Route::group(['prefix' => 'events'], function () {
+        Route::get('view-events', 'EventManagerController@index')->name('manager.events.view');
+        Route::post('add-event', 'EventManagerController@add')->name('manager.events.add');
+        Route::get('change-events/{id}', 'EventManagerController@change');
+    });
 });

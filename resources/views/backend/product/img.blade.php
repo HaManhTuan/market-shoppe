@@ -1,6 +1,6 @@
 @extends('layouts.admin.admin')
 @section('content')
-<link rel="stylesheet" href="{{ asset('public/frontend/css-custom/dropify.min.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css-custom/dropify.min.css') }}">
 <style>
     .error {
         color: brown;
@@ -13,9 +13,9 @@
     }
 
 </style>
-<link rel="stylesheet" href="{{ asset('public/admin/assets/css/bootstrap-4.css') }}">
-<link rel="stylesheet" href="{{ asset('public/admin/assets/css/animate.css') }}">
-<script src="{{ asset('public/admin/assets/js/plugins/notify.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap-4.css') }}">
+<link rel="stylesheet" href="{{ asset('admin/assets/css/animate.css') }}">
+<script src="{{ asset('/admin/assets/js/plugins/notify.js')}}"></script>
 @if(Session::has('flash_message_success'))
 <script>
     $(document).ready(function () {
@@ -95,7 +95,7 @@
                         @foreach ($product_img as $item)
                         <tr>
                             <td scope="row">{{ $stt++ }}</td>
-                            <td><img src="{{ asset('public/uploads/images/products/'.$item->img) }}" height="200"></td>
+                            <td><img src="{{ asset('uploads/images/products/'.$item->img) }}" height="200"></td>
                             <td>
 
                                 <button data-id="{{$item->id}}" class="btn btn-danger btn-del" role="button"><i
@@ -108,7 +108,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('public/admin/assets/js/plugins/sweetalert2.all.js')}}"></script>
+    <script src="{{ asset('admin/assets/js/plugins/sweetalert2.all.js')}}"></script>
     <script>
         $(document).on('click', '.btn-del', function () {
             let id = $(this).attr('data-id');

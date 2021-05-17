@@ -223,5 +223,44 @@
     </div>
 </div>
 <script id="script"></script>
+<script src="{{ asset('admin/notify.js') }}"></script>
+<script>
+$(document).on('click', '.addTocart', function () {
+   let id = $(this).data("id");
+   let name = $(this).data("name");
+   let price = $(this).data("price");
+   let quantity = $(this).data("quantity");
+   let avatar = $(this).data("avatar");
+   let url = $(this).data("url");
+   let product_id = $(this).data("product_id");
+   let action = $(this).data("action");
+   $.ajax({
+        url: action,
+        type: "POST",
+        dataType: 'JSON',
+        headers: {
+              'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        },
+        data: {id: id, product_name: name, price: price, qty: quantity, avatar: avatar
+            , url: url, product_id: product_id},
+        success: function(data){
+            console.log(data);
+              if (data.status =="_success") {
+                    $('html, body').animate({scrollTop: 0}, 2000);
+                    $("#cart-block").html(data['cartblock']);
+                    $.notify(data.success,"success");
+              }
+              else
+              {
+                 $('html, body').animate({scrollTop: 0}, 'slow');
+                  $.notify(data.msg,"error");
+              }
+        },
+        error: function(err){
+            console.log(err);
+        }
+    });
 
+ });
+</script>
 @endsection

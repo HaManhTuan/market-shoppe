@@ -87,7 +87,7 @@
                                 <select name="category_id" id="category_id" class="selectpicker form-control @error('category_id') is-invalid @enderror"  data-live-search="true" >
                                     @if (count($cate) > 0 )
                                     @foreach ($cate as $item)
-                                        <option value="{{ $item->id }}" {{ $item->id = $product_detail->category_id ? 'selected' : '' }}>{{ $item->name }}
+                                        <option value="{{ $item->id }}" {{ $product_detail->category_id == $item->id ? 'selected' : '' }}>{{ $item->name }}
                                         @if ($item->parent)
                                              &emsp;&emsp;&emsp;&emsp; *-*-* {{ $item->parent->name }}
                                         @endif
