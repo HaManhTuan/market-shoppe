@@ -102,7 +102,7 @@
                 <div class="col-sm-2" id="box-vertical-megamenus">
                     <div class="box-vertical-megamenus">
                     <h4 class="title">
-                        <span class="title-menu">Kute Shop</span>
+                        <span class="title-menu">Tuệ Con Shop</span>
                         <span class="btn-open-mobile pull-right home-page"><i class="fa fa-bars"></i></span>
                     </h4>
                     <div class="vertical-menu-content is-home">
@@ -122,6 +122,7 @@
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
+                                    <li><a href="{{ url('/contact-product') }}">Đăng kí gian hàng</a></li>
                                     @if ($cateRandom)
                                         @foreach ($cateRandom as $item)
                                             <li><a href="{{ url('danh-muc/'.$item['url']) }}">{{ $item->name }}</a></li>

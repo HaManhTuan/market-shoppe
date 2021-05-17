@@ -13,11 +13,19 @@ use App\Model\Contact;
 use App\Model\Media;
 use App\User;
 use App\Model\Comment;
+use App\Model\Brand;
 use Hash;
 use Illuminate\Http\Request;
+use View;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        $dataBrand = Brand::orderBy('created_at','ASC')->get();
+        View::share(['dataBrand' => $dataBrand]);
+    }
+
     public function index()
     {
         $media = Media::find(1);

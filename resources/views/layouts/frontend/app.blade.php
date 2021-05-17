@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="icon" href="{{ asset('uploads/images/config/'.$dataConfig->icon) }}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/lib/bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/lib/font-awesome/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/lib/select2/css/select2.min.css') }}" />

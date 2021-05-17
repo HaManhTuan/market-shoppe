@@ -68,7 +68,7 @@
 
                              <input type="hidden" name="icon_old" value="{{ $config->icon }}">
                              <input type="file" id="icon" name="icon" class="form-control input-transparent dropify"
-                             data-default-file="{{ asset('uploads/images/config/'.$config->icon ? $config->icon : '') }}">
+                             data-default-file="{{ asset('uploads/images/config/'.$config->icon) }}">
                           </div>
                        </div>
                        <div class="form-group">
