@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index(){
         $total_revenue_now =  OrderUser::where('user_id', Auth::id())->whereDate('created_at',Carbon::now())->sum('total_price');
-        $total_revenue = OrderUser::where('user_id', Auth::id())->orderBy('id','ASC')->sum('total_price');
+        $total_revenue = OrderUser::where('user_id', Auth::id())->sum('total_price');
         $revenueCurrentY = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->year)->sum('total_price');
         $revenueLastY = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->subYear(1))->sum('total_price');
         if($revenueLastY != 0) {
@@ -41,43 +41,43 @@ class DashboardController extends Controller
        //dataPro
        $dataProExp = Product::where('author_id', Auth::id())->where('stock','<',2)->get();
             //Chart1
-            $revenueCurrentY = OrderUser::whereYear('created_at',Carbon::now()->year)->sum('total_price');
-            $revenueLastY = OrderUser::whereYear('created_at',Carbon::now()->subYear(1))->sum('total_price');
-            $revenueLastY1 = OrderUser::whereYear('created_at',Carbon::now()->subYear(2))->sum('total_price');
-            $revenueLastY2 = OrderUser::whereYear('created_at',Carbon::now()->subYear(4))->sum('total_price');
-            $revenueLastY3 = OrderUser::whereYear('created_at',Carbon::now()->subYear(5))->sum('total_price');
+            $revenueCurrentY = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->year)->sum('total_price');
+            $revenueLastY = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->subYear(1))->sum('total_price');
+            $revenueLastY1 = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->subYear(2))->sum('total_price');
+            $revenueLastY2 = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->subYear(4))->sum('total_price');
+            $revenueLastY3 = OrderUser::where('user_id', Auth::id())->whereYear('created_at',Carbon::now()->subYear(5))->sum('total_price');
             if($revenueLastY == 0){
                 $perCurrrentY = ($revenueCurrentY/1)*100;
             } else {
                 $perCurrrentY = ($revenueCurrentY/$revenueLastY)*100;
             }
             //Chart2-Chart3
-            $revenueCurrentM = OrderUser::whereMonth('created_at',Carbon::now()->month)->whereYear('created_at',Carbon::now()->year)->sum('total_price');
-            $revenueCurrentM1 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(1))->sum('total_price');
-            $revenueCurrentM2 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(2))->sum('total_price');
-            $revenueCurrentM3 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(3))->sum('total_price');
-            $revenueCurrentM4 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(4))->sum('total_price');
-            $revenueCurrentM5 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(5))->sum('total_price');
-            $revenueCurrentM6 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(6))->sum('total_price');
-            $revenueCurrentM7 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(7))->sum('total_price');
-            $revenueCurrentM8 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(8))->sum('total_price');
-            $revenueCurrentM9 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(9))->sum('total_price');
-            $revenueCurrentM10 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(10))->sum('total_price');
-            $revenueCurrentM11 = OrderUser::whereMonth('created_at',Carbon::now()->subMonth(11))->sum('total_price');
+            $revenueCurrentM = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->month)->whereYear('created_at',Carbon::now()->year)->sum('total_price');
+            $revenueCurrentM1 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(1))->sum('total_price');
+            $revenueCurrentM2 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(2))->sum('total_price');
+            $revenueCurrentM3 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(3))->sum('total_price');
+            $revenueCurrentM4 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(4))->sum('total_price');
+            $revenueCurrentM5 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(5))->sum('total_price');
+            $revenueCurrentM6 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(6))->sum('total_price');
+            $revenueCurrentM7 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(7))->sum('total_price');
+            $revenueCurrentM8 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(8))->sum('total_price');
+            $revenueCurrentM9 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(9))->sum('total_price');
+            $revenueCurrentM10 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(10))->sum('total_price');
+            $revenueCurrentM11 = OrderUser::where('user_id', Auth::id())->whereMonth('created_at',Carbon::now()->subMonth(11))->sum('total_price');
             //Chart4
-            $current_day_order_week = OrderUser::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->day)->sum('total_price');
+            $current_day_order_week = OrderUser::where('user_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->day)->sum('total_price');
 
-            $yesterday_day_order_week = OrderUser::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(1))->sum('total_price');
+            $yesterday_day_order_week = OrderUser::where('user_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(1))->sum('total_price');
 
-            $yesterday_day_2_order_week = OrderUser::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(2))->sum('total_price');
+            $yesterday_day_2_order_week = OrderUser::where('user_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(2))->sum('total_price');
 
-            $yesterday_day_3_order_week = OrderUser::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(3))->sum('total_price');
+            $yesterday_day_3_order_week = OrderUser::where('user_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(3))->sum('total_price');
 
-            $yesterday_day_4_order_week = OrderUser::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(4))->sum('total_price');
+            $yesterday_day_4_order_week = OrderUser::where('user_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(4))->sum('total_price');
 
-            $yesterday_day_5_order_week = OrderUser::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(5))->sum('total_price');
+            $yesterday_day_5_order_week = OrderUser::where('user_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(5))->sum('total_price');
 
-            $yesterday_day_6_order_week = OrderUser::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(6))->sum('total_price');
+            $yesterday_day_6_order_week = OrderUser::where('user_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at',Carbon::now()->month)->whereDay('created_at',Carbon::now()->subDay(6))->sum('total_price');
 
             $total7day = $current_day_order_week + $yesterday_day_order_week + $yesterday_day_2_order_week + $yesterday_day_3_order_week + $yesterday_day_4_order_week  + $yesterday_day_4_order_week + $yesterday_day_6_order_week;
 

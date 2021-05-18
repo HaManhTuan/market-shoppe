@@ -104,15 +104,18 @@ class CheckoutController extends Controller
                 $order->order_status  = '1';
                 $order->order_method  = $req->method_order;
                 $order->user_id  = $value;
+                $order->order_id  = $order_id->id;
                 $query = $order->save();
+                $order_userId = $order->id;
                 $order_user_id = OrderUser::orderBy('created_at','DESC')->first();
-                $dataOrderDetailCurrent = OrderDetail::where('order_id', $order_user_id->id)->where('user_id', $value)->get();
+                $dataOrderDetailCurrent = OrderDetail::where('order_id', $order_user_id->order_id)->where('user_id', $value)->get();
                 if($dataOrderDetailCurrent) {
                     $sumUserOrigin = 0;
                     $sumUser = 0;
                     foreach($dataOrderDetailCurrent as $item){
+                        \Log::info('$order->id----'.$order->id);
                         $orderdetail               = new OrderDetailUser();
-                        $orderdetail->order_user_id = $item->id;
+                        $orderdetail->order_user_id = $order->id;
                         $orderdetail->product_id   = $item->product_id;
                         $orderdetail->customer_id  = $item->customer_id;
                         $orderdetail->product_name = $item->product_name;
@@ -122,8 +125,8 @@ class CheckoutController extends Controller
                         $sumUserOrigin+= $item->quantity*$item->origin_price;
                         $sumUser+= $item->quantity*$item->price;
                         $orderdetail->save();
-                        OrderUser::where('id',$item->id)->update(['origin_price' => $sumUser,'total_price' => $sumUser]);
                     }
+                    OrderUser::where('id', $order_userId)->update(['origin_price' => $sumUserOrigin,'total_price' => $sumUser]);
                 }
             }
         $checkMail = Email::find(1);
@@ -136,6 +139,7 @@ class CheckoutController extends Controller
         }
          return redirect('cart/thanks');
       }
+
     }
   }
   public function thank()
