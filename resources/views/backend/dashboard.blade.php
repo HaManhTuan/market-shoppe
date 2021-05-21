@@ -164,7 +164,24 @@
         <!-- end customer acquistion  -->
         <!-- ============================================================== -->
     </div>
-
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+            <h5 class="card-header">Thống kê doanh thu tuần này</h5>
+            <div class="card-body">
+            <canvas id="chartjs_bar"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+            <h5 class="card-header">Thống kê doanh thu 4 tháng gần nhất</h5>
+            <div class="card-body">
+            <canvas id="chartjs_bar_months"></canvas>
+            </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <!-- ============================================================== -->
         <!-- sales  -->
@@ -371,6 +388,21 @@ $last_to_last_year = date('Y',strtotime("-2 year"));
 ?>
 <script>
     $(document).ready(function() {
+        var currentDate = moment();
+        var weekStart = currentDate.clone().startOf('isoWeek');
+        var weekEnd = currentDate.clone().endOf('isoWeek');
+        var monthStart = currentDate.clone().startOf('isoMonth');
+        var monthEnd = currentDate.clone().endOf('isoMonth');
+        var days = [];
+        var months = [];
+        for (var i = 0; i <= 6; i++) {
+          days.push(moment(weekStart).add(i, 'days').format("DD/MM/y"));
+        }
+        for (var i = 0; i < 4; i++) {
+            months.push(moment().subtract(i, 'months').format('MM/y'));
+        }
+        let total_user = JSON.parse('{!! json_encode($total_price_user) !!}')
+        let total_user_month = JSON.parse('{!! json_encode($total_price_user_month) !!}')
         Morris.Area({
             element: 'morris_totalrevenue',
             behaveLikeLine: true,
@@ -385,7 +417,95 @@ $last_to_last_year = date('Y',strtotime("-2 year"));
             lineColors: ['#5969ff'],
             resize: true
         });
-        });
+        if ($('#chartjs_bar').length) {
+            var ctx = document.getElementById("chartjs_bar").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'Doanh thu',
+                        data: total_user,
+                        backgroundColor: "rgba(89, 105, 255,0.5)",
+                        borderColor: "rgba(89, 105, 255,0.7)",
+                    }]
+                },
+                options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 14,
+                            fontFamily: 'Circular Std Book',
+                            fontColor: '#71748d',
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            fontSize: 14,
+                            fontFamily: 'Circular Std Book',
+                            fontColor: '#71748d',
+                            callback: function (value, index, values) {
+                              // add comma as thousand separator
+                              return number_format(value) + 'đ'
+                            },
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return number_format(tooltipItem.yLabel) + 'đ';
+                        }
+                    }
+                }
+            }
+            });
+        }
+        if ($('#chartjs_bar_months').length) {
+            var ctx = document.getElementById("chartjs_bar_months").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [...months].reverse(),
+                    datasets: [{
+                        label: 'Doanh thu',
+                        data: total_user_month,
+                        backgroundColor: "rgba(89, 105, 255,0.5)",
+                        borderColor: "rgba(89, 105, 255,0.7)",
+                    }]
+                },
+                options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 14,
+                            fontFamily: 'Circular Std Book',
+                            fontColor: '#71748d',
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            fontSize: 14,
+                            fontFamily: 'Circular Std Book',
+                            fontColor: '#71748d',
+                            callback: function (value, index, values) {
+                              // add comma as thousand separator
+                              return number_format(value) + 'đ'
+                            },
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return number_format(tooltipItem.yLabel) + 'đ';
+                        }
+                    }
+                }
+            }
+            });
+        }
+    });
 </script>
 @endsection
 

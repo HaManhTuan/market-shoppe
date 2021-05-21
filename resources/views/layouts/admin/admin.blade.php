@@ -25,7 +25,7 @@
     <!-- bootstap bundle js -->
     <script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
     <script src="{{ asset('admin/assets/js/function.js')}}"></script>
-    <script src="{{ asset('admin/ckeditor/ckeditor.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 </head>
 
@@ -76,6 +76,7 @@
 
     <!-- slimscroll js -->
     <script src="{{ asset('admin/assets/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/chart.min.js"></script>
     <!-- main js -->
     <script src="{{ asset('admin/assets/libs/js/main-js.js')}}"></script>
     <script src="{{ asset('admin/assets/libs/js/dashboard-ecommerce.js')}}"></script>

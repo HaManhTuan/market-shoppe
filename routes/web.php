@@ -78,4 +78,9 @@ Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
         Route::post('add-event', 'EventManagerController@add')->name('manager.events.add');
         Route::get('change-events/{id}', 'EventManagerController@change');
     });
+
+    //Order
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('view-orderdetail/{id}', 'OrderManagerController@index')->name('manager.order.view');
+    });
 });

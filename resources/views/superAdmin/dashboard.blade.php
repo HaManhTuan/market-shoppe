@@ -1,5 +1,6 @@
 @extends('layouts.superAdmin.app')
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <div class="page-body">
     <div class="row">
         <!-- task, page, download counter  start -->
@@ -93,6 +94,30 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 col-md-6">
+            <div class="card table-card">
+                <div class="card-header">
+                    <h5>Doanh thu tuần này</h5>
+                </div>
+                <div class="card-block">
+                    <canvas id="chartjs_bar"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-6">
+            <div class="card table-card">
+                <div class="card-header">
+                    <h5>Doanh thu 4 tháng gần nhất</h5>
+                </div>
+                <div class="card-block">
+                    <canvas id="chartjs_bar_months"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <!-- sale start -->
         <div class="col-xl-5 col-md-12">
             <div class="card table-card">
@@ -188,7 +213,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($ordersNews as $item)
-                                <tr class='clickable-row' onclick="location.href='{{ url('manager/order/view-orderdetail/'.$item->id) }}'"">
+                                <tr class='clickable-row' onclick="location.href='{{ url('manager/orders/view-orderdetail/'.$item->id) }}'">
 
                                     <td>{{ $item->id  }}</td>
                                     <td>{{ $item->name  }}</td>
@@ -211,6 +236,111 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
-
+<script>
+    var currentDate = moment();
+    var weekStart = currentDate.clone().startOf('isoWeek');
+    var weekEnd = currentDate.clone().endOf('isoWeek');
+    var monthStart = currentDate.clone().startOf('isoMonth');
+    var monthEnd = currentDate.clone().endOf('isoMonth');
+    var days = [];
+    var months = [];
+    for (var i = 0; i <= 6; i++) {
+      days.push(moment(weekStart).add(i, 'days').format("DD/MM/y"));
+    }
+    for (var i = 0; i < 4; i++) {
+        months.push(moment().subtract(i, 'months').format('MM/y'));
+    }
+    let total_user = JSON.parse('{!! json_encode($total_price_user) !!}')
+    let total_user_month = JSON.parse('{!! json_encode($total_price_user_month) !!}')
+    if ($('#chartjs_bar').length) {
+        var ctx = document.getElementById("chartjs_bar").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: days,
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: total_user,
+                    backgroundColor: "rgb(254, 147, 101)",
+                    borderColor: "rgb(254, 147, 101)",
+                }]
+            },
+            options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontSize: 14,
+                        fontFamily: 'Circular Std Book',
+                        fontColor: '#fe9365',
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontSize: 14,
+                        fontFamily: 'Circular Std Book',
+                        fontColor: '#fe9365',
+                        callback: function (value, index, values) {
+                          // add comma as thousand separator
+                          return number_format(value) + 'đ'
+                        },
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        return number_format(tooltipItem.yLabel) + 'đ';
+                    }
+                }
+            }
+        }
+        });
+    }
+    if ($('#chartjs_bar_months').length) {
+        var ctx = document.getElementById("chartjs_bar_months").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [...months].reverse(),
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: total_user_month,
+                    backgroundColor: "rgb(10, 194, 130)",
+                    borderColor: "rgb(10, 194, 130)",
+                }]
+            },
+            options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontSize: 14,
+                        fontFamily: 'Circular Std Book',
+                        fontColor: '#eb3422',
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontSize: 14,
+                        fontFamily: 'Circular Std Book',
+                        fontColor: '#eb3422',
+                        callback: function (value, index, values) {
+                          // add comma as thousand separator
+                          return number_format(value) + 'đ'
+                        },
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        return number_format(tooltipItem.yLabel) + 'đ';
+                    }
+                }
+            }
+        }
+        });
+    }
+</script>
 @endsection
