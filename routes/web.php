@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'AdminController@pagenotfound']);
-Route::get('manager/login', 'SuperAdminController@login');
+Route::get('manager/login', 'SuperAdminController@login')->name('manager.login');
 Route::post('manager/dang-nhap', 'SuperAdminController@dangnhap');
 Route::group(['prefix' => 'manager', 'middleware' => 'Admin'], function () {
     Route::get('/', 'DashboardManagerController@index')->name('manager.dashboard');
+    //Logout
+    Route::get('dang-xuat', 'SuperAdminController@logout')->name('manager.logout');
+    //User
+    Route::get('tai-khoan', 'AccountManagerController@index')->name('manager.account');
+    Route::post('update-tai-khoan', 'AccountManagerController@update')->name('manager.account.update');
      //Category
     Route::get('danh-muc', 'CategoryManagerController@index')->name('manager.category');
     Route::get('danh-muc-draff', 'CategoryManagerController@draff')->name('manager.category.draff');
