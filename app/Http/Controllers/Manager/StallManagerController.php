@@ -54,6 +54,7 @@ class StallManagerController extends Controller
         $checkUser = User::find($id);
         if($checkUser->admin == 0) {
             User::where('id', $id)->update(['admin' => 1]);
+            Product::where('author_id', $id)->update(['status' => 1]);
             $msg = [
                 'status' => '_success',
                 'msg'    => 'Thay đổi thành công'
@@ -61,6 +62,7 @@ class StallManagerController extends Controller
               return response()->json($msg);
         } else {
             User::where('id', $id)->update(['admin' => 0]);
+            Product::where('author_id', $id)->update(['status' => 0]);
             $msg = [
                 'status' => '_success',
                 'msg'    => 'Thay đổi thành công'

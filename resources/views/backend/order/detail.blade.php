@@ -48,7 +48,7 @@
             <div class="card-header">
                <h5 class="card-title">Trạng thái đơn hàng
                @if($orderDetail->order_status == 1)
-               <span class="label label-success" style="margin-left: 10px">Mới</span>
+               <span class="label label-success" style="margin-left: 10px;">Mới</span>
                @elseif($orderDetail->order_status == 2)
                <span class="label label-primary" style="margin-left: 10px">Đang xử lý</span>
                @elseif($orderDetail->order_status == 3)

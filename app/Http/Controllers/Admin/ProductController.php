@@ -50,22 +50,23 @@ class ProductController extends Controller
         //$request['status'] = $req->has('status') ? '1' : '0';
         $request['status'] = 1;
         $target_save = "uploads/images/products/";
-        if ($req->hasFile('file'))
-        {
-            $file = $req->file('file');
-            $name = $file->getClientOriginalName();
-            $image = Str::random(4) . "_" . $name;
-            while (file_exists("uploads/images/products/" . $image))
-            {
-                $image = Str::random(4) . "_" . $name;
-            }
-            $file->move("uploads/images/products", $image);
-            $request['image'] = $image;
-        }
-        else
-        {
-            $request['image'] = "";
-        }
+        // if ($req->hasFile('file'))
+        // {
+        //     $file = $req->file('file');
+        //     $name = $file->getClientOriginalName();
+        //     $image = Str::random(4) . "_" . $name;
+        //     while (file_exists("uploads/images/products/" . $image))
+        //     {
+        //         $image = Str::random(4) . "_" . $name;
+        //     }
+        //     $file->move("uploads/images/products", $image);
+        //     $request['image'] = $image;
+        // }
+        // else
+        // {
+        //     $request['image'] = "";
+        // }
+        $request['image'] = "";
 
         //$query = Product::create($request);
         if (Product::create($request))

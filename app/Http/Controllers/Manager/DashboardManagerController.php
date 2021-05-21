@@ -9,10 +9,36 @@ use App\Model\Product;
 use App\User;
 use DB;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class DashboardManagerController extends Controller
 {
     public function index(){
+        $now = Carbon::now();
+        $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+        $monthStartDate = $now->startOfMonth()->format('Y-m');
+        $carbaoDay = Carbon::createFromFormat('Y-m-d', $weekStartDate); //spesific day
+        $week = [];
+        $month = [];
+        $year = [];
+        $total_price_user = [];
+        $total_price_user_month = [];
+        for ($i=0; $i <7 ; $i++) {
+            $week[] = $carbaoDay->startOfWeek()->addDay($i)->format('Y-m-d');//push the current day and plus the mount of $i
+        }
+        for ($i=0; $i <4 ; $i++) {
+            $month[] = Carbon::now()->subMonth($i)->format('m');//push the current day and plus the mount of $i
+            $year[] = Carbon::now()->subMonth($i)->format('Y');//push the current day and plus the mount of $i
+        }
+        foreach($week as $value) {
+           $total_sum = Order::whereDate('updated_at',$value)->sum('total_price');
+           array_push($total_price_user, $total_sum);
+        }
+
+        foreach($month as $value) {
+            $total_sum_month = Order::whereMonth('updated_at',$value)->whereYear('updated_at',$year[0])->sum('total_price');
+            array_push($total_price_user_month, $total_sum_month);
+        }
+
         $allEngine = Order::sum('total_price');
         $allView = Product::sum('count_view');
         $allOrder = Product::orderBy('created_at', 'DESC')->get();
@@ -39,6 +65,8 @@ class DashboardManagerController extends Controller
             'allOrderOfUser' => $allOrderOfUser,
             'productCoutBuy' => $productCoutBuy,
             'ordersNews' => $ordersNews,
+            'total_price_user' => $total_price_user,
+            'total_price_user_month' => $total_price_user_month
         ];
         return view('superAdmin.dashboard')->with($data_send);
     }

@@ -31,7 +31,7 @@
     <script type="text/javascript" src="{{ asset('superAdmin/bower_components/jquery/js/jquery.min.js')}}"></script>
     <script src="{{ asset('superAdmin/assets/js/dropify.min.js')}}"></script>
     <script src="{{ asset('admin/assets/js/plugins/notify.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/chart.min.js"></script>
 </head>
 
 <body>
@@ -134,7 +134,7 @@
 
   <script src="{{ asset('admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
   <script src="{{ asset('superAdmin/assets/js/sweetalert2.js')}}"></script>
-
+  <script src="{{ asset('admin/assets/js/function.js')}}"></script>
   <!-- sweet alert js -->
   <script type="text/javascript" src="{{ asset('superAdmin/bower_components/sweetalert/js/sweetalert.min.js') }}"></script>
     <!-- Custom js -->
