@@ -35,33 +35,20 @@
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ asset('superAdmin/assets/images/avatar-4.jpg')}}" class="img-radius" alt="User-Profile-Image">
-                            <span>John Doe</span>
+                            @if (Auth::guard('admins')->check())
+                            <span>{{Auth::guard('admins')->user()->name}}</span>
+                            @endif
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a href="#!">
-                                    <i class="feather icon-settings"></i> Settings
+                                <a href="{{ route('manager.account') }}">
+                                    <i class="feather icon-user"></i> Tài khoản
                                 </a>
                             </li>
                             <li>
-                                <a href="user-profile.htm">
-                                    <i class="feather icon-user"></i> Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="email-inbox.htm">
-                                    <i class="feather icon-mail"></i> My Messages
-                                </a>
-                            </li>
-                            <li>
-                                <a href="auth-lock-screen.htm">
-                                    <i class="feather icon-lock"></i> Lock Screen
-                                </a>
-                            </li>
-                            <li>
-                                <a href="auth-normal-sign-in.htm">
-                                    <i class="feather icon-log-out"></i> Logout
+                                <a href="{{ route('manager.logout') }}">
+                                    <i class="feather icon-log-out"></i> Đăng xuất
                                 </a>
                             </li>
                         </ul>

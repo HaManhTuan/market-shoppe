@@ -76,20 +76,6 @@
                                 <input type="password" name="password" class="form-control" autocomplete="off" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu." placeholder="Mật khẩu">
                                 <span class="form-bar"></span>
                             </div>
-                            <div class="row m-t-25 text-left">
-                                <div class="col-12">
-                                    <div class="checkbox-fade fade-in-primary d-">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                            <span class="text-inverse">Nhớ mật khẩu</span>
-                                        </label>
-                                    </div>
-                                    <div class="forgot-phone text-right f-right">
-                                        <a href="auth-reset-password.htm" class="text-right f-w-600"> Quên mật khẩu?</a>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row m-t-30">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>

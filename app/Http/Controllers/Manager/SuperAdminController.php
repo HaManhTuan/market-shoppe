@@ -20,4 +20,9 @@ class SuperAdminController extends Controller
             return view('superAdmin.login')->with(['flash_err' => 'Sai tài khoản hoặc mật khẩu']);
         }
     }
+    public function logout()
+    {
+        Auth::guard('admins')->logout();
+        return redirect()->route('manager.login');
+    }
 }
